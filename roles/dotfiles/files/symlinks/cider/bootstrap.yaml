@@ -32,6 +32,7 @@
         "virtualbox"
     ],
     "taps": [
-        "caskroom/cask"
+        "caskroom/cask",
+        "caskroom/versions"
     ]
 }
