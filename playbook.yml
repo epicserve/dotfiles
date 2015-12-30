@@ -1,0 +1,7 @@
+---
+
+- hosts: dotfiles
+  roles:
+    - dotfiles
+    - python
+    - cider

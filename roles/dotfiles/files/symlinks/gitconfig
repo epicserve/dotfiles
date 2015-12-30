@@ -1,0 +1,43 @@
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+[user]
+	name = Brent O'Connor
+    email = epicserve@gmail.com
+[oconnor]
+    name = Brent O'Connor
+    email = epicserve@gmail.com
+[core]
+    excludesfile = ~/.gitignore
+[alias]
+    st = status
+    d = diff
+    ci = commit -v
+    cia = commit -v -a
+    co = checkout
+    cp = cherry-pick
+    dci = svn dcommit
+    l = log
+    ll = log -p
+    lt = log trunk..
+    llt = log -p trunk..
+    lm = log master..
+    llm = log -p master..
+    b = branch
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+[git-tmbundle]
+    gitnub-path = /usr/local/bin/git
+[github]
+	user = epicserve
+	token = c0492745b770bb5f5160787f8351f150
+[push]
+	default = simple
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[merge]
+	ff = only

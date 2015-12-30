@@ -1,0 +1,23 @@
+---
+
+- name: Install Oh My Zsh
+  git: repo=https://github.com/robbyrussell/oh-my-zsh.git dest={{ ansible_env.HOME }}/.oh-my-zsh
+  tags: dotfiles
+
+- name: Copy epicserve zsh-theme
+  copy: src=epicserve.zsh-theme dest={{ ansible_env.HOME }}/.oh-my-zsh/themes/epicserve.zsh-theme
+  tags: dotfiles
+
+- name: Symlink dotfiles
+  file: src={{ item }} dest={{ ansible_env.HOME }}/.{{ item | basename }} state=link force=yes
+  with_fileglob:
+    - ./symlinks/*
+  tags: dotfiles
+
+- name: Symlink Directories
+  file: src={{ role_path }}/files/symlinks/{{ item }} dest={{ ansible_env.HOME }}/.{{ item }} state=link force=yes
+  # TODDO: Figure out a way to get the list of directories dynamically
+  with_items:
+    - cider
+    - teamocil
+  tags: dotfiles
