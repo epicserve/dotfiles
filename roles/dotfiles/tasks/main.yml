@@ -18,6 +18,5 @@
   file: src={{ role_path }}/files/symlinks/{{ item }} dest={{ ansible_env.HOME }}/.{{ item }} state=link force=yes
   # TODDO: Figure out a way to get the list of directories dynamically
   with_items:
-    - cider
     - teamocil
   tags: dotfiles

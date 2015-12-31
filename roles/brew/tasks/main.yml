@@ -1,0 +1,45 @@
+---
+- name: Update Homebrew
+  homebrew: update_homebrew=yes
+
+- name: Add Homebrew taps
+  homebrew_tap: tap={{ item }} state=present
+  with_items:
+    - caskroom/cask
+    - caskroom/versions
+
+- name: Install Homebrew Formulas
+  homebrew: name={{ item }} state=latest
+  with_items:
+    - ccache
+    - git
+    - itermocil
+    - mysql
+    - nginx
+    - node
+    - openconnect
+    - postgresql
+    - pyenv
+    - redis
+    - zlib
+    - zsh
+
+- name: Install Casks
+  homebrew_cask: name={{ item }} state=present
+  with_items:
+    - 1password
+    - amazon-music
+    - bartender
+    - dropbox
+    - firefox
+    - google-chrome
+    - google-drive
+    - pycharm
+    - sequel-pro
+    - slack
+    - sourcetree
+    - spectacle
+    - spotify
+    - sublime-text3
+    - vagrant
+    - virtualbox

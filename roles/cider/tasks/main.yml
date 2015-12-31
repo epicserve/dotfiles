@@ -1,3 +1,0 @@
----
-- name: Run cider restore
-  command: cider restore

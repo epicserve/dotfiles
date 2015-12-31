@@ -4,7 +4,6 @@ My Dotfiles
 This is my personal dotfiles. They are managed using:
 
 - [Ansible][1]: Ansible is the simplest way to automate apps and IT infrastructure.
-- [cider][2]: Hassle-free bootstrapping using Homebrew. cider is pip/gem tool for Homebrew
 - [Homebrew][3]: for OS X package management
 - [pip][4]: The PyPA recommended tool for installing and managing Python packages.
 - [pipsi][5]: pip script installer. pipsi is a nice tool for Python tools which need to be installed system wide.
@@ -25,6 +24,7 @@ Installation
         $ git clone git@github.com:epicserve/dotfiles.git ~/.dotfiles
         $ cd ~/.dotfiles
         $ make install
+
 4. Change your default shell
 
         $ chsh -s /usr/local/bin/zsh
@@ -43,7 +43,6 @@ Inspiration
 
 
 [1]: http://docs.ansible.com/ansible/
-[2]: https://github.com/msanders/cider
 [3]: http://brew.sh/
 [4]: https://pip.pypa.io/en/latest/
 [5]: https://github.com/mitsuhiko/pipsi
