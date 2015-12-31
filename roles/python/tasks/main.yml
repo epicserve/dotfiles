@@ -48,6 +48,5 @@
 - name: Install Pipsi Requirements
   command: creates=~/.local/bin/{{ item.bin }} pipsi install {{ item.name }}
   with_items:
-    - { bin: cider, name: cider }
     - { bin: cookiecutter, name: cookiecutter }
     - { bin: http, name: httpie }
