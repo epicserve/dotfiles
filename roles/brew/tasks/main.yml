@@ -13,6 +13,7 @@
   with_items:
     - ccache
     - git
+    - git-extras
     - itermocil
     - mysql
     - nginx

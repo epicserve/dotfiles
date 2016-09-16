@@ -24,7 +24,7 @@ export ZSH_THEME="epicserve"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git pip django brew fabric vagrant invoke docker docker-compose boot2docker)
+plugins=(git git-extras pip django brew fabric vagrant invoke docker docker-compose boot2docker)
 
 # itermocil completion
 compctl -g '~/.teamocil/*(:t:r)' itermocil
