@@ -35,7 +35,7 @@ source $ZSH/oh-my-zsh.sh
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/local/scripts:/usr/local/share/npm/bin:/usr/local/texbin:$PATH"
 
 # Set default editor
-export EDITOR='subl -w'
+export EDITOR='atom'
 
 # LOAD Virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
@@ -50,7 +50,7 @@ function precmd () {
 }
 
 # Aliases
-alias e='subl -a'
+alias e=$EDITOR
 alias gh=github
 alias gx=gitx
 alias gd='git diff'
@@ -137,10 +137,6 @@ export JAVA_HOME="$(/usr/libexec/java_home)"
 # export EC2_PRIVATE_KEY="$(/bin/ls "$HOME"/.ec2/pk-*.pem | /usr/bin/head -1)"
 # export EC2_CERT="$(/bin/ls "$HOME"/.ec2/cert-*.pem | /usr/bin/head -1)"
 export EC2_HOME="/usr/local/Library/LinkedKegs/ec2-api-tools/jars"
-
-# goto a tool for python virtualenvs
-# from http://julienphalip.com/post/55092823910/a-script-to-quickly-access-the-source-of-installed
-source /usr/local/bin/goto.sh
 
 # Ruby
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
