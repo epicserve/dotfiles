@@ -28,6 +28,7 @@
   with_items:
     - 1password
     - amazon-music
+    - atom
     - bartender
     - dropbox
     - firefox
