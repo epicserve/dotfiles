@@ -27,14 +27,15 @@ Installation
 
 4. Change your default shell
 
+        $ sudo echo '/usr/local/bin/zsh' >> /etc/shells
         $ chsh -s /usr/local/bin/zsh
 
 5. Stuff to download and install manually
 
-    - Airmail 2
+    - Airmail 3
     - Monosnap
-    - Quickbooks 2010
     - Microsoft Office
+    - [Ruby RVM](https://rvm.io/rvm/install)
 
 Inspiration
 -----------
