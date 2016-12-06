@@ -14,7 +14,6 @@
     - ccache
     - git
     - git-extras
-    - itermocil
     - mysql
     - nginx
     - node
@@ -22,7 +21,6 @@
     - postgresql
     - pyenv
     - redis
-    - zlib
     - zsh
 
 - name: Install Casks
@@ -41,6 +39,5 @@
     - sourcetree
     - spectacle
     - spotify
-    - sublime-text3
     - vagrant
     - virtualbox
