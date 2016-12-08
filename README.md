@@ -35,6 +35,7 @@ Installation
     - Airmail 3
     - Monosnap
     - Microsoft Office
+    - Microsoft Remote Desktop
     - [Ruby RVM](https://rvm.io/rvm/install)
 
 Inspiration
