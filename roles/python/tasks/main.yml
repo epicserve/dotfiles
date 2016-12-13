@@ -20,8 +20,6 @@
   command: pyenv update
 
 - name: Install Python Versions
-  environment:
-    CFLAGS: "-I$(xcrun --show-sdk-path)/usr/include"
   command: creates=~/.pyenv/versions/{{ item }} pyenv install {{ item }}
   with_items:
     - 2.7.11
