@@ -17,7 +17,8 @@ Installation
 
 2. Install Ansible
 
-        $ pip install ansible
+        $ sudo easy_install pip
+        $ sudo pip install ansible
 
 3. Install all the things
 
