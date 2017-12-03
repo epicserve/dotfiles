@@ -39,6 +39,12 @@ Installation
     - Microsoft Remote Desktop
     - [Ruby RVM](https://rvm.io/rvm/install)
 
+6. Settings I change
+
+    - Auto hide dock
+    - Trackpad, tap to click
+    - Keyboard: Fast repeat and short delay until repeat
+
 Inspiration
 -----------
 
