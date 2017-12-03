@@ -34,6 +34,10 @@ source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/local/scripts:/usr/local/share/npm/bin:/usr/local/texbin:$PATH"
 
+# Homebrew settings
+export CFLAGS="-I$(brew --prefix openssl)/include"
+export LDFLAGS="-L$(brew --prefix openssl)/lib"
+
 # Set default editor
 export EDITOR='atom'
 
@@ -75,7 +79,7 @@ alias itermspeed="sudo rm /private/var/log/asl/*.asl"
 
 # Django Aliases
 alias d=./manage.py
-alias dt='d test'
+alias dt='./manage.py test'
 alias dtf='dt --failfast'
 alias dsa='d startapp --template=https://github.com/epicserve/django-app-template/archive/master.zip'
 alias dsp='d startproject --template=https://github.com/epicserve/django-base-site/archive/master.zip'
@@ -141,11 +145,6 @@ export EC2_HOME="/usr/local/Library/LinkedKegs/ec2-api-tools/jars"
 # Ruby
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 source $HOME/.rvm/scripts/rvm
-
-# boot2docker
-export DOCKER_HOST=tcp://192.168.59.103:2376
-export DOCKER_CERT_PATH=$HOME/.boot2docker/certs/boot2docker-vm
-export DOCKER_TLS_VERIFY=1
 
 PATH="$PATH:$HOME/.composer/vendor/bin"
 
