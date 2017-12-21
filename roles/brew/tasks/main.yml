@@ -34,7 +34,7 @@
     - dropbox
     - firefox
     - google-chrome
-    - google-drive
+    - google-drive-file-stream
     - iterm2
     - java
     - pycharm
@@ -44,5 +44,4 @@
     - spectacle
     - spotify
     - vagrant
-    - virtualbox
     - zoomus
