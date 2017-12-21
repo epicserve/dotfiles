@@ -25,7 +25,7 @@ Installation
 
 4. Change your default shell
 
-        $ sudo echo '/usr/local/bin/zsh' >> /etc/shells
+        $ echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
         $ chsh -s /usr/local/bin/zsh
 
 5. Stuff to download and install manually
