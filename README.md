@@ -17,14 +17,11 @@ Installation
 
 2. Install Ansible
 
-        $ sudo easy_install pip
-        $ sudo pip install ansible
+        $ sudo easy_install pip && sudo pip install ansible
 
 3. Install all the things
 
-        $ git clone git@github.com:epicserve/dotfiles.git ~/.dotfiles
-        $ cd ~/.dotfiles
-        $ make install
+        $ git clone https://github.com/epicserve/dotfiles.git && cd ~/.dotfiles && make install
 
 4. Change your default shell
 
@@ -38,6 +35,8 @@ Installation
     - Microsoft Office
     - Microsoft Remote Desktop
     - [Ruby RVM](https://rvm.io/rvm/install)
+    - Virtualbox
+    - Docker
 
 6. Settings I change
 
