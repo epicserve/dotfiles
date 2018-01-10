@@ -12,6 +12,7 @@
   homebrew: name={{ item }} state=latest
   with_items:
     - ccache
+    - direnv
     - git
     - git-extras
     - mysql

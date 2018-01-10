@@ -161,3 +161,6 @@ export PATH="$HOME/.local/bin:$PATH"
 ssh-add -K ~/.ssh/id_rsa &> /dev/null
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# initialize direnv
+eval "$(direnv hook zsh)"
