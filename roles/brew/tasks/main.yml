@@ -5,8 +5,8 @@
 - name: Add Homebrew taps
   homebrew_tap: tap={{ item }} state=present
   with_items:
-    - caskroom/cask
-    - caskroom/versions
+    - homebrew/cask
+    - homebrew/cask-versions
 
 - name: Install Homebrew Formulas
   homebrew: name={{ item }} state=latest

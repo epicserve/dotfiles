@@ -4,6 +4,31 @@
   git: repo=https://github.com/robbyrussell/oh-my-zsh.git dest={{ ansible_env.HOME }}/.oh-my-zsh
   tags: dotfiles
 
+- name: Install Oh My Zsh Spaceship Theme
+  git: repo=https://github.com/denysdovhan/spaceship-prompt dest={{ ansible_env.HOME }}/.oh-my-zsh/custom/themes/spaceship-prompt
+  tags: dotfiles
+
+- name: Symlink Spaceship Theme
+  tags: dotfiles
+  file:
+    src: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme"
+    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
+    state: link
+
+- name: Download Power Line Font
+  git: repo=https://github.com/powerline/fonts.git depth=1 dest={{ ansible_env.HOME }}/Downloads/fonts
+  tags: dotfiles
+
+- name: Install Power Line Font
+  command: "{{ ansible_env.HOME }}/Downloads/fonts/install.sh"
+  tags: dotfiles
+
+- name: Remove downloaded Power Line font directory
+  file:
+    state: absent
+    path: "{{ ansible_env.HOME }}/Downloads/fonts/"
+  tags: dotfiles
+
 - name: Copy epicserve zsh-theme
   copy: src=epicserve.zsh-theme dest={{ ansible_env.HOME }}/.oh-my-zsh/themes/epicserve.zsh-theme
   tags: dotfiles

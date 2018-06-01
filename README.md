@@ -15,20 +15,30 @@ Installation
 
         $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-2. Install Ansible
+2. Update your profile
 
-        $ sudo easy_install pip && sudo pip install ansible
+        $ echo 'export PATH=/usr/local/bin:$PATH' >> ~/.profile
+        # restart your terminal
 
-3. Install all the things
+3. Install Python
 
-        $ git clone https://github.com/epicserve/dotfiles.git && cd ~/.dotfiles && make install
+        $ brew install python
 
-4. Change your default shell
+4. Install Ansible
 
-        $ echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
+        $ pip3 install ansible
+
+5. Install all the things
+
+        $ git clone https://github.com/epicserve/dotfiles.git .dotfiles && cd ~/.dotfiles && make install
+
+6. Change your default shell
+
         $ chsh -s /usr/local/bin/zsh
 
-5. Stuff to download and install manually
+7. Change your font for iTerm2 to one of the Powerline fonts like, "Roboto Mono Medium for Powerline."
+
+8. Stuff to download and install manually
 
     - Airmail 3
     - Monosnap
@@ -38,7 +48,7 @@ Installation
     - Virtualbox
     - Docker
 
-6. Settings I change
+9. Settings I change
 
     - Auto hide dock
     - Trackpad, tap to click
