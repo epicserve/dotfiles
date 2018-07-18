@@ -34,7 +34,8 @@ Installation
 
 6. Change your default shell
 
-        $ chsh -s /usr/local/bin/zsh
+        $ sudo dscl . -create /Users/$USER UserShell /usr/local/bin/zsh
+        # restart your terminal
 
 7. Change your font for iTerm2 to one of the Powerline fonts like, "Roboto Mono Medium for Powerline."
 
