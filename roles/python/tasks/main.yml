@@ -1,9 +1,8 @@
 ---
 - name: Install Pyenv
-  homebrew: name={{ item }} state=present
-  with_items:
-    - pyenv
-    - ccache
+  homebrew:
+    name: ['pyenv', 'ccache']
+    state: present
 
 - name: Install pyenv plugins
   git: repo={{ item.repo }} dest={{ item.dest }}
@@ -20,6 +19,8 @@
   command: pyenv update
 
 - name: Install Python Versions
+  environment:
+    CPPFLAGS: "-I$(xcrun --show-sdk-path)/usr/include"
   command: creates=~/.pyenv/versions/{{ item }} pyenv install {{ item }}
   with_items:
     - 2.7.11
@@ -31,6 +32,6 @@
 - name: Install Global Python Requirements
   environment:
     PIP_REQUIRE_VIRTUALENV: false
-  pip: executable={{ ansible_env.HOME }}/.pyenv/shims/pip name={{ item }}
-  with_items:
-    - virtualenvwrapper
+  pip:
+    executable: "{{ ansible_env.HOME }}/.pyenv/shims/pip"
+    name: ['virtualenvwrapper']

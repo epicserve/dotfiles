@@ -9,21 +9,10 @@
     - homebrew/cask-versions
 
 - name: Install Homebrew Formulas
-  homebrew: name={{ item }} state=latest
-  with_items:
-    - ccache
-    - direnv
-    - git
-    - git-extras
-    - mysql
-    - nginx
-    - node
-    - openconnect
-    - postgresql
-    - pyenv
-    - redis
-    - z
-    - zsh
+  homebrew:
+    name: ['ccache', 'direnv', 'git', 'git-extras', 'mysql', 'nginx', 'node',
+      'openconnect', 'postgresql', 'pyenv', 'redis', 'z', 'zsh']
+    state: latest
 
 - name: Install Casks
   homebrew_cask: name={{ item }} state=present
@@ -34,6 +23,7 @@
     - bartender
     - dropbox
     - firefox
+    - fork
     - google-chrome
     - google-drive-file-stream
     - iterm2
