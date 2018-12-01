@@ -19,15 +19,18 @@
   with_items:
     - 1password
     - amazon-music
+    - aws-vault
     - atom
     - bartender
     - dropbox
     - firefox
     - fork
+    - goofy
     - google-chrome
     - google-drive-file-stream
     - iterm2
     - java
+    - pgadmin4
     - pycharm
     - sequel-pro
     - slack
