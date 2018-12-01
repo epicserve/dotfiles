@@ -39,21 +39,27 @@ Installation
 
 7. Change your font for iTerm2 to one of the Powerline fonts like, "Roboto Mono Medium for Powerline."
 
-8. Stuff to download and install manually
+8. Apps I install manually.
 
-    - Airmail 3
-    - Monosnap
-    - Microsoft Office
-    - Microsoft Remote Desktop
-    - [Ruby RVM](https://rvm.io/rvm/install)
-    - Virtualbox
-    - Docker
+   - Airmail 3
+   - Docker
+   - Irvue
+   - Monosnap
+   - Goofy (https://github.com/danielbuechele/goofy)
+   - Microsoft Office
+   - Microsoft Remote Desktop
+   - Virtualbox
 
-9. Settings I change
+9. Settings I change.
 
-    - Auto hide dock
-    - Trackpad, tap to click
-    - Keyboard: Fast repeat and short delay until repeat
+   - Switch to dark mode
+   - Increase mouse speed to 9
+   - Disable fast user switching
+   - Date and Time > Clock > Show Date
+   - Show bluetooth in menu bar
+   - Trackpad: tap to click
+   - Set screensaver to Aerial
+   - Install the Sublime Style Column Selection in Atom
 
 Inspiration
 -----------
