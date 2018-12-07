@@ -28,7 +28,7 @@
     b = branch
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     up = "!sh -c 'git checkout --quiet --detach HEAD && \
-                    git fetch --quiet origin master:master develop:develop demo:demo testing:testing; \
+                    git fetch --quiet origin master:master develop:develop demo:demo test:test; \
                     git checkout --quiet -'"
 [git-tmbundle]
     gitnub-path = /usr/local/bin/git

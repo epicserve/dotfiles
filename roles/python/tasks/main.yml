@@ -34,4 +34,4 @@
     PIP_REQUIRE_VIRTUALENV: false
   pip:
     executable: "{{ ansible_env.HOME }}/.pyenv/shims/pip"
-    name: ['virtualenvwrapper']
+    name: ['virtualenvwrapper', 'awscli']
