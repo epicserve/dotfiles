@@ -45,7 +45,6 @@ Installation
    - Docker
    - Irvue
    - Monosnap
-   - Goofy (https://github.com/danielbuechele/goofy)
    - Microsoft Office
    - Microsoft Remote Desktop
    - Virtualbox
