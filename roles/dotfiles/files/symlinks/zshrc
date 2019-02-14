@@ -27,7 +27,21 @@ export SPACESHIP_NODE_SHOW=false
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git git-extras pip django brew fabric vagrant invoke docker docker-compose boot2docker)
+plugins=(
+  aws
+  brew
+  django
+  docker
+  docker-compose
+  fabric
+  git
+  git-extras
+  heroku
+  invoke
+  npm
+  pip
+  vagrant
+)
 
 # itermocil completion
 compctl -g '~/.teamocil/*(:t:r)' itermocil
