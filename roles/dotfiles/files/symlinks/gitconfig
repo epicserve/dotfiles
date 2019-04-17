@@ -45,3 +45,5 @@
 	trustExitCode = true
 [merge]
 	ff = only
+[pager]
+	branch = false
