@@ -51,8 +51,8 @@ source $ZSH/oh-my-zsh.sh
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/local/scripts:/usr/local/share/npm/bin:/usr/local/texbin:$PATH"
 
 # Homebrew settings
-export CFLAGS="-I$(brew --prefix openssl)/include"
-export LDFLAGS="-L$(brew --prefix openssl)/lib"
+export CFLAGS="-I$(brew --prefix openssl)/include -I$(brew --prefix zlib)/include -I$(brew --prefix sqlite3)/include"
+export LDFLAGS="-L$(brew --prefix openssl)/lib -L$(brew --prefix zlib)/lib -L$(brew --prefix sqlite3)/lib"
 
 # Set default editor
 export EDITOR='atom'
