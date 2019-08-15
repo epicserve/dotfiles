@@ -42,7 +42,7 @@ Installation
 8. Apps I install manually.
 
    - Airmail 3
-   - Docker
+   - Docker ([download](https://download.docker.com/mac/stable/Docker.dmg))
    - Irvue
    - Monosnap
    - Microsoft Office
