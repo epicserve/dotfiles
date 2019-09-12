@@ -32,17 +32,8 @@
                     git checkout --quiet -'"
 [git-tmbundle]
     gitnub-path = /usr/local/bin/git
-[github]
-	user = epicserve
-	token = c0492745b770bb5f5160787f8351f150
 [push]
 	default = simple
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
 [merge]
 	ff = only
 [pager]
