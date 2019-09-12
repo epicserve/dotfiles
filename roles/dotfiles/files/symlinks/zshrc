@@ -71,20 +71,14 @@ function precmd () {
 
 # Aliases
 alias e=$EDITOR
+alias duf='du -sk * | sort -n | perl -ne '\''($s,$f)=split(m{\t});for (qw(K M G)) {if($s<1024) {printf("%.1f",$s);print "$_\t$f"; last};$s=$s/1024}'\'
+
+# Git Aliases
 alias gh=github
 alias gx=gitx
 alias gd='git diff'
-alias duf='du -sk * | sort -n | perl -ne '\''($s,$f)=split(m{\t});for (qw(K M G)) {if($s<1024) {printf("%.1f",$s);print "$_\t$f"; last};$s=$s/1024}'\'
 alias gdl='git log --pretty=oneline --abbrev-commit --since="6am" | perl -wpe "s/^([^\s]+)/-/g" | tail -r'
-if [ -e ~/.ksu_vars ]; then
-  source ~/.ksu_vars
-fi
-oeievpn () {
-    echo $EID_PASSWORD | sudo openconnect --config=$HOME/.openconnect https://vpn.net.k-state.edu
-}
-killoeievpn () {
-    ID=`ps -A | grep -m1 openconnect | awk '{print $1}' | xargs` && sudo kill -s SIGINT $ID
-}
+alias grb='git rebase --rebase-merges=rebase-cousins'
 
 # Python Aliases
 alias wn=workon
