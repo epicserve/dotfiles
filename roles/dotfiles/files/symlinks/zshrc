@@ -59,13 +59,6 @@ export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
 export PIP_REQUIRE_VIRTUALENV=true
 
-# Z Settings
-# To install Z run brew install z
-. `brew --prefix`/etc/profile.d/z.sh
-function precmd () {
-    z --add "$(pwd -P)"
-}
-
 # Aliases
 alias e=$EDITOR
 alias duf='du -sk * | sort -n | perl -ne '\''($s,$f)=split(m{\t});for (qw(K M G)) {if($s<1024) {printf("%.1f",$s);print "$_\t$f"; last};$s=$s/1024}'\'
