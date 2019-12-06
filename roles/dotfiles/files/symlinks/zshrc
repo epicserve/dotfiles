@@ -108,6 +108,9 @@ alias dci='docker rmi $(docker images -a | grep "^<none>" | awk '\''{if (NR!=1) 
 # Docker kill all running containers
 alias dka='docker kill $(docker ps | awk '\''{if (NR!=1) {print $1}}'\'')'
 
+# Run docker-compose process with --rm
+alias dcrr='dcr --rm'
+
 # Daemon Aliases
 REDIS_VERSION=`redis-cli --version | cut -c 11-`
 alias rst="launchctl load /usr/local/Cellar/redis/$REDIS_VERSION/homebrew.mxcl.redis.plist"
