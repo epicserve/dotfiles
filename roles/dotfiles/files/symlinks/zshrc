@@ -159,12 +159,6 @@ export JAVA_HOME="$(/usr/libexec/java_home)"
 # export EC2_CERT="$(/bin/ls "$HOME"/.ec2/cert-*.pem | /usr/bin/head -1)"
 export EC2_HOME="/usr/local/Library/LinkedKegs/ec2-api-tools/jars"
 
-# Ruby
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-if [ -e $HOME/.rvm/scripts/rvm ]; then
-  source $HOME/.rvm/scripts/rvm
-fi
-
 PATH="$PATH:$HOME/.composer/vendor/bin"
 
 # SETUP Pyenv
