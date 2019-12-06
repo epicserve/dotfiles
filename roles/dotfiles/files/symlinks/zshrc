@@ -132,13 +132,6 @@ function pgmemtotal() {
 alias mst="/usr/local/bin/mysql.server start"
 alias msp="/usr/local/bin/mysql.server stop"
 
-# A simple server for static html files
-function server() {
-    local port="${1:-8000}"
-    open "http://localhost:${port}/"
-    python -m SimpleHTTPServer "$port"
-}
-
 # ec2-api-tools
 export JAVA_HOME="$(/usr/libexec/java_home)"
 # export EC2_PRIVATE_KEY="$(/bin/ls "$HOME"/.ec2/pk-*.pem | /usr/bin/head -1)"
