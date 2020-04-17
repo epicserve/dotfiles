@@ -52,7 +52,7 @@ export CFLAGS="-I$(brew --prefix openssl)/include -I$(brew --prefix zlib)/includ
 export LDFLAGS="-L$(brew --prefix openssl)/lib -L$(brew --prefix zlib)/lib -L$(brew --prefix sqlite3)/lib"
 
 # Set default editor
-export EDITOR='atom'
+export EDITOR='charm'
 
 # LOAD Virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
