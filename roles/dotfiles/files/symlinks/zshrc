@@ -154,5 +154,9 @@ ssh-add -K ~/.ssh/id_rsa &> /dev/null
 
 # test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+# DOCKER SETTINGS
+export COMPOSE_DOCKER_CLI_BUILD=1
+export DOCKER_BUILDKIT=1
+
 # initialize direnv
 eval "$(direnv hook zsh)"
