@@ -9,7 +9,7 @@
     name = Brent O'Connor
     email = epicserve@gmail.com
 [core]
-    editor = charm --wait
+    editor = atom --wait
     excludesfile = ~/.gitignore
 [alias]
     st = status
