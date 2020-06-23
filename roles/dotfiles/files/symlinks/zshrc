@@ -103,11 +103,6 @@ alias dka='docker kill $(docker ps | awk '\''{if (NR!=1) {print $1}}'\'')'
 # Run docker-compose process with --rm
 alias dcrr='dcr --rm'
 
-# Daemon Aliases
-REDIS_VERSION=`redis-cli --version | cut -c 11-`
-alias rst="launchctl load /usr/local/Cellar/redis/$REDIS_VERSION/homebrew.mxcl.redis.plist"
-alias rsp="launchctl unload /usr/local/Cellar/redis/$REDIS_VERSION/homebrew.mxcl.redis.plist"
-
 # shortcut for starting django's runserver on a different port
 # usage: drs 3
 drs () {
@@ -121,18 +116,6 @@ drs () {
 cdvsrc() {
     cd "$VIRTUAL_ENV/src"
 }
-
-# Postgres
-alias pgst="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
-alias pgsp="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
-alias pgps="ps -u postgres -o pid,rss,command"
-function pgmemtotal() {
-        ps -u postgres -o pid,rss,command | awk '{total+=$2}END{printf("%d MB\n", total/1024)}'
-}
-
-# MySQL
-alias mst="/usr/local/bin/mysql.server start"
-alias msp="/usr/local/bin/mysql.server stop"
 
 # ec2-api-tools
 export JAVA_HOME="$(/usr/libexec/java_home)"
