@@ -10,8 +10,7 @@
 
 - name: Install Homebrew Formulas
   homebrew:
-    name: ['ccache', 'chamber', 'direnv', 'git', 'git-extras', 'mysql', 'nginx',
-      'node', 'postgresql', 'pyenv', 'redis', 'zsh']
+    name: ['ccache', 'chamber', 'direnv', 'git', 'git-extras', 'nginx', 'node', 'pyenv', 'redis', 'zsh']
     state: latest
 
 - name: Install Casks
