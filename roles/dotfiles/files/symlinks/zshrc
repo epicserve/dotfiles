@@ -103,25 +103,14 @@ alias dka='docker kill $(docker ps | awk '\''{if (NR!=1) {print $1}}'\'')'
 # Run docker-compose process with --rm
 alias dcrr='dcr --rm'
 
-# shortcut for starting django's runserver on a different port
-# usage: drs 3
-drs () {
-    if [[ -n "$*" ]]; then
-        d runserver 127.0.0.1:"$*"000
-    else
-        d runserver 127.0.0.1:8000
-    fi
-}
-
-cdvsrc() {
-    cd "$VIRTUAL_ENV/src"
-}
-
-# ec2-api-tools
-export JAVA_HOME="$(/usr/libexec/java_home)"
-# export EC2_PRIVATE_KEY="$(/bin/ls "$HOME"/.ec2/pk-*.pem | /usr/bin/head -1)"
-# export EC2_CERT="$(/bin/ls "$HOME"/.ec2/cert-*.pem | /usr/bin/head -1)"
-export EC2_HOME="/usr/local/Library/LinkedKegs/ec2-api-tools/jars"
+# aws-vault
+alias av=aws-vault
+alias ava='aws-vault add'
+alias avlt='aws-vault list'
+alias avrt='aws-vault rotate'
+alias ave='aws-vault exec'
+alias avrm='aws-vault remove'
+alias avl='aws-vault login'
 
 # SETUP Pyenv
 export PYENV_ROOT="$HOME/.pyenv"
@@ -135,11 +124,9 @@ export PATH="$HOME/.local/bin:$PATH"
 # SSH, This makes it so you don't have to type your ssh private key passphrase after a reboot
 ssh-add -K ~/.ssh/id_rsa &> /dev/null
 
-# test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
 # DOCKER SETTINGS
 export COMPOSE_DOCKER_CLI_BUILD=1
 export DOCKER_BUILDKIT=1
 
-# initialize direnv
+# Initialize direnv
 eval "$(direnv hook zsh)"
