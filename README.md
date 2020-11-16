@@ -58,7 +58,6 @@ Installation
    - Show bluetooth in menu bar
    - Trackpad: tap to click
    - Set screensaver to Aerial
-   - Install the Sublime Style Column Selection in Atom
    
  10. Transfer signatures in the Preview app.
 
