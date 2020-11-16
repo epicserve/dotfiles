@@ -64,6 +64,17 @@ Installation
      - ~/Sites
      - ~/.aws
      - ~/Downloads
+     - ~/.ssh
+
+     ```
+     # create archive
+     $ tar czvf sites.tar.gz ~/Sites/
+
+     # Transfer to the new computer using AirDrop or SCP
+     
+     # extract archive
+     $ tar xzvf sites.tar.gz
+     ```
 
 12. Export Sequel Pro connections and copy them to the new computer.
 
