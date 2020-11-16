@@ -75,7 +75,6 @@ alias gsw="git commit -m 'Save index' && git stash push -u -q && git reset --sof
 # Python Aliases
 alias wn=workon
 alias wnv='workon ww_videos'
-alias mkvirtualenv='mkvirtualenv --distribute'
 alias rmpyc='find . -name "*.pyc" -delete'
 
 # run this if iterm2 is slow
