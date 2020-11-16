@@ -1,38 +1,48 @@
 ---
-- name: Update Homebrew
-  homebrew: update_homebrew=yes
-
 - name: Add Homebrew taps
-  homebrew_tap: tap={{ item }} state=present
+  community.general.homebrew_tap:
+    tap: "{{ item }}"
+    state: present
   with_items:
     - homebrew/cask
     - homebrew/cask-versions
 
 - name: Install Homebrew Formulas
-  homebrew:
-    name: ['chamber', 'direnv', 'git', 'git-extras', 'node', 'pyenv', 'zsh']
-    state: latest
+  community.general.homebrew:
+    name: "{{ item }}"
+    state: present
+    update_homebrew: yes
+    upgrade_all: yes
+  with_items:
+    - aws-vault
+    - chamber
+    - direnv
+    - git
+    - git-extras
+    - node
+    - pyenv
+    - zsh
 
 - name: Install Casks
-  homebrew_cask: name={{ item }} state=present
+  community.general.homebrew_cask:
+    name: "{{ item }}"
+    state: present
+    greedy: yes
+    accept_external_apps: yes
+    update_homebrew: yes
+    upgrade_all: yes
   with_items:
     - 1password
-    - aws-vault
     - aerial
-    - atom
     - bartender
-    - brave-browser
-    - caprine
     - dropbox
     - firefox
     - fork
     - google-backup-and-sync
-    - google-chrome
     - iterm2
-    - java
-    - pgadmin4
+    - messenger
+    - microsoft-teams
     - pycharm
-    - sequel-pro
     - slack
     - spectacle
     - spotify
