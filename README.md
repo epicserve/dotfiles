@@ -41,13 +41,12 @@ Installation
 
 8. Apps I install manually.
 
-   - Airmail 3
-   - Docker ([download](https://download.docker.com/mac/stable/Docker.dmg))
-   - Irvue
-   - Monosnap
-   - Microsoft Office
-   - Microsoft Remote Desktop
-   - Virtualbox
+   - [Airmail](https://apps.apple.com/us/app/airmail-4/id918858936?mt=12)
+   - [Docker](https://download.docker.com/mac/stable/Docker.dmg)
+   - [Irvue](https://apps.apple.com/us/app/irvue/id1039633667?mt=12)
+   - [Microsoft Office](https://www.office.com/)
+   - [Sequel Pro](https://sequelpro.com/test-builds)
+   - [Wireguard](https://itunes.apple.com/us/app/wireguard/id1451685025?ls=1&mt=12)
 
 9. Settings I change.
 
@@ -60,6 +59,15 @@ Installation
    - Set screensaver to Aerial
    
  10. Transfer signatures in the Preview app.
+
+ 11. Archive and transfer the following folders:
+     - ~/Sites
+     - ~/.aws
+     - ~/Downloads
+
+12. Export Sequel Pro connections and copy them to the new computer.
+
+13. Export Wireguard VPN settings from the old computer.
 
 Inspiration
 -----------
