@@ -46,6 +46,7 @@ Installation
    - [Irvue](https://apps.apple.com/us/app/irvue/id1039633667?mt=12)
    - [Microsoft Office](https://www.office.com/)
    - [Sequel Pro](https://sequelpro.com/test-builds)
+   - [Visual Studio Code](https://code.visualstudio.com)
    - [Wireguard](https://itunes.apple.com/us/app/wireguard/id1451685025?ls=1&mt=12)
 
 9. Settings I change.
