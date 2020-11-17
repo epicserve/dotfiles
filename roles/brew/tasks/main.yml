@@ -22,6 +22,7 @@
     - node
     - pyenv
     - zsh
+    - zlib
 
 - name: Install Casks
   community.general.homebrew_cask:
