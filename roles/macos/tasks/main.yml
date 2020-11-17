@@ -115,16 +115,16 @@
   osx_defaults:
     domain: com.apple.dock
     key: tilesize
-    type: int
-    value: "32"
+    type: float
+    value: 32.0
 
 - name: Icon large size
   tags: macos
   osx_defaults:
     domain: com.apple.dock
     key: largesize
-    type: int
-    value: "64"
+    type: float
+    value: 64.0
 
 - name: Top left screen corner (Disable Screen Saver)
   tags: macos
