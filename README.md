@@ -65,6 +65,7 @@ Installation
      - ~/.aws
      - ~/Downloads
      - ~/.ssh
+     - ~/Library/Group Containers/2E337YPCZY.airmail
 
      ```
      # create archive
