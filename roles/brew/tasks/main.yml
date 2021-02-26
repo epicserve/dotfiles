@@ -24,7 +24,7 @@
     - zlib
 
 - name: Install Casks
-  community.general.homebrew:
+  community.general.homebrew_cask:
     name: "{{ item }}"
     state: present
     greedy: yes
