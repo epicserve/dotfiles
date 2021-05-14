@@ -23,6 +23,12 @@ Installation
 3. Install Python
 
         $ brew install python
+        # Restart the terminal
+        # Verify that you're using the correct binary
+        $ which pip3
+        /usr/local/bin/pip3
+        # Upgrade pip3
+        $ pip3 install --upgrade pip
 
 4. Install Ansible
 
