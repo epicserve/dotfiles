@@ -54,7 +54,6 @@ Installation
    - [Docker](https://download.docker.com/mac/stable/Docker.dmg)
    - [Irvue](https://apps.apple.com/us/app/irvue/id1039633667?mt=12)
    - [Microsoft Office](https://www.office.com/)
-   - [Sequel Pro](https://sequelpro.com/test-builds)
    - [Visual Studio Code](https://code.visualstudio.com)
    - [Wireguard](https://itunes.apple.com/us/app/wireguard/id1451685025?ls=1&mt=12)
 
@@ -87,7 +86,7 @@ Installation
      $ tar xzvf sites.tar.gz
      ```
 
-12. Export Sequel Pro connections and copy them to the new computer.
+12. Export Sequel Ace connections and copy them to the new computer.
 
 13. Export Wireguard VPN settings from the old computer.
 
