@@ -119,9 +119,6 @@ eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 pyenv virtualenvwrapper_lazy
 
-# Add The Pipsi bin dir to the path ~/.local/bin
-export PATH="$HOME/.local/bin:$PATH"
-
 # SSH, This makes it so you don't have to type your ssh private key passphrase after a reboot
 ssh-add -K ~/.ssh/id_rsa &> /dev/null
 

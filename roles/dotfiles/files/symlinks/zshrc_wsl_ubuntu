@@ -106,9 +106,6 @@ alias ave='aws-vault exec'
 alias avrm='aws-vault remove'
 alias avl='aws-vault login'
 
-# Add The Pipsi bin dir to the path ~/.local/bin
-export PATH="$HOME/.local/bin:$PATH"
-
 # SSH, This makes it so you don't have to type your ssh private key passphrase after a reboot
 ssh-add -K ~/.ssh/id_ed25519 &> /dev/null
 
