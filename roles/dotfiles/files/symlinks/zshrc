@@ -30,7 +30,6 @@ export SPACESHIP_NODE_SHOW=false
 plugins=(
   aws
   brew
-  django
   docker
   docker-compose
   fabric
