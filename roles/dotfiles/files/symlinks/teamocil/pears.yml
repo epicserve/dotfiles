@@ -1,9 +1,0 @@
-windows:
-  - name: pears
-    root: ~/Sites/oeie/pears
-    layout: main-vertical
-    panes:
-        - workon pears && open http://127.0.0.1:8000/ https://time-logs.herokuapp.com/ https://intranet.oeie.ksu.edu/redmine/projects/kpics/agile/board https://www.google.com/analytics/web/?hl=en#realtime/rt-overview/a15683650w89059143p92528439/
-        - workon pears && ./manage.py rqworker default low
-        - workon pears && ./manage.py runserver
-        - gulp

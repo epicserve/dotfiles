@@ -38,10 +38,3 @@
   with_fileglob:
     - ./symlinks/*
   tags: dotfiles
-
-- name: Symlink Directories
-  file: src={{ role_path }}/files/symlinks/{{ item }} dest={{ ansible_env.HOME }}/.{{ item }} state=link force=yes
-  # TODDO: Figure out a way to get the list of directories dynamically
-  with_items:
-    - teamocil
-  tags: dotfiles
