@@ -115,9 +115,9 @@ alias avl='aws-vault login'
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 # For some reason virtualenvwrapper_lazy doesn't run if we don't do pyenv init twice
+eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 pyenv virtualenvwrapper_lazy
-eval "$(pyenv init --path)"
 
 # Add The Pipsi bin dir to the path ~/.local/bin
 export PATH="$HOME/.local/bin:$PATH"
