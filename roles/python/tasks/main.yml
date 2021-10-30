@@ -23,8 +23,8 @@
   with_items:
     - 3.9.7
   environment:
-    LDFLAGS: -L/usr/local/opt/zlib/lib
-    CPPFLAGS: -I/usr/local/opt/zlib/include
+    LDFLAGS: -L/opt/homebrew/opt/zlib/lib
+    CPPFLAGS: -I/opt/homebrew/opt/zlib/include
 
 - name: Set Default Pyenv
   command: pyenv global 3.9.7

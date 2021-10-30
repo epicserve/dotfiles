@@ -16,7 +16,7 @@ Installation
 
 2. Update your profile
 
-        $ echo 'export PATH=/usr/local/bin:$PATH' >> ~/.profile
+        $ echo 'export PATH=/opt/homebrew/bin:$PATH' >> ~/.profile
         # restart your terminal
 
 3. Install Python
