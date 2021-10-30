@@ -38,7 +38,7 @@ Installation
         $ git clone https://github.com/epicserve/dotfiles.git .dotfiles && cd ~/.dotfiles && make install
         # Note: The Ansible config found in roles/brew/tasks/main.yml doesn't seem to be installing Homebrew Cask apps
         # I had to install them manually using the following command.
-        # for app in aws-vault 1password aerial bartender dropbox firefox fork iterm2 pycharm slack spectacle sequel-ace zoom; do echo $app; done
+        # for app in aws-vault 1password aerial bartender dropbox firefox fork iterm2 pycharm slack spectacle sequel-ace zoom; do brew install $app; done
 
 6. Change your default shell
 
@@ -76,18 +76,22 @@ Installation
      - ~/Library/Group Containers/2E337YPCZY.airmail
 
      ```
-     # create archive
-     $ tar czvf sites.tar.gz ~/Sites/
+     # Create the archive
+     $ tar czvf backup.tar.gz ~/Sites/ ~/.aws ~/Downloads ~/.ssh ~/Library/Group\ Containers/2E337YPCZY.airmail
 
-     # Transfer to the new computer using AirDrop or SCP
+     # Transfer the archive to the new computer using AirDrop or SCP
      
-     # extract archive
-     $ tar xzvf sites.tar.gz
+     # Extract archive and then move the files to correct locations
+     $ tar xzvf backup.tar.gz
      ```
 
 12. Export Sequel Ace connections and copy them to the new computer.
 
 13. Export Wireguard VPN settings from the old computer.
+
+14. Download the [Logitech Options](https://www.logitech.com/en-us/product/options) software if you use a logitech mouse/keyboard.
+
+15. Create a new AWS access key to add to aws-vault.
 
 Inspiration
 -----------
