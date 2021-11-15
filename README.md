@@ -38,7 +38,7 @@ Installation
         $ git clone https://github.com/epicserve/dotfiles.git .dotfiles && cd ~/.dotfiles && make install
         # Note: The Ansible config found in roles/brew/tasks/main.yml doesn't seem to be installing Homebrew Cask apps
         # I had to install them manually using the following command.
-        # for app in aws-vault 1password aerial bartender dropbox firefox fork iterm2 pycharm slack spectacle sequel-ace zoom; do brew install $app; done
+        # for app in aws-vault 1password aerial bartender dropbox firefox fork iterm2 pycharm slack spectacle sequel-ace tableplus zoom elgato-control-center elgato-wave-link; do brew install $app; done
 
 6. Change your default shell
 
