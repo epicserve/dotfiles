@@ -16,7 +16,7 @@ Installation
 
 2. Update your profile
 
-        $ echo 'export PATH=/opt/homebrew/bin:$PATH' >> ~/.profile
+        $ echo 'export PATH=/opt/homebrew/bin:$PATH' >> ~/.zshrc
         # restart your terminal
 
 3. Install Python
@@ -25,7 +25,7 @@ Installation
         # Restart the terminal
         # Verify that you're using the correct binary
         $ which pip3
-        /usr/local/bin/pip3
+        /opt/homebrew/bin/pip3
         # Upgrade pip3
         $ pip3 install --upgrade pip
 
@@ -42,7 +42,8 @@ Installation
 
 6. Change your default shell
 
-        $ sudo dscl . -create /Users/$USER UserShell /usr/local/bin/zsh
+        $ sudo dscl . -create /Users/$USER UserShell /opt/homebrew/bin/zsh
+        $ chsh -s /opt/homebrew/bin/zsh
         # restart your terminal
 
 7. Change your font for iTerm2 to one of the Powerline fonts like, "Roboto Mono Medium for Powerline."
