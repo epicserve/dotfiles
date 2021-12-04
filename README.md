@@ -28,7 +28,7 @@ Installation
 
 5. Install MacOS apps
 
-        for app in aws-vault 1password aerial bartender dropbox firefox fork iterm2 pycharm slack spectacle sequel-ace tableplus zoom visual-studio-code do brew install $app; done
+        for app in aws-vault 1password aerial bartender dropbox firefox fork iterm2 pycharm slack spectacle sequel-ace tableplus zoom visual-studio-code; do brew install $app; done
 
 6. Change your default shell
 
