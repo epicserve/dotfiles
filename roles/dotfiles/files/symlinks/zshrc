@@ -128,3 +128,9 @@ export DOCKER_BUILDKIT=1
 
 # Initialize direnv
 eval "$(direnv hook zsh)"
+
+# TERRAFORM Alias Function
+function tf {
+  local tf_args=("${@:2}")
+  aws-vault exec "$1" -- chamber exec terraform -- terraform "${tf_args[@]}"
+}
