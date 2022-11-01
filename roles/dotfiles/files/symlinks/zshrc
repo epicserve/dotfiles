@@ -101,6 +101,7 @@ alias dka='docker kill $(docker ps | awk '\''{if (NR!=1) {print $1}}'\'')'
 # Run docker-compose process with --rm
 alias dcr='docker-compose run --log-level CRITICAL'
 alias dcrr='docker-compose --log-level CRITICAL run  --rm'
+alias dcdn='docker-compose down -t 0'
 
 # aws-vault
 alias av=aws-vault
@@ -134,3 +135,10 @@ function tf {
   local tf_args=("${@:2}")
   aws-vault exec "$1" -- chamber exec terraform -- terraform "${tf_args[@]}"
 }
+
+# Ruby
+export PATH="/opt/homebrew/opt/ruby/bin:/opt/homebrew/lib/ruby/gems/3.1.0/bin:$PATH"
+
+# AppPack
+alias ap=apppack
+apppack completion zsh > /opt/homebrew/share/zsh/site-functions/_apppack
