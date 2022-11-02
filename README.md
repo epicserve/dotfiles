@@ -48,21 +48,17 @@ Installation
 9. Settings I change.
 
    - Increase mouse speed to 9
-   - Disable fast user switching
-   - Show bluetooth in menu bar
    - Trackpad: tap to click
-   - Set screensaver to Aerial
 
  10. Archive and transfer the following folders:
      - ~/Sites
      - ~/.aws
      - ~/Downloads
      - ~/.ssh
-     - ~/Library/Group Containers/2E337YPCZY.airmail
 
      ```
      # Create the archive
-     $ tar czvf backup.tar.gz ~/Sites/ ~/.aws ~/Downloads ~/.ssh ~/Library/Group\ Containers/2E337YPCZY.airmail
+     $ tar czvf backup.tar.gz ~/Sites/ ~/.aws ~/Downloads ~/.ssh
 
      # Transfer the archive to the new computer using AirDrop or SCP
      
@@ -71,8 +67,6 @@ Installation
      ```
 
 11. Export Sequel Ace connections and copy them to the new computer.
-
-12. Export Wireguard VPN settings from the old computer.
 
 13. Create a new AWS access key to add to aws-vault.
 
