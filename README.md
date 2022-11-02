@@ -28,7 +28,7 @@ Installation
 
 5. Install MacOS apps
 
-        for app in aws-vault 1password aerial bartender dropbox firefox fork iterm2 pycharm slack spectacle sequel-ace tableplus zoom visual-studio-code; do brew install $app; done
+        for app in aws-vault 1password bartender dropbox firefox fork iterm2 pycharm slack sequel-ace zoom visual-studio-code raycast tailscale; do brew install $app; done
 
 6. Change your default shell
 
@@ -38,11 +38,9 @@ Installation
 
 8. Apps I install manually.
 
-   - [Airmail](https://apps.apple.com/us/app/airmail-4/id918858936?mt=12)
    - [Docker](https://www.docker.com/products/docker-desktop)
    - [Irvue](https://apps.apple.com/us/app/irvue/id1039633667?mt=12)
    - [Microsoft Office](https://www.office.com/)
-   - [Wireguard](https://itunes.apple.com/us/app/wireguard/id1451685025?ls=1&mt=12)
    - [Elgato Control Center](https://www.elgato.com/en/downloads)
    - [Elgato Wave Link](https://www.elgato.com/en/downloads)
    - [Logitech Options](https://www.logitech.com/en-us/product/options)
