@@ -12,6 +12,7 @@
     - direnv
     - git
     - git-extras
+    - just
     - node
     - pyenv
     - zsh
