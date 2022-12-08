@@ -41,15 +41,14 @@ plugins=(
   vagrant
 )
 
+# Customize to your needs...
+export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:/usr/local/scripts:/usr/local/share/npm/bin:/usr/local/texbin:$PATH"
 
-# This makes it so ZSH will use the default Homebrew directory for completions scripts
 eval "$(brew shellenv)"
+# This makes it so ZSH will use the default Homebrew directory for completions scripts
 fpath=($HOMEBREW_PREFIX/share/zsh/site-functions $fpath)
 
 source $ZSH/oh-my-zsh.sh
-
-# Customize to your needs...
-export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:/usr/local/scripts:/usr/local/share/npm/bin:/usr/local/texbin:$PATH"
 
 # Set default editor
 export EDITOR='charm'
@@ -138,7 +137,7 @@ function tf {
 }
 
 # Ruby
-export PATH="/opt/homebrew/opt/ruby/bin:/opt/homebrew/lib/ruby/gems/3.1.0/bin:$PATH"
+export PATH="$HOMEBREW_PREFIX/opt/ruby/bin:$HOMEBREW_PREFIX/lib/ruby/gems/3.1.0/bin:$PATH"
 
 # AppPack
 alias ap=apppack
