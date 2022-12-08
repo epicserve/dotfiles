@@ -46,10 +46,6 @@ source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
 export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:/usr/local/scripts:/usr/local/share/npm/bin:/usr/local/texbin:$PATH"
 
-# Homebrew settings
-# export CFLAGS="-I$(brew --prefix openssl)/include -I$(brew --prefix zlib)/include -I$(brew --prefix sqlite3)/include"
-# export LDFLAGS="-L$(brew --prefix openssl)/lib -L$(brew --prefix zlib)/lib -L$(brew --prefix sqlite3)/lib"
-
 # Set default editor
 export EDITOR='charm'
 
