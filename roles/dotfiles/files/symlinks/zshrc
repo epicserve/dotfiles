@@ -41,6 +41,11 @@ plugins=(
   vagrant
 )
 
+
+# This makes it so ZSH will use the default Homebrew directory for completions scripts
+eval "$(brew shellenv)"
+fpath=($HOMEBREW_PREFIX/share/zsh/site-functions $fpath)
+
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
