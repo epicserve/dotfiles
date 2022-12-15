@@ -79,16 +79,6 @@ alias rmpyc='find . -name "*.pyc" -delete'
 # run this if iterm2 is slow
 alias itermspeed="sudo rm /private/var/log/asl/*.asl"
 
-# Django Aliases
-alias d=./manage.py
-alias dt='./manage.py test'
-alias dtf='dt --failfast'
-alias dsa='d startapp --template=https://github.com/epicserve/django-app-template/archive/master.zip'
-alias dsp='d startproject --template=https://github.com/epicserve/django-base-site/archive/master.zip'
-alias dsma='d makemigrations'
-alias dm='d migrate'
-alias fs='foreman start'
-
 # Docker Clean Containers - Removes all stopped containers
 alias dcc='docker rm $(docker ps -a -q)'
 
@@ -99,9 +89,17 @@ alias dci='docker rmi $(docker images -a | grep "^<none>" | awk '\''{if (NR!=1) 
 alias dka='docker kill $(docker ps | awk '\''{if (NR!=1) {print $1}}'\'')'
 
 # Run docker-compose process with --rm
-alias dcr='docker-compose run --log-level CRITICAL'
+alias dcr='docker-compose --log-level CRITICAL run'
 alias dcrr='docker-compose --log-level CRITICAL run  --rm'
 alias dcdn='docker-compose down -t 0'
+
+# Django Aliases via Docker
+alias d='dcrr web ./manage.py'
+alias dt='d test'
+alias dtf='dt --failfast'
+alias dmm='d makemigrations'
+alias dm='d migrate'
+alias ds='d shell'
 
 # aws-vault
 alias av=aws-vault
