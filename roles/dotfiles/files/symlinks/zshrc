@@ -89,8 +89,8 @@ alias dci='docker rmi $(docker images -a | grep "^<none>" | awk '\''{if (NR!=1) 
 alias dka='docker kill $(docker ps | awk '\''{if (NR!=1) {print $1}}'\'')'
 
 # Run docker compose process with --rm
-alias dcr='docker compose --log-level CRITICAL run'
-alias dcrr='docker compose --log-level CRITICAL run --rm'
+alias dcr='docker compose run'
+alias dcrr='docker compose run --rm'
 alias dcdn='docker compose down -t 0'
 
 # Django Aliases via Docker
