@@ -62,6 +62,17 @@ export PIP_REQUIRE_VIRTUALENV=true
 alias e=$EDITOR
 alias duf='du -sk * | sort -n | perl -ne '\''($s,$f)=split(m{\t});for (qw(K M G)) {if($s<1024) {printf("%.1f",$s);print "$_\t$f"; last};$s=$s/1024}'\'
 
+# Print Column Alias
+alias c1="awk '{print \$1}'"
+alias c2="awk '{print \$2}'"
+alias c3="awk '{print \$3}'"
+alias c4="awk '{print \$4}'"
+alias c5="awk '{print \$5}'"
+alias c6="awk '{print \$6}'"
+alias c7="awk '{print \$7}'"
+alias c8="awk '{print \$8}'"
+alias c9="awk '{print \$9}'"
+
 # Git Aliases
 alias gh=github
 alias gx=gitx
