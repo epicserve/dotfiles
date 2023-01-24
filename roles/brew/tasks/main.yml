@@ -7,7 +7,6 @@
     update_homebrew: yes
     upgrade_all: yes
   with_items:
-    - apppack
     - chamber
     - direnv
     - git

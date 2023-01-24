@@ -44,6 +44,7 @@ Installation
    - [Elgato Control Center](https://www.elgato.com/en/downloads)
    - [Elgato Wave Link](https://www.elgato.com/en/downloads)
    - [Logitech Options](https://www.logitech.com/en-us/product/options)
+   - [AppPack](https://docs.apppack.io/how-to/install/)
 
 9. Settings I change.
 
