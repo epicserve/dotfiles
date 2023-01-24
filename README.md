@@ -69,6 +69,8 @@ Installation
 
 11. Export Sequel Ace connections and copy them to the new computer.
 
+12. Export and Import Raycast settings. 
+
 13. Create a new AWS access key to add to aws-vault.
 
 Inspiration
