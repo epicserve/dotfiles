@@ -5,6 +5,7 @@
 [user]
 	name = Brent O'Connor
 	email = epicserve@gmail.com
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGtoc7ye97vyEHaD/wG3n98pHHYe9mvpkITZKlqKVzXJ
 [core]
     editor = code --wait
     excludesfile = ~/.gitignore
@@ -44,3 +45,9 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[gpg]
+  format = ssh
+[gpg "ssh"]
+  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+[commit]
+	gpgsign = true
