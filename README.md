@@ -12,7 +12,8 @@ Installation
 
 1. Install Homebrew
 
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        /bin/bash -c \
+        "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 2. Update your profile
 
@@ -24,15 +25,22 @@ Installation
 
 4. Install all the things
 
-        pip3 install ansible && git clone https://github.com/epicserve/dotfiles.git .dotfiles && cd ~/.dotfiles && make install
+        pip3 install ansible \
+        && git clone https://github.com/epicserve/dotfiles.git .dotfiles \
+        && cd ~/.dotfiles && make install
 
 5. Install MacOS apps
-
-        for app in aws-vault 1password bartender dropbox firefox fork iterm2 pycharm slack sequel-ace zoom visual-studio-code raycast tailscale; do brew install $app; done
+        
+       brew tap apppackio/apppack \
+       && for app in apppack aws-vault 1password bartender dropbox firefox fork iterm2 pycharm \
+               slack sequel-ace zoom visual-studio-code raycast tailscale; do
+           brew install $app;
+       done
 
 6. Change your default shell
 
-        sudo dscl . -create /Users/$USER UserShell /opt/homebrew/bin/zsh && chsh -s /opt/homebrew/bin/zsh && . ~/.zshrc
+        sudo dscl . -create /Users/$USER UserShell /opt/homebrew/bin/zsh \
+        && chsh -s /opt/homebrew/bin/zsh && . ~/.zshrc
 
 7. Change your font for iTerm2 to one of the Powerline fonts like, "Roboto Mono Medium for Powerline."
 
