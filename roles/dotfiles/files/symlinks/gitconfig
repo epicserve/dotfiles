@@ -5,7 +5,7 @@
 [user]
 	name = Brent O'Connor
 	email = epicserve@gmail.com
-	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFgAv6hwqGBu2Gn+XFsUUfDH6lWDhFxjoTKNMeFvx4VY
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL5YBRHIjMZibv1VjOrreeAuOn/Iti+Ynvz0UyFMDSge
 [core]
     editor = code --wait
     excludesfile = ~/.gitignore
