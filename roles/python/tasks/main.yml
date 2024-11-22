@@ -21,13 +21,13 @@
 - name: Install Python Versions
   shell: creates=~/.pyenv/versions/{{ item }} CPPFLAGS="-I$(xcrun --show-sdk-path)/usr/include" pyenv install {{ item }}
   with_items:
-    - 3.9.7
+    - 3.13
   environment:
     LDFLAGS: -L/opt/homebrew/opt/zlib/lib
     CPPFLAGS: -I/opt/homebrew/opt/zlib/include
 
 - name: Set Default Pyenv
-  command: pyenv global 3.9.7
+  command: pyenv global 3.13
 
 - name: Install Global Python Requirements
   environment:

@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-# install Zsh
-sudo apt install zsh
-chsh -s $(which zsh)
-
-ln -sf $HOME/.dotfiles/roles/dotfiles/files/symlinks/zshrc_wsl_ubuntu $HOME/.zshrc
-ln -sf $HOME/.dotfiles/roles/dotfiles/files/symlinks/gitconfig $HOME/.gitconfig
-ln -sf $HOME/.dotfiles/roles/dotfiles/files/symlinks/gitignore $HOME/.gitignore

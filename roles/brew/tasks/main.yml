@@ -1,7 +1,7 @@
 ---
 
 - name: Install Homebrew Formulas
-  community.general.homebrew:
+  homebrew:
     name: "{{ item }}"
     state: present
     update_homebrew: yes
@@ -16,3 +16,12 @@
     - pyenv
     - zsh
     - zlib
+
+- name: Run brew tap for packages
+  command: brew tap "{{ item }}"
+  loop: "{{ homebrew_taps }}"
+  changed_when: false
+  become: false
+
+- name: Install homebrew cask packages
+  command: brew install {{ homebrew_cask_packages|join(" ") }}

@@ -10,39 +10,23 @@ This is my personal dotfiles. They are managed using:
 Installation
 ------------
 
-1. Install Homebrew
+1. Install [Homebrew](https://brew.sh)
 
-        /bin/bash -c \
-        "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-2. Update your profile
-
-        echo 'export PATH=/opt/homebrew/bin:$PATH' >> ~/.zshrc && . ~/.zshrc
-
-3. Install Python
+2. Install Python
 
         brew install python && . ~/.zshrc && which pip3 && pip3 install --upgrade pip
 
-4. Install all the things
+3. Install all the things
 
-        pip3 install ansible \
-        && git clone https://github.com/epicserve/dotfiles.git .dotfiles \
+        git clone https://github.com/epicserve/dotfiles.git .dotfiles \
         && cd ~/.dotfiles && make install
 
-5. Install MacOS apps
-        
-       brew tap apppackio/apppack \
-       && for app in apppack aws-vault 1password bartender dropbox firefox fork iterm2 pycharm \
-               slack sequel-ace zoom visual-studio-code raycast tailscale; do
-           brew install $app;
-       done
-
-6. Change your default shell
+4. Change your default shell
 
         sudo dscl . -create /Users/$USER UserShell /opt/homebrew/bin/zsh \
         && chsh -s /opt/homebrew/bin/zsh && . ~/.zshrc
 
-7. Change your font for iTerm2 to one of the Powerline fonts like, "Roboto Mono Medium for Powerline."
+5. Change your font for iTerm2 to one of the Powerline fonts like, "Roboto Mono Medium for Powerline."
 
 8. Apps I install manually.
 
@@ -52,7 +36,6 @@ Installation
    - [Elgato Control Center](https://www.elgato.com/en/downloads)
    - [Elgato Wave Link](https://www.elgato.com/en/downloads)
    - [Logitech Options](https://www.logitech.com/en-us/product/options)
-   - [AppPack](https://docs.apppack.io/how-to/install/)
 
 9. Settings I change.
 

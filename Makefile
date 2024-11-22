@@ -8,13 +8,13 @@ help:
 	@echo ""
 
 check:
-	ansible-playbook -i  hosts playbook.yml --check --diff -c local
+	uv run --with ansible ansible-playbook -i  hosts playbook.yml --check --diff -c local
 
 install:
-	ansible-playbook -i hosts playbook.yml -c local
+	uv run --with ansible ansible-playbook -i hosts playbook.yml -c local
 
 dotfiles:
-	ansible-playbook -i hosts playbook.yml -c local --tags dotfiles
+	uv run --with ansible ansible-playbook -i hosts playbook.yml -c local --tags dotfiles
 
 facts:
 	ansible all -i hosts -m setup -c local

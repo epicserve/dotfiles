@@ -155,3 +155,9 @@ alias ap=apppack
 
 # Pycharm
 export PATH="$PATH:/Applications/PyCharm.app/Contents/MacOS"
+
+# UV installed tools
+export PATH="$PATH:/Users/brento/.local/bin"
+
+# Composer
+export PATH="$HOME/.composer/vendor/bin:$PATH"
