@@ -4,7 +4,7 @@
     branch = auto
 [user]
 	name = Brent O'Connor
-	email = epicserve@gmail.com
+	email = brent@epicserve.com
 	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL5YBRHIjMZibv1VjOrreeAuOn/Iti+Ynvz0UyFMDSge
 [core]
     editor = code --wait
