@@ -148,7 +148,7 @@ function tf {
 }
 
 # Ruby
-export PATH="$HOMEBREW_PREFIX/opt/ruby/bin:$HOMEBREW_PREFIX/lib/ruby/gems/3.1.0/bin:$PATH"
+export PATH="$HOMEBREW_PREFIX/opt/ruby/bin:$HOMEBREW_PREFIX/lib/ruby/gems/3.3.0/bin:$PATH"
 
 # AppPack
 alias ap=apppack
