@@ -6,16 +6,7 @@
     state: present
     update_homebrew: yes
     upgrade_all: yes
-  with_items:
-    - chamber
-    - direnv
-    - git
-    - git-extras
-    - just
-    - node
-    - pyenv
-    - zsh
-    - zlib
+  loop: "{{ homebrew_packages }}"
 
 - name: Run brew tap for packages
   command: brew tap "{{ item }}"
@@ -23,5 +14,10 @@
   changed_when: false
   become: false
 
-- name: Install homebrew cask packages
-  command: brew install {{ homebrew_cask_packages|join(" ") }}
+- name: Install Homebrew Cask Packages
+  homebrew:
+    name: "{{ item }}"
+    state: present
+    update_homebrew: yes
+    upgrade_all: yes
+  loop: "{{ homebrew_cask_packages }}"

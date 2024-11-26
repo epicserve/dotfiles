@@ -1,0 +1,30 @@
+homebrew_packages:
+  - aws-vault
+  - chamber
+  - direnv
+  - git
+  - git-extras
+  - just
+  - node
+  - pyenv
+  - zsh
+  - zlib
+
+homebrew_taps:
+- apppackio/apppack
+
+homebrew_cask_packages:
+- apppack
+- 1password
+- bartender
+- dropbox
+- firefox
+- fork
+- iterm2
+- pycharm
+- slack
+- sequel-ace
+- zoom
+- visual-studio-code
+- raycast
+- tailscale
