@@ -4,6 +4,9 @@ default:
 @check:
 	uv run --with ansible ansible-playbook playbook.yml --check --diff -c local
 
+@update_all:
+    uv run --with ansible ansible-playbook playbook.yml
+
 @update_homebrew:
     uv run --with ansible ansible-playbook playbook.yml --tags brew
 
