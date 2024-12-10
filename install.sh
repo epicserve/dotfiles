@@ -8,6 +8,7 @@ fi
 
 if ! command -v uv &> /dev/null; then
     curl -LsSf https://astral.sh/uv/install.sh | sh
+    export PATH="$PATH:$HOME/.local/bin"
 fi
 uv run --with ansible ansible-playbook playbook.yml -c local
 sudo dscl . -create /Users/$USER UserShell /opt/homebrew/bin/zsh
