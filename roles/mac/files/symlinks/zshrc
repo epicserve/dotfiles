@@ -130,10 +130,7 @@ alias avl='aws-vault login'
 # SETUP Pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-# For some reason virtualenvwrapper_lazy doesn't run if we don't do pyenv init twice
-eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
-pyenv virtualenvwrapper_lazy
 
 # SSH, This makes it so you don't have to type your ssh private key passphrase after a reboot
 ssh-add -K ~/.ssh/id_rsa &> /dev/null
