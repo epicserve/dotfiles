@@ -15,14 +15,18 @@ This is my personal dotfiles. They are managed using:
 Installation
 ------------
 
-1. Install all the things
+1. Install Homebrew
+    
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+2. Install all the things
 
         git clone https://github.com/epicserve/dotfiles.git .dotfiles \
         && cd ~/.dotfiles && ./install.sh
 
-2. Change your font for iTerm2 to one of the Powerline fonts like, "Roboto Mono Medium for Powerline."
+3. Change your font for iTerm2 to one of the Powerline fonts like, "Roboto Mono Medium for Powerline."
 
-3. Apps I install manually.
+4. Apps I install manually.
 
    - [Docker](https://www.docker.com/products/docker-desktop)
    - [Irvue](https://apps.apple.com/us/app/irvue/id1039633667?mt=12)
@@ -31,12 +35,12 @@ Installation
    - [Elgato Wave Link](https://www.elgato.com/en/downloads)
    - [Logitech Options](https://www.logitech.com/en-us/product/options)
 
-4. Settings I change.
+5. Settings I change.
 
    - Increase mouse speed to 9
    - Trackpad: tap to click
 
-5. Archive and transfer the following folders:
+6. Archive and transfer the following folders:
      - ~/Sites
      - ~/.aws
      - ~/Downloads
@@ -52,11 +56,11 @@ Installation
      $ tar xzvf backup.tar.gz
      ```
 
-6. Export Sequel Ace connections and copy them to the new computer.
+7. Export Sequel Ace connections and copy them to the new computer.
 
-7. Export and Import Raycast settings. 
+8. Export and Import Raycast settings. 
 
-8. Create a new AWS access key to add to aws-vault.
+9. Create a new AWS access key to add to aws-vault.
 
 Inspiration
 -----------
