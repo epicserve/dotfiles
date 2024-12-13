@@ -2,7 +2,7 @@ default:
     @just --list
 
 @check:
-	uv run --with ansible ansible-playbook playbook.yml --check --diff -c local
+	uv run --with ansible ansible-playbook playbook.yml --check --diff
 
 @update_all:
     uv run --with ansible ansible-playbook playbook.yml
