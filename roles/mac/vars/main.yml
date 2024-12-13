@@ -7,15 +7,15 @@ homebrew_packages:
   - just
   - node
   - pyenv
-  - zsh
   - zlib
+  - zsh
 
 homebrew_taps:
 - apppackio/apppack
 
 homebrew_cask_packages:
-- apppack
 - 1password
+- apppack
 - bartender
 - chatgpt
 - claude
@@ -23,9 +23,9 @@ homebrew_cask_packages:
 - fork
 - iterm2
 - pycharm
-- slack
-- sequel-ace
-- zoom
-- visual-studio-code
 - raycast
+- sequel-ace
+- slack
 - tailscale
+- visual-studio-code
+- zoom
