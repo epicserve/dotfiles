@@ -17,7 +17,6 @@ homebrew_cask_packages:
 - apppack
 - 1password
 - bartender
-- dropbox
 - firefox
 - fork
 - iterm2
