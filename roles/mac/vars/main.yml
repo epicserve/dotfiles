@@ -15,6 +15,7 @@ homebrew_taps:
 
 homebrew_cask_packages:
 - 1password
+- 1password-cli
 - apppack
 - bartender
 - chatgpt
