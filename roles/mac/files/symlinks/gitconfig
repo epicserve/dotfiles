@@ -3,7 +3,7 @@
     status = auto
     branch = auto
 [user]
-	name = Brent O'Connor
+	name = "Brent O'Connor"
 	email = brent@epicserve.com
 	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL5YBRHIjMZibv1VjOrreeAuOn/Iti+Ynvz0UyFMDSge
 [core]
@@ -46,8 +46,8 @@
 	process = git-lfs filter-process
 	required = true
 [gpg]
-  format = ssh
+    format = ssh
 [gpg "ssh"]
-  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+    program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 [commit]
-	gpgsign = true
+    gpgsign = true
