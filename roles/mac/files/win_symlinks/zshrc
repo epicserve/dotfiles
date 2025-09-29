@@ -1,0 +1,62 @@
+# Path to your Oh My Zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+export ZSH_CUSTOM="$ZSH/custom"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time Oh My Zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="spaceship"
+SPACESHIP_PACKAGE_SHOW=false
+SPACESHIP_NODE_SHOW=false
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(
+  aws
+  docker
+  docker-compose
+  git
+  git-extras
+  npm
+  pip
+  uv
+)
+
+source $ZSH/oh-my-zsh.sh
+
+## Custom stuff after oh-my-zsh install
+
+# UV Tools
+. "$HOME/.local/bin/env"
+
+# TERRAFORM Alias Function
+function tf {
+  local tf_args=("${@:1}")
+  aws-vault exec admin -- chamber exec terraform -- terraform "${tf_args[@]}"
+}
+
+# Custom Aliases
+alias docker-compose='docker compose'
+alias dka='docker kill $(docker ps | awk '\''{if (NR!=1) {print $1}}'\'')'
+alias dcc='docker rm $(docker ps -a -q -f status=exited)'
+alias dcrr='docker compose run --rm'
+alias dce='docker compose exec'
+alias glr='git pull -r'
+alias ap=apppack
+alias ave=aws-vault exec
+alias dm='dce web ./manage.py migrate'
+alias dmm='dce web ./manage.py makemigrations'
+
+
+# Settings needed for aws-vault to work
+export AWS_VAULT_BACKEND=pass
+export GPG_TTY="$( tty )"
+export BROWSER="/mnt/c/Windows/System32/cmd.exe /c start"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
