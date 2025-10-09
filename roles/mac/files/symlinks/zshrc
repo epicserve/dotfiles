@@ -96,7 +96,7 @@ alias rmpyc='find . -name "*.pyc" -delete'
 alias itermspeed="sudo rm /private/var/log/asl/*.asl"
 
 # Docker Clean Containers - Removes all stopped containers
-alias dcc='docker rm $(docker ps -a -q)'
+alias dcc='docker rm $(docker ps -a -q -f status=exited)'
 
 # Docker Clean Images - Remove the <none> images
 alias dci='docker rmi $(docker images -a | grep "^<none>" | awk '\''{if (NR!=1) {print $3}}'\'')'
