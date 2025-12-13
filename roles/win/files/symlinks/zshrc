@@ -47,10 +47,10 @@ alias dcrr='docker compose run --rm'
 alias dce='docker compose exec'
 alias glr='git pull -r'
 alias ap=apppack
-alias ave=aws-vault exec
+alias ave='aws-vault exec'
 alias dm='dce web ./manage.py migrate'
 alias dmm='dce web ./manage.py makemigrations'
-
+alias uav='just update_aws_vars'
 
 # Settings needed for aws-vault to work
 export AWS_VAULT_BACKEND=pass
