@@ -7,12 +7,12 @@ if ! locale -a | grep -q "en_US.utf8"; then
   . /etc/default/locale
 fi
 
-. scripts/base_setup.sh
-. scripts/base_linux_setup.sh
-
-# isntall apps
+# install apps
 sudo apt update && sudo apt upgrade
 sudo apt install zsh git pass
+
+. scripts/base_setup.sh
+. scripts/base_linux_setup.sh
 
 # Add ZDOTDIR to $HOME/.config/zsh
 grep -qxF "export ZDOTDIR=\$HOME/.config/zsh" ~/.zshenv || echo 'export ZDOTDIR=$HOME/.config/zsh' >> ~/.zshenv

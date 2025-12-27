@@ -1,5 +1,10 @@
 set -e  # Exit on error
 
+# Set zsh as your shell if it's not set
+if [ "$SHELL" != "/bin/zsh" ]; then
+  chsh -s /bin/zsh;
+fi
+
 # Install aws-vault
 if ! command -v aws-vault >/dev/null 2>&1; then
   echo "Installing aws-vault..."
