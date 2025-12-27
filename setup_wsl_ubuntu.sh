@@ -7,7 +7,8 @@ if ! locale -a | grep -q "en_US.utf8"; then
   . /etc/default/locale
 fi
 
-. scripts/base_install.sh
+. scripts/base_setup.sh
+. scripts/base_linux_setup.sh
 
 if ! command -v stow >/dev/null 2>&1; then
   sudo apt install stow
