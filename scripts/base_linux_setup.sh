@@ -14,6 +14,12 @@ if ! command -v aws-vault >/dev/null 2>&1; then
   sudo chmod +x /usr/local/bin/aws-vault
 fi
 
+if [ ! -d ~/.oh-my-zsh ]; then
+  echo "Installing oh-my-zsh..."
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  mkdir -p ~/.oh-my-zsh/custom/completions
+fi
+
 # Install Just
 if ! command -v just >/dev/null 2>&1; then
   echo "Installing just..."
@@ -31,4 +37,5 @@ if ! command -v just >/dev/null 2>&1; then
   sudo mv /tmp/just/just /usr/local/bin/
   sudo rm -rf /tmp/just-extract /tmp/just.tar.gz
   sudo rm -rf /tmp/just
+  just --completions zsh > ~/.oh-my-zsh/custom/completions/just.zsh
 fi
