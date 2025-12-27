@@ -1,0 +1,27 @@
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+
+[user]
+	name = "Brent O'Connor"
+	email = epicserve@gmail.com
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL5YBRHIjMZibv1VjOrreeAuOn/Iti+Ynvz0UyFMDSge
+
+[pull]
+	rebase = true
+
+[gpg]
+  format = ssh
+
+[commit]
+  gpgsign = true
+
+[credential]
+  helper = store
+
+[includeIf "gitdir:~/code/canopy/"]
+  path = ~/.config/git/config_work
+
+[include]
+  path = ~/.config/git/config_local

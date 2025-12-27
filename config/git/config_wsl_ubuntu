@@ -1,0 +1,6 @@
+[core]
+  sshCommand = ssh.exe
+  autocrlf = input
+
+[gpg "ssh"]
+  program = "/mnt/c/Users/BrentO'Connor/AppData/Local/Microsoft/WindowsApps/op-ssh-sign.exe"

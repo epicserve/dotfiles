@@ -36,6 +36,8 @@ source $ZSH/oh-my-zsh.sh
 export COMPOSE_DOCKER_CLI_BUILD=1
 export DOCKER_BUILDKIT=1
 
+export XDG_CONFIG_HOME=~/.config
+
 # Import Base Aliases
 . .config/zsh/base_aliases.sh
 

@@ -17,3 +17,4 @@ fi
 grep -qxF "export ZDOTDIR=\$HOME/.config/zsh" ~/.zshenv || echo 'export ZDOTDIR=$HOME/.config/zsh' >> ~/.zshenv
 
 ln -sf ~/.dotfiles/config/zsh ~/.config/
+ln -sf ~/.dotfiles/config/git/config_wsl_ubuntu ~/.dotfiles/config/git/config_local
