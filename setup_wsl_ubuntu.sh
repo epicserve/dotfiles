@@ -10,9 +10,9 @@ fi
 . scripts/base_setup.sh
 . scripts/base_linux_setup.sh
 
-if ! command -v stow >/dev/null 2>&1; then
-  sudo apt install stow
-fi
+# isntall apps
+sudo apt update && sudo apt upgrade
+sudo apt install zsh git pass
 
 # Add ZDOTDIR to $HOME/.config/zsh
 grep -qxF "export ZDOTDIR=\$HOME/.config/zsh" ~/.zshenv || echo 'export ZDOTDIR=$HOME/.config/zsh' >> ~/.zshenv
