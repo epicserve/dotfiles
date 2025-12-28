@@ -1,9 +1,6 @@
-set -e  # Exit on error
+#!/usr/bin/sh
 
-# Set zsh as your shell if it's not set
-if [ "$SHELL" != "/bin/zsh" ]; then
-  chsh -s /bin/zsh;
-fi
+set -e
 
 # Install aws-vault
 if ! command -v aws-vault >/dev/null 2>&1; then
@@ -17,12 +14,6 @@ if ! command -v aws-vault >/dev/null 2>&1; then
   DOWNLOAD_URL="https://github.com/99designs/aws-vault/releases/download/${LATEST_TAG}/aws-vault-linux-amd64"
   sudo curl -L "$DOWNLOAD_URL" -o /usr/local/bin/aws-vault
   sudo chmod +x /usr/local/bin/aws-vault
-fi
-
-if [ ! -d ~/.oh-my-zsh ]; then
-  echo "Installing oh-my-zsh..."
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-  mkdir -p ~/.oh-my-zsh/custom/completions
 fi
 
 # Install Just
@@ -42,11 +33,4 @@ if ! command -v just >/dev/null 2>&1; then
   sudo mv /tmp/just/just /usr/local/bin/
   sudo rm -rf /tmp/just-extract /tmp/just.tar.gz
   sudo rm -rf /tmp/just
-  just --completions zsh > ~/.oh-my-zsh/custom/completions/just.zsh
-fi
-
-# install zoxide
-if ! command -v zoxide >/dev/null 2>&1; then
-  echo "Installing zoxide..."
-  curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
 fi

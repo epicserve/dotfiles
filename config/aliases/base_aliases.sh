@@ -1,3 +1,8 @@
+##
+## Basic Shell
+##
+alias ll="ls -l"
+alias la="ls -la"
 
 ##
 ## Print Column

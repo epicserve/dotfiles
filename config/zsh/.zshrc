@@ -39,7 +39,7 @@ export DOCKER_BUILDKIT=1
 export XDG_CONFIG_HOME=~/.config
 
 # Import Base Aliases
-. .config/zsh/base_aliases.sh
+. $HOME/.config/aliases/base_aliases.sh
 
 # UV installed tools
 . $HOME/.local/bin/env
@@ -49,16 +49,7 @@ eval "$(zoxide init zsh)"
 
 # Load OS-specific overrides
 if [[ "$OSTYPE" == darwin* ]]; then
-  . .config/zsh/macos_overrides.sh
+  . $HOME/.config/zsh/macos_overrides.sh
 elif [[ "$OSTYPE" == linux* ]]; then
-  # Check if running in WSL
-  if [[ -n "$WSL_DISTRO_NAME" ]] || grep -qi microsoft /proc/version 2>/dev/null; then
-    . .config/zsh/wsl_ubuntu_overrides.sh
-  # Check if running on Arch Linux
-  elif [[ -f /etc/arch-release ]]; then
-    . .config/zsh/arch_overrides.sh
-  else
-    # Default to WSL Ubuntu for other Linux systems
-    . .config/zsh/wsl_ubuntu_overrides.sh
-  fi
+  . $HOME/.config/zsh/wsl_ubuntu_overrides.sh
 fi
