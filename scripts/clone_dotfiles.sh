@@ -8,3 +8,5 @@ else
   git pull --rebase
   git stash pop
 fi
+
+cd ~/.dotfiles
