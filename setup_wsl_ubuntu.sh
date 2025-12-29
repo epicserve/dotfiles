@@ -1,6 +1,7 @@
 #!/usr/bin/sh
-
 set -e
+
+. $HOME/.dotfiles/scripts/clone_dotfiles.sh
 
 # Ensure en_US.UTF-8 locale is generated and set before anything else
 if ! locale -a | grep -q "en_US.utf8"; then
