@@ -1,13 +1,13 @@
 My Dotfiles
 ===========
 
-This is my personal dotfiles. They are managed using:
+This is my personal dotfiles for Brent O'Connor. It includes configurations and setup scripts for macOS, WSL/Ubuntu, 
+and Omarchy.
 
-- [Ansible][ansible]: Ansible is the simplest way to automate apps and IT infrastructure.
-- [Homebrew][homebrew]: for OS X package management
-- [UV][uv]: The PyPA recommended tool for installing and managing Python packages.
+- [Homebrew][homebrew]: for macOS package management
+- Shell scripts: Simple, OS-specific setup and automation
+- [UV][uv]: Python package installer and manager
 
-[ansible]: http://docs.ansible.com/ansible/
 [homebrew]: http://brew.sh/
 [uv]: https://docs.astral.sh/uv/
 
@@ -15,55 +15,40 @@ This is my personal dotfiles. They are managed using:
 Installation
 ------------
 
-1. Install Homebrew
-    
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+There are setup scripts for macOS, WSL/Ubuntu, and Omarchy (Linux/Arch):
 
-2. Install all the things
+- For macOS: `./setup_macos.sh`
+- For WSL/Ubuntu: `./setup_wsl_ubuntu.sh`
+- For Omarchy/Arch: `./setup_omarchy.sh`
 
-        git clone https://github.com/epicserve/dotfiles.git .dotfiles \
-        && cd ~/.dotfiles && ./install.sh
+1. Clone this repo
 
-3. Change your font for iTerm2 to one of the Powerline fonts like, "Roboto Mono Medium for Powerline."
+        git clone https://github.com/epicserve/dotfiles.git ~/.dotfiles
+        cd ~/.dotfiles
 
-4. Apps I install manually.
+2. Run the setup script for your OS
 
-   - [Docker](https://www.docker.com/products/docker-desktop)
-   - [Irvue](https://apps.apple.com/us/app/irvue/id1039633667?mt=12)
-   - [Microsoft Office](https://www.office.com/)
-   - [Elgato Control Center](https://www.elgato.com/en/downloads)
-   - [Elgato Wave Link](https://www.elgato.com/en/downloads)
-   - [Logitech Options](https://www.logitech.com/en-us/product/options)
+3. Change Git user and email in `~/.dotfiles/git/config` and `~/.dotfiles/git/config_work`
 
-5. Settings I change.
+4. Also change the `signingkey` in `~/.dotfiles/git/config`. You can get your key from your 1Password SSH item for GitHub.
 
-   - Increase mouse speed to 9
-   - Trackpad: tap to click
+5. Change your terminal font to a Powerline font (e.g., "Roboto Mono Medium for Powerline") for proper prompt display.
 
-6. Archive and transfer the following folders:
-     - ~/Sites
-     - ~/.aws
-     - ~/Downloads
-     - ~/.ssh
+6. Export and Import Raycast settings from your previous computer.
 
-     ```
-     # Create the archive
-     $ tar czvf backup.tar.gz ~/Sites/ ~/.aws ~/Downloads ~/.ssh
 
-     # Transfer the archive to the new computer using AirDrop or SCP
-     
-     # Extract archive and then move the files to correct locations
-     $ tar xzvf backup.tar.gz
-     ```
+Contributing
+------------
 
-7. Export Sequel Ace connections and copy them to the new computer.
+I welcome pull requests and issues, especially for bug fixes, documentation improvements, or anything that helps others
+use or understand these dotfiles. However, please note that this project is highly opinionated and tailored to my
+personal workflow. I will review contributions thoughtfully, but I may decline suggestions or PRs that don't align with 
+my preferences or the intended purpose of this setup.
 
-8. Export and Import Raycast settings. 
+**Guidelines:**
+- Bug fixes and documentation tweaks are especially appreciated.
+- Feel free to open issues or pull requests—I'll consider all submissions.
+- Features and major changes should be discussed before opening a PR.
+- If a change doesn't align with my usage or needs, please don't take rejection personally—thanks for understanding!
 
-9. Create a new AWS access key to add to aws-vault.
-
-Inspiration
------------
-
-- https://github.com/jefftriplett/dotfiles
-- https://github.com/adamchainz/mac-ansible
+Thanks for being respectful and constructive in your contributions!
