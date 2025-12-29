@@ -14,6 +14,14 @@ if [ ! -d ~/.oh-my-zsh ]; then
   just --completions zsh > ~/.oh-my-zsh/custom/completions/just.zsh
 fi
 
+# Install Spaceship theme for Oh My Zsh
+if [ ! -d "$HOME/.oh-my-zsh/custom/themes/spaceship-prompt" ]; then
+  git clone https://github.com/denysdovhan/spaceship-prompt $HOME/.oh-my-zsh/custom/themes/spaceship-prompt
+fi
+if [ ! -L "$HOME/.oh-my-zsh/themes/epicserve.zsh-theme" ]; then
+  ln -s $HOME/.dotfiles/config/oh_my_zsh/epicserve.zsh-theme $HOME/.oh-my-zsh/themes/epicserve.zsh-theme
+fi
+
 # install zoxide
 if ! command -v zoxide >/dev/null 2>&1; then
   echo "Installing zoxide..."
