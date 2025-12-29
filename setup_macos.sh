@@ -6,7 +6,6 @@ set +x
 . $HOME/.dotfiles/scripts/base_linux_setup.sh
 . $HOME/.dotfiles/scripts/setup_zsh.sh
 . $HOME/.dotfiles/scripts/setup_macos_settings.sh
-ln -sf ~/.config/git/config_macos ~/.config/git/config_local
 
 # Install Powerline fonts
 if ! ls ~/Library/Fonts/*Powerline*.otf ~/Library/Fonts/*Powerline*.ttf 1> /dev/null 2>&1; then

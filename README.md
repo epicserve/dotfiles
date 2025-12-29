@@ -21,6 +21,16 @@ There are setup scripts for macOS, WSL/Ubuntu, and Omarchy (Linux/Arch):
 - For WSL/Ubuntu: `./setup_wsl_ubuntu.sh`
 - For Omarchy/Arch: `./setup_omarchy.sh`
 
+Before running the setup script, make sure you have the following information for your Git configuration. The Git
+configuration assumes you use 1Password for storing your SSH keys and signing commits
+(see the [1Password docs](https://developer.1password.com/docs/ssh/) for more information).
+
+* Name
+* Personal email address
+* Work email address
+* Parent path to work projects (e.g., `~/code/work`) 
+* SSH Public Key for GitHub (from 1Password)
+
 1. Clone this repo
 
         git clone https://github.com/epicserve/dotfiles.git ~/.dotfiles
@@ -28,13 +38,9 @@ There are setup scripts for macOS, WSL/Ubuntu, and Omarchy (Linux/Arch):
 
 2. Run the setup script for your OS
 
-3. Change Git user and email in `~/.dotfiles/git/config` and `~/.dotfiles/git/config_work`
+3. Change your terminal font to a Powerline font (e.g., "Roboto Mono Medium for Powerline") for proper prompt display.
 
-4. Also change the `signingkey` in `~/.dotfiles/git/config`. You can get your key from your 1Password SSH item for GitHub.
-
-5. Change your terminal font to a Powerline font (e.g., "Roboto Mono Medium for Powerline") for proper prompt display.
-
-6. Export and Import Raycast settings from your previous computer.
+4. Export and Import Raycast settings from your previous computer.
 
 
 Contributing

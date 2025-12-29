@@ -49,5 +49,5 @@ if [ -d ~/.config/git ] && [ ! -L ~/.config/git ]; then
   echo "Backed up existing ~/.config/git to ~/.config/git.backup"
 fi
 
-ln -sf ~/.dotfiles/config/git ~/.config/
 ln -sf ~/.dotfiles/config/aliases ~/.config/
+. "$HOME/.dotfiles/scripts/setup_git.sh"

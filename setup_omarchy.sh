@@ -21,9 +21,8 @@ if [ -d ~/.config/git ]; then
   rm -rf ~/.config/git
 fi
 
-ln -sf ~/.dotfiles/config/git ~/.config/
-ln -sf ~/.config/git/config_linux ~/.config/git/config_local
 ln -sf ~/.dotfiles/config/aliases ~/.config/
+. "$HOME/.dotfiles/scripts/setup_git.sh"
 
 
 OMARCHY_BASH_ADDITIONS='. "$HOME/.dotfiles/config/omarchy/bashrc_additions.sh"'
