@@ -3,6 +3,12 @@ set +x
 
 OS_TYPE=$(uname)
 
+# Detect if running in WSL
+IS_WSL=false
+if grep -qiE "(Microsoft|WSL)" /proc/version 2>/dev/null; then
+  IS_WSL=true
+fi
+
 # Check if 'uv' is installed
 if ! command -v uv >/dev/null 2>&1; then
   echo "Installing uv..."

@@ -36,12 +36,19 @@ configuration assumes you use 1Password for storing your SSH keys and signing co
         git clone https://github.com/epicserve/dotfiles.git ~/.dotfiles
         cd ~/.dotfiles
 
-2. Run the setup script for your OS
+2. Run the setup script for your OS.
 
-3. Change your terminal font to a Powerline font (e.g., "Roboto Mono Medium for Powerline") for proper prompt display.
+3. Change your terminal font to a MesloLGS Nerd Font for proper prompt display.
+   See [the powerlevel10k theme guide][font-guide] for different terminals. The powerlevel10k theme
+   [doesn't work properly][jetbrains-bug] in IntelliJ/Jet Brains IDE terminals, so we fallback to the eastwood theme in
+   a Jet Brains IDE terminal.
 
-4. Export and Import Raycast settings from your previous computer.
+4. If you want to customize your terminal prompt, edit the `~/.config/zsh/p10k.zsh` file in your home directory or run `p10k configure`.
 
+5. Export and Import Raycast settings from your previous computer.
+
+[font-guide]: https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#fonts
+[jetbrains-bug]: https://youtrack.jetbrains.com/issue/IJPL-106259/Launching-IntelliJ-from-the-shell-script-break-the-prompt-of-the-IJ-terminal-in-combination-with-Powerlevel10ks-transient-prompt
 
 Contributing
 ------------

@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Set Shell Language
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
@@ -7,12 +14,17 @@ ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-# Theme repository: https://github.com/denysdovhan/spaceship-prompt
-export ZSH_THEME="spaceship"
-export SPACESHIP_PACKAGE_SHOW=false
-export SPACESHIP_NODE_SHOW=false
+# Theme repository: https://github.com/romkatv/powerlevel10k
+if [ "$TERMINAL_EMULATOR" != "JetBrains-JediTerm" ]; then
+  ZSH_THEME="powerlevel10k/powerlevel10k"
+else
+  # Until the p10k can look good in PyCharm/Intellij use a different theme
+  ZSH_THEME="eastwood"
+fi
+export ZSH_THEME
+
+# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
+[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
@@ -53,3 +65,5 @@ if [[ "$OSTYPE" == darwin* ]]; then
 elif [[ "$OSTYPE" == linux* ]]; then
   . $HOME/.config/zsh/wsl_ubuntu_overrides.sh
 fi
+
+

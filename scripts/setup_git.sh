@@ -164,12 +164,6 @@ get_sign_path() {
   fi
 }
 
-# Detect if running in WSL
-IS_WSL=false
-if grep -qiE "(Microsoft|WSL)" /proc/version 2>/dev/null; then
-  IS_WSL=true
-fi
-
 # Build LOCAL_GIT_CONFIG template, inserting SSH_COMMAND conditionally for WSL
 if [ "$IS_WSL" = true ]; then
   LOCAL_GIT_CONFIG=$(cat << 'EOF'
