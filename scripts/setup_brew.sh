@@ -15,6 +15,7 @@ chamber
 git
 git-extras
 node
+eza
 EOF
 
 # Add taps
