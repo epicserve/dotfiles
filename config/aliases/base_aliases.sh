@@ -30,11 +30,13 @@ alias c9="awk '{print \$9}'"
 ##
 alias gd='git diff'
 alias gdl='git log --pretty=oneline --abbrev-commit --since="6am" | perl -wpe "s/^([^\s]+)/-/g" | tail -r'
-alias grb='git rebase --rebase-merges=rebase-cousins'
-# Git Stash Working - only stash unstaged changes
-alias gsw="git commit -m 'Save index' && git stash push -u -q && git reset --soft HEAD^"
 alias gl='git pull'
 alias glr='gl -r'
+alias gp='git push'
+alias grb='git rebase --rebase-merges=rebase-cousins'
+# Git Stash Working - only stash unstaged changes
+alias gst='git status'
+alias gsw="git commit -m 'Save index' && git stash push -u -q && git reset --soft HEAD^"
 
 
 ##
