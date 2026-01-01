@@ -11,8 +11,7 @@ if ! locale -a | grep -q "en_US.utf8"; then
 fi
 
 # install apps
-sudo apt update && sudo apt upgrade
-sudo apt install zsh git pass
+sudo apt update && sudo apt install -y zsh git pass
 
 . $HOME/.dotfiles/scripts/base_setup.sh
 . $HOME/.dotfiles/scripts/base_linux_setup.sh

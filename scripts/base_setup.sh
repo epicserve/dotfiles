@@ -29,3 +29,9 @@ elif ! command -v aws >/dev/null 2>&1 && [ "$OS_TYPE" = "Darwin" ]; then
   sudo installer -pkg /tmp/AWSCLIV2.pkg -target /
   sudo rm /tmp/AWSCLIV2.pkg
 fi
+
+# Install fzf
+if ! command -v fzf >/dev/null 2>&1; then
+  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  ~/.fzf/install
+fi

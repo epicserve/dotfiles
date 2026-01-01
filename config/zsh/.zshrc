@@ -59,11 +59,12 @@ export XDG_CONFIG_HOME=~/.config
 # Initialize Zoxide
 eval "$(zoxide init zsh)"
 
+# Set up fzf key bindings and fuzzy completion
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 # Load OS-specific overrides
 if [[ "$OSTYPE" == darwin* ]]; then
   . $HOME/.config/zsh/macos_overrides.sh
 elif [[ "$OSTYPE" == linux* ]]; then
   . $HOME/.config/zsh/wsl_ubuntu_overrides.sh
 fi
-
-
