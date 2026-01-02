@@ -33,7 +33,7 @@ macos_set() {
 macos_set com.apple.LaunchServices LSQuarantine int 0
 macos_set com.googlecode.iterm2 PromptOnQuit int 0
 # Trackpad: tap to click
-autoset com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking int 1
+macos_set com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking int 1
 # Increase mouse speed to 9
 macos_set NSGlobalDomain com.apple.mouse.scaling float 9
 macos_set NSGlobalDomain KeyRepeat int 2
