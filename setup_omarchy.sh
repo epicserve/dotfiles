@@ -3,7 +3,7 @@
 . scripts/clone_dotfiles.sh
 
 # install apps
-yay -S --noconfirm --needed visual-studio-code-bin zen-browser-bin
+yay -S --noconfirm --needed visual-studio-code-bin zen-browser-bin sourcegit-bin
 
 # uninstall packages we don't want
 for pkg in alacritty; do
@@ -24,6 +24,12 @@ fi
 ln -sf ~/.dotfiles/config/aliases ~/.config/
 . "$HOME/.dotfiles/scripts/setup_git.sh"
 
+# Customize the Zoom level for SourceGit
+if [ ! -f ~/.local/share/applications/sourcegit.desktop ]; then
+  cp /usr/share/applications/sourcegit.desktop ~/.local/share/applications/
+  EXEC_LINE='Exec=env AVALONIA_GLOBAL_SCALE_FACTOR=2.5 sourcegit'
+  sed -i "/^Exec=/c$EXEC_LINE" ~/.local/share/applications/sourcegit.desktop
+fi
 
 OMARCHY_BASH_ADDITIONS='. "$HOME/.dotfiles/config/omarchy/bashrc_additions.sh"'
 BASHRC_FILE="$HOME/.bashrc"
