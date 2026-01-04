@@ -51,3 +51,9 @@ sudo touch /etc/1password/custom_allowed_browsers
 if ! grep -qFx "zen-bin" /etc/1password/custom_allowed_browsers; then
   echo "zen-bin" | sudo tee -a /etc/1password/custom_allowed_browsers
 fi
+
+# Setup Ghostty config
+if [ -d ~/.config/ghostty ] && [ ! -L ~/.config/ghostty ]; then
+  rm -rf ~/.config/ghostty
+  ln -s ~/.dotfiles/config/ghostty ~/.config/ghostty
+fi
