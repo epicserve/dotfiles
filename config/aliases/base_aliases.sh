@@ -53,10 +53,12 @@ alias dci='docker rmi $(docker images -a | grep "^<none>" | awk '\''{if (NR!=1) 
 alias dka='docker kill $(docker ps | awk '\''{if (NR!=1) {print $1}}'\'')'
 
 # Run docker compose process with --rm
+alias dcdn='docker compose down -t 0'
+alias dce='docker compose exec'
 alias dcl='docker compose logs -f'
 alias dcr='docker compose run'
 alias dcrr='docker compose run --rm'
-alias dcdn='docker compose down -t 0'
+alias dcup='docker compose up'
 
 
 ##
