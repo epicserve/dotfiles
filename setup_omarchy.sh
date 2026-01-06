@@ -3,7 +3,7 @@
 . scripts/clone_dotfiles.sh
 
 # install apps
-yay -S --noconfirm --needed visual-studio-code-bin zen-browser-bin sourcegit-bin bind-tools cursor-bin
+yay -S --noconfirm --needed visual-studio-code-bin zen-browser-bin sourcegit-bin bind-tools cursor-bin terraform-bin
 
 # uninstall packages we don't want
 for pkg in alacritty; do
