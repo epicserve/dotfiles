@@ -56,3 +56,14 @@ if ! command -v apppack >/dev/null 2>&1; then
   cd $CWD
   sudo rm -rf /tmp/apppack/
 fi
+
+# Install Chamber
+if ! command -v chamber >/dev/null 2>&1; then
+  version=$(curl -s https://api.github.com/repos/segmentio/chamber/releases/latest | grep 'tag_name' | cut -d '"' -f4)
+  if [ -z "$version" ]; then
+    echo "Failed to fetch latest chamber release tag. Aborting."
+    exit 1
+  fi
+  sudo curl -Ls https://github.com/segmentio/chamber/releases/download/${version}/chamber-${version}-linux-amd64 -o /usr/local/bin/chamber
+  sudo chmod +x /usr/local/bin/chamber
+fi
