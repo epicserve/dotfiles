@@ -11,7 +11,7 @@ for pkg in alacritty; do
 done
 
 # remove web apps
-omarchy-webapp-remove Basecamp Fizzy Discord GitHub HEY WhatsApp X YouTube Figma
+omarchy-webapp-remove Basecamp Fizzy Discord GitHub HEY WhatsApp X YouTube Figma > /dev/null
 
 . scripts/base_setup.sh
 . scripts/base_linux_setup.sh
