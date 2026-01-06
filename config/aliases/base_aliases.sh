@@ -59,6 +59,7 @@ alias dcl='docker compose logs -f'
 alias dcr='docker compose run'
 alias dcrr='docker compose run --rm'
 alias dcup='docker compose up'
+alias dcb='docker compose build'
 
 
 ##
