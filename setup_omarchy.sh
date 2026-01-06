@@ -57,3 +57,10 @@ if [ -d ~/.config/ghostty ] && [ ! -L ~/.config/ghostty ]; then
   rm -rf ~/.config/ghostty
   ln -s ~/.dotfiles/config/ghostty ~/.config/ghostty
 fi
+
+# Install tailscale
+if ! command -v tailscale >/dev/null 2>&1; then
+    echo "Configuring Tailscale to accept routes persistently..."
+    sudo yay -S --noconfirm --needed tailscale
+    sudo tailscale set --accept-routes=true
+fi
