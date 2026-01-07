@@ -46,11 +46,17 @@ if ! grep -qFx "$OMARCHY_BASH_ADDITIONS" "$BASHRC_FILE"; then
   echo "$OMARCHY_BASH_ADDITIONS" >> "$BASHRC_FILE"
 fi
 
+HYPR_MAIN_CONFIG="$HOME/.config/hypr/hyprland.conf"
 HYPR_INPUT_OVERRIDES='source = ~/.dotfiles/config/hypr/input_overrides.conf'
-HYPR_INPUT_FILES="$HOME/.config/hypr/hyprland.conf"
-if ! grep -qFx "$HYPR_INPUT_OVERRIDES" "$HYPR_INPUT_FILES"; then
-  echo -e "\n# Hyprland Overrides" >> "$HYPR_INPUT_FILES" 
-  echo "$HYPR_INPUT_OVERRIDES" >> "$HYPR_INPUT_FILES"
+if ! grep -qFx "$HYPR_INPUT_OVERRIDES" "$HYPR_MAIN_CONFIG"; then
+  echo -e "\n# Hyprland Input Overrides" >> "$HYPR_MAIN_CONFIG" 
+  echo "$HYPR_INPUT_OVERRIDES" >> "$HYPR_MAIN_CONFIG"
+fi
+
+HYPR_BINDINGS_OVERRIDES='source = ~/.dotfiles/config/hypr/binding_overrides.conf'
+if ! grep -qFx "$HYPR_BINDINGS_OVERRIDES" "$HYPR_MAIN_CONFIG"; then
+  echo -e "\n# Hyprland Bindings Overrides" >> "$HYPR_MAIN_CONFIG"
+  echo "$HYPR_BINDINGS_OVERRIDES" >> "$HYPR_MAIN_CONFIG"
 fi
 
 # Setup 1Password to use Zen Browser
