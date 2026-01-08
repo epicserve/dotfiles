@@ -98,3 +98,8 @@ function tf {
 ## AppPack
 ##
 alias ap=apppack
+
+##
+## Dotfiles
+##
+alias udf=~/.dotfiles/scripts/clone_dotfiles.sh
