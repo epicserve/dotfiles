@@ -1,23 +1,87 @@
 #!/usr/bin/env sh
 
-# Function to prompt for input with default value and validation
-# Usage: prompt_with_default "prompt text" "default_value" "validation_type"
+# Function to install gum if not already installed
+install_gum_if_needed() {
+  if command -v gum >/dev/null 2>&1; then
+    return 0
+  fi
+
+  os_type=$(uname)
+  
+  if [ "$os_type" = "Darwin" ]; then
+    # Mac - use brew
+    if command -v brew >/dev/null 2>&1; then
+      echo "Installing gum via brew..." >&2
+      brew install -q gum || {
+        echo "Failed to install gum via brew. Please install it manually." >&2
+        exit 1
+      }
+    else
+      echo "Error: brew not found. Please install Homebrew first or install gum manually." >&2
+      exit 1
+    fi
+  elif command -v pacman >/dev/null 2>&1; then
+    # Arch Linux - use pacman
+    echo "Installing gum via pacman..." >&2
+    sudo pacman -S --noconfirm gum || {
+      echo "Failed to install gum via pacman. Please install it manually." >&2
+      exit 1
+    }
+  elif command -v apt >/dev/null 2>&1; then
+    # Debian/Ubuntu - use apt
+    echo "Installing gum via apt..." >&2
+    sudo mkdir -p /etc/apt/keyrings
+    curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg || {
+      echo "Failed to add gum repository key." >&2
+      exit 1
+    }
+    echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list >/dev/null || {
+      echo "Failed to add gum repository." >&2
+      exit 1
+    }
+    sudo apt update -y && sudo apt install -y gum || {
+      echo "Failed to install gum via apt. Please install it manually." >&2
+      exit 1
+    }
+  else
+    echo "Error: No supported package manager found (brew, pacman, or apt). Please install gum manually." >&2
+    exit 1
+  fi
+}
+
+# Function to prompt for input with default value and validation using gum
+# Usage: gum_prompt_with_default "prompt text" "default_value" "validation_type"
 # validation_type can be: "email", "path", "non_empty", or empty for no validation
-prompt_with_default() {
+gum_prompt_with_default() {
   prompt_text="$1"
   default_value="$2"
   validation_type="$3"
   value=""
+  placeholder="$4"
   is_valid=false
 
   while [ "$is_valid" = false ]; do
+    # Build gum input command
     if [ -n "$default_value" ]; then
-      printf "%s [default: %s]: " "$prompt_text" "$default_value" >&2
+      # Use --value to pre-fill the field with default value
+      value=$(gum input --prompt "$prompt_text: " --value "$default_value")
+      exit_code=$?
+    elif [ -n "$placeholder" ]; then
+      # Use --placeholder when no default value but placeholder is provided
+      value=$(gum input --prompt "$prompt_text: " --placeholder "$placeholder")
+      exit_code=$?
     else
-      printf "%s: " "$prompt_text" >&2
+      # No default or placeholder
+      value=$(gum input --prompt "$prompt_text: ")
+      exit_code=$?
     fi
     
-    read -r value
+    # Check if user cancelled (Ctrl+C or Esc)
+    if [ $exit_code -ne 0 ]; then
+      echo "" >&2
+      echo "Cancelled by user." >&2
+      exit 130
+    fi
     
     # Use default if empty
     if [ -z "$value" ] && [ -n "$default_value" ]; then
@@ -221,14 +285,16 @@ if ! command -v envsubst >/dev/null 2>&1; then
 fi
 
 if [ ! -e "$GIT_LOCAL_CONFIG_PATH" ]; then
+  # Install gum if needed before prompting for input
+  install_gum_if_needed
 
-  GIT_NAME=$(prompt_with_default "Enter your name used for Git/GitHub" "" "non_empty")
-  GIT_EMAIL_PERSONAL=$(prompt_with_default "Enter the Git email you use for personal projects" "" "email")
-  GIT_EMAIL_WORK=$(prompt_with_default "Enter the Git email you use for work projects" "$GIT_EMAIL_PERSONAL" "email")
+  GIT_NAME=$(gum_prompt_with_default "Enter your name used for Git/GitHub" "" "non_empty" "First and Last Name")
+  GIT_EMAIL_PERSONAL=$(gum_prompt_with_default "Enter the Git email you use for personal projects" "" "email" "john.doe@example.com")
+  GIT_EMAIL_WORK=$(gum_prompt_with_default "Enter the Git email you use for work projects" "$GIT_EMAIL_PERSONAL" "email")
 
   default_work_path="~/code/work/"
-  GIT_WORK_PATH=$(prompt_with_default "Enter the path to your work projects (make sure to add the ending slash)" "$default_work_path" "path")
-  GIT_SIGNING_KEY=$(prompt_with_default "Enter your Git SSH public key" "" "non_empty")
+  GIT_WORK_PATH=$(gum_prompt_with_default "Enter the path to your work projects (make sure to add the ending slash)" "$default_work_path" "path")
+  GIT_SIGNING_KEY=$(gum_prompt_with_default "Enter your Git SSH public key" "" "non_empty" "ssh-ed25519 AAAA...")
 
   printf '%s\n' "$LOCAL_GIT_CONFIG" > "$GIT_LOCAL_CONFIG_PATH"
   printf '%s\n' "$WORK_GIT_CONFIG" > "$GIT_WORK_CONFIG_PATH"
