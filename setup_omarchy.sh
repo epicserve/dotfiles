@@ -11,6 +11,7 @@ bind-tools
 cursor-bin
 terraform-bin
 pass
+solaar
 EOF
 
 # uninstall packages we don't want
