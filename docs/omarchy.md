@@ -28,6 +28,15 @@
 1. Install PyCharm using Jetbrains Toolbox App and then use it to install PyCharm.
 2. Fix the Zoom level of PyCharm: click Help \> Edit Custom VM Options  
 3. Add the line `-Dawt.toolkit.name=WLToolkit` and then restart PyCharm. See the [blog post](https://blog.jetbrains.com/platform/2024/07/wayland-support-preview-in-2024-2/) for context.
+4. To make it so the PyCharm debugger works with a remote Docker Compose Python interptor, allow all Docker subnet
+   ranges to connect to the host:
+   ```
+    sudo iptables -I INPUT -s 172.16.0.0/12 -j ACCEPT
+    sudo iptables-save | sudo tee /etc/iptables/iptables.rules
+    sudo systemctl enable iptables.service
+    sudo systemctl start iptables.service
+    ```
+   This allows Docker networks (172.16.0.0 - 172.31.255.255) to connect back to your host for PyCharm debugging.
 
 ### Zen Browser Setup
 
