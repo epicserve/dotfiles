@@ -19,7 +19,7 @@ There are setup scripts for macOS, WSL/Ubuntu, and Omarchy (Linux/Arch):
 
 - For macOS: `./setup_macos.sh`
 - For WSL/Ubuntu: `./setup_wsl_ubuntu.sh`
-- For Omarchy/Arch: `./setup_omarchy.sh`
+- For Omarchy/Arch: `./setup_omarchy.sh` (see the [Omarchy docs](./docs/omarchy.md) for more instructions)
 
 Before running the setup script, make sure you have the following information for your Git configuration. The Git
 configuration assumes you use 1Password for storing your SSH keys and signing commits
