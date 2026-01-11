@@ -89,3 +89,20 @@ fi
 HYPRLOCK_CONFIG="$HOME/.config/hypr/hyprlock.conf"
 sed -i 's/size = [0-9]*, [0-9]*/size = 400, 60/' "$HYPRLOCK_CONFIG"
 sed -i 's/rounding = [0-9]*/rounding = 8/' "$HYPRLOCK_CONFIG"
+
+# Apply multi-monitor workspace config only if multiple monitors detected
+MONITOR_COUNT=$(hyprctl monitors -j 2>/dev/null | grep -c '"name"' || echo "1")
+if [ "$MONITOR_COUNT" -gt 1 ]; then
+  echo "Multiple monitors detected ($MONITOR_COUNT), applying multi-monitor workspace config..."
+  
+  # Source workspace bindings
+  HYPR_WORKSPACE_OVERRIDES='source = ~/.dotfiles/config/hypr/workspace_multimonitor.conf'
+  if ! grep -qFx "$HYPR_WORKSPACE_OVERRIDES" "$HYPR_MAIN_CONFIG"; then
+    echo -e "\n# Multi-monitor Workspace Bindings" >> "$HYPR_MAIN_CONFIG"
+    echo "$HYPR_WORKSPACE_OVERRIDES" >> "$HYPR_MAIN_CONFIG"
+  fi
+  
+  # Copy multi-monitor waybar config
+  cp ~/.dotfiles/config/waybar/config_multimonitor.jsonc ~/.config/waybar/config.jsonc
+  omarchy-restart-waybar
+fi
