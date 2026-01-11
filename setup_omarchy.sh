@@ -84,3 +84,8 @@ fi
 if [ ! -L ~/.config/omarchy/theme/digital-nature ]; then
   ln -s ~/.dotfiles/config/omarchy/themes/digital-nature ~/.config/omarchy/themes/
 fi
+
+# Customize hyprlock input-field (sed replaces in main config since hyprlock doesn't merge blocks)
+HYPRLOCK_CONFIG="$HOME/.config/hypr/hyprlock.conf"
+sed -i 's/size = [0-9]*, [0-9]*/size = 400, 60/' "$HYPRLOCK_CONFIG"
+sed -i 's/rounding = [0-9]*/rounding = 8/' "$HYPRLOCK_CONFIG"
