@@ -113,14 +113,15 @@
   },
   "pulseaudio": {
     "format": "{icon}",
+    "format-bluetooth": "󰂰",
     "on-click": "omarchy-launch-audio",
     "on-click-right": "pamixer -t",
     "tooltip-format": "Playing at {volume}%",
     "scroll-step": 5,
-    "format-muted": "",
+    "format-muted": "󰝟",
     "format-icons": {
-      "headphone": "",
-      "default": ["", "", ""]
+      "headphone": "󰋋",
+      "default": ["󰕿", "󰖀", "󰕾"]
     }
   },
   "group/tray-expander": {
