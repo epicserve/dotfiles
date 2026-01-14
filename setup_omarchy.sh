@@ -82,7 +82,7 @@ if ! command -v tailscale >/dev/null 2>&1; then
 fi
 
 # Install theme
-if [ ! -L ~/.config/omarchy/theme/digital-nature ]; then
+if [ ! -L ~/.config/omarchy/themes/digital-nature ]; then
   ln -s ~/.dotfiles/config/omarchy/themes/digital-nature ~/.config/omarchy/themes/
 fi
 
