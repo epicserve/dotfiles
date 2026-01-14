@@ -107,3 +107,9 @@ if [ "$MONITOR_COUNT" -gt 1 ]; then
   cp ~/.dotfiles/config/waybar/config_multimonitor.jsonc ~/.config/waybar/config.jsonc
   omarchy-restart-waybar
 fi
+
+# Link Pipewire config
+if [ -d ~/.config/pipewire ] && [ ! -L ~/.config/pipewire ]; then
+  mv ~/.config/pipewire ~/.config/pipewire.backup
+  ln -s ~/.dotfiles/config/pipewire ~/.config/pipewire
+fi
