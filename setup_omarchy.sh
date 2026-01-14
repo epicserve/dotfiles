@@ -4,14 +4,15 @@
 
 # install apps
 xargs yay -S --noconfirm --needed <<EOF
-visual-studio-code-bin
-zen-browser-bin
-sourcegit-bin
 bind-tools
 cursor-bin
-terraform-bin
+obs-advanced-masks
 pass
 solaar
+sourcegit-bin
+terraform-bin
+visual-studio-code-bin
+zen-browser-bin
 EOF
 
 # uninstall packages we don't want
