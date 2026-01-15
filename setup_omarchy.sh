@@ -61,6 +61,12 @@ if ! grep -qFx "$HYPR_BINDINGS_OVERRIDES" "$HYPR_MAIN_CONFIG"; then
   echo "$HYPR_BINDINGS_OVERRIDES" >> "$HYPR_MAIN_CONFIG"
 fi
 
+HYPR_WINDOW_OVERRIDES='source = ~/.dotfiles/config/hypr/window_overrides.conf'
+if ! grep -qFx "$HYPR_WINDOW_OVERRIDES" "$HYPR_MAIN_CONFIG"; then
+  echo -e "\n# Hyprland Window Overrides" >> "$HYPR_MAIN_CONFIG"
+  echo "$HYPR_WINDOW_OVERRIDES" >> "$HYPR_MAIN_CONFIG"
+fi
+
 # Setup 1Password to use Zen Browser
 sudo mkdir -p /etc/1password
 sudo touch /etc/1password/custom_allowed_browsers

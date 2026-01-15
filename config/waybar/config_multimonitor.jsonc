@@ -105,6 +105,7 @@
   },
   "bluetooth": {
     "format": "",
+    "format-off": "󰂲",
     "format-disabled": "󰂲",
     "format-connected": "󰂱",
     "format-no-controller": "",
@@ -113,15 +114,14 @@
   },
   "pulseaudio": {
     "format": "{icon}",
-    "format-bluetooth": "󰂰",
     "on-click": "omarchy-launch-audio",
     "on-click-right": "pamixer -t",
     "tooltip-format": "Playing at {volume}%",
     "scroll-step": 5,
-    "format-muted": "󰝟",
+    "format-muted": "",
     "format-icons": {
-      "headphone": "󰋋",
-      "default": ["󰕿", "󰖀", "󰕾"]
+      "headphone": "",
+      "default": ["", "", ""]
     }
   },
   "group/tray-expander": {
@@ -134,7 +134,11 @@
   },
   "custom/expand-icon": {
     "format": "",
-    "tooltip": false
+    "tooltip": false,
+    "on-scroll-up": "",
+    "on-scroll-down": "",
+    "on-scroll-left": "",
+    "on-scroll-right": ""
   },
   "custom/screenrecording-indicator": {
     "on-click": "omarchy-cmd-screenrecord",
