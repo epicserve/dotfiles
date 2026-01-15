@@ -6,6 +6,7 @@
 xargs yay -S --noconfirm --needed <<EOF
 bind-tools
 cursor-bin
+guvcview
 obs-advanced-masks
 pass
 solaar
@@ -39,6 +40,14 @@ if [ ! -f ~/.local/share/applications/sourcegit.desktop ]; then
   cp /usr/share/applications/sourcegit.desktop ~/.local/share/applications/
   EXEC_LINE='Exec=env AVALONIA_GLOBAL_SCALE_FACTOR=2.5 sourcegit'
   sed -i "/^Exec=/c$EXEC_LINE" ~/.local/share/applications/sourcegit.desktop
+fi
+
+# Fix guvcview desktop file (upstream uses _Name instead of Name)
+if [ ! -f ~/.local/share/applications/guvcview.desktop ]; then
+  cp /usr/share/applications/guvcview.desktop ~/.local/share/applications/
+  sed -i 's/^_Name=/Name=/' ~/.local/share/applications/guvcview.desktop
+  sed -i 's/^_GenericName=/GenericName=/' ~/.local/share/applications/guvcview.desktop
+  sed -i 's/^_Comment=/Comment=/' ~/.local/share/applications/guvcview.desktop
 fi
 
 OMARCHY_BASH_ADDITIONS='. "$HOME/.dotfiles/config/omarchy/bashrc_additions.sh"'
