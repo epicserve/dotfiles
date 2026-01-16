@@ -24,6 +24,9 @@ done
 # remove web apps
 omarchy-webapp-remove Basecamp Fizzy Discord GitHub HEY WhatsApp X YouTube Figma > /dev/null
 
+# install web apps
+omarchy-webapp-install "Slack" "https://app.slack.com/client/T07NZL2HG/C07NZPX4H" "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/slack.png"
+
 . scripts/base_setup.sh
 . scripts/base_linux_setup.sh
 

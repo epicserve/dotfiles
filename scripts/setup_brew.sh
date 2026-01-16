@@ -39,7 +39,6 @@ iterm2
 pycharm
 raycast
 sequel-ace
-slack
 tailscale
 visual-studio-code
 zoom
