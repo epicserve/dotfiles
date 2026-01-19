@@ -68,7 +68,16 @@
   "clock": {
     "format": "{:L%A %I:%M %p}",
     "format-alt": "{:L%d %B W%V %Y}",
-    "tooltip": false,
+    "tooltip-format": "<span>{calendar}</span>",
+    "calendar": {
+      "mode": "month",
+      "format": {
+        "months": "<span color='#cdd6f4'><b>{}</b></span>",
+        "days": "<span color='#7fdbf6'>{}</span>",
+        "weekdays": "<span color='#e7ebeb'><b>{}</b></span>",
+        "today": "<span color='#f4b752'><b>{}</b></span>"
+      }
+    },
     "on-click-right": "omarchy-launch-floating-terminal-with-presentation omarchy-tz-select"
   },
   "network": {
