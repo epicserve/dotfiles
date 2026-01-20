@@ -7,6 +7,7 @@ xargs yay -S --noconfirm --needed <<EOF
 bind-tools
 cursor-bin
 guvcview
+jetbrains-toolbox
 obs-advanced-masks
 pass
 solaar
@@ -43,6 +44,22 @@ if [ ! -f ~/.local/share/applications/sourcegit.desktop ]; then
   cp /usr/share/applications/sourcegit.desktop ~/.local/share/applications/
   EXEC_LINE='Exec=env AVALONIA_GLOBAL_SCALE_FACTOR=1.5 sourcegit'
   sed -i "/^Exec=/c$EXEC_LINE" ~/.local/share/applications/sourcegit.desktop
+fi
+
+# Fix JetBrains Toolbox scaling (prevent double scaling on Wayland)
+if [ -f /opt/jetbrains-toolbox/jetbrains-toolbox ]; then
+  cat > ~/.local/share/applications/jetbrains-toolbox.desktop << 'EOF'
+[Desktop Entry]
+Icon=/
+Exec=env GDK_SCALE=1 /opt/jetbrains-toolbox/jetbrains-toolbox %u
+Version=1.0
+Type=Application
+Categories=Development
+Name=JetBrains Toolbox
+StartupWMClass=jetbrains-toolbox
+Terminal=false
+MimeType=x-scheme-handler/jetbrains;
+EOF
 fi
 
 # Fix guvcview desktop file (upstream uses _Name instead of Name)
