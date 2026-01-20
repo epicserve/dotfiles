@@ -50,7 +50,7 @@ fi
 if [ -f /opt/jetbrains-toolbox/jetbrains-toolbox ]; then
   cat > ~/.local/share/applications/jetbrains-toolbox.desktop << 'EOF'
 [Desktop Entry]
-Icon=/
+Icon=/opt/jetbrains-toolbox/toolbox.svg
 Exec=env GDK_SCALE=1 /opt/jetbrains-toolbox/jetbrains-toolbox %u
 Version=1.0
 Type=Application
