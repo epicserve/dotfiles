@@ -28,6 +28,7 @@ alias c9="awk '{print \$9}'"
 ##
 ## Git
 ##
+alias gco='git checkout'
 alias gd='git diff'
 alias gdl='git log --pretty=oneline --abbrev-commit --since="6am" | perl -wpe "s/^([^\s]+)/-/g" | tail -r'
 alias gl='git pull'
