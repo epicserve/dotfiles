@@ -148,3 +148,24 @@ if [ -d ~/.config/pipewire ] && [ ! -L ~/.config/pipewire ]; then
   mv ~/.config/pipewire ~/.config/pipewire.backup
   ln -s ~/.dotfiles/config/pipewire ~/.config/pipewire
 fi
+
+# Configure PyCharm for Wayland (add WLToolkit to any existing PyCharm configs)
+for pycharm_dir in ~/.config/JetBrains/PyCharm*; do
+  if [ -d "$pycharm_dir" ]; then
+    vmoptions_file="$pycharm_dir/pycharm64.vmoptions"
+    if [ -f "$vmoptions_file" ]; then
+      if ! grep -q "Dawt.toolkit.name=WLToolkit" "$vmoptions_file"; then
+        echo "-Dawt.toolkit.name=WLToolkit" >> "$vmoptions_file"
+      fi
+    fi
+  fi
+done
+
+# Setup iptables rules for PyCharm Docker debugger
+if ! sudo iptables -C INPUT -s 172.16.0.0/12 -j ACCEPT 2>/dev/null; then
+  echo "Adding iptables rule for Docker networks (PyCharm debugger)..."
+  sudo iptables -I INPUT -s 172.16.0.0/12 -j ACCEPT
+  sudo iptables-save | sudo tee /etc/iptables/iptables.rules > /dev/null
+  sudo systemctl enable iptables.service
+  sudo systemctl start iptables.service
+fi
