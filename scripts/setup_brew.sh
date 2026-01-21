@@ -14,6 +14,10 @@ xargs brew install -q <<EOF
 chamber
 git
 git-extras
+fzf
+gh
+jq
+ripgrep
 node
 eza
 EOF
