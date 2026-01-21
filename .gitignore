@@ -3,3 +3,4 @@ config/git/config_local
 config/zsh/.zsh_history
 config/git/config_work
 auto_setup_git.exp
+config/zsh/.zsh_sessions/
