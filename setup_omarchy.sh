@@ -115,6 +115,9 @@ if [ -d ~/.config/ghostty ] && [ ! -L ~/.config/ghostty ]; then
   ln -s ~/.dotfiles/config/ghostty ~/.config/ghostty
 fi
 
+# Setup VS Code config (fixes keyring detection on Hyprland)
+ln -sf ~/.dotfiles/config/vscode/code-flags.conf ~/.config/code-flags.conf
+
 # Install tailscale
 if ! command -v tailscale >/dev/null 2>&1; then
     echo "Configuring Tailscale to accept routes persistently..."
