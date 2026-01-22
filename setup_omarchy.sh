@@ -9,7 +9,6 @@ cursor-bin
 guvcview
 jetbrains-toolbox
 obs-advanced-masks
-pass
 solaar
 sourcegit-bin
 terraform-bin
