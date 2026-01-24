@@ -41,9 +41,9 @@ ln -sf ~/.dotfiles/config/aliases ~/.config/
 # Customize the Zoom level for SourceGit
 if [ ! -f ~/.local/share/applications/sourcegit.desktop ]; then
   cp /usr/share/applications/sourcegit.desktop ~/.local/share/applications/
-  EXEC_LINE='Exec=env AVALONIA_GLOBAL_SCALE_FACTOR=1.5 sourcegit'
-  sed -i "/^Exec=/c$EXEC_LINE" ~/.local/share/applications/sourcegit.desktop
 fi
+EXEC_LINE='Exec=env AVALONIA_GLOBAL_SCALE_FACTOR=1.5 sourcegit'
+sed -i "/^Exec=/c$EXEC_LINE" ~/.local/share/applications/sourcegit.desktop
 
 # Fix JetBrains Toolbox scaling (prevent double scaling on Wayland)
 if [ -f /opt/jetbrains-toolbox/jetbrains-toolbox ]; then
