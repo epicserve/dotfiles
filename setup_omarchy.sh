@@ -77,28 +77,10 @@ if ! grep -qFx "$OMARCHY_BASH_ADDITIONS" "$BASHRC_FILE"; then
 fi
 
 HYPR_MAIN_CONFIG="$HOME/.config/hypr/hyprland.conf"
-HYPR_INPUT_OVERRIDES='source = ~/.dotfiles/config/hypr/input_overrides.conf'
-if ! grep -qFx "$HYPR_INPUT_OVERRIDES" "$HYPR_MAIN_CONFIG"; then
-  echo -e "\n# Hyprland Input Overrides" >> "$HYPR_MAIN_CONFIG" 
-  echo "$HYPR_INPUT_OVERRIDES" >> "$HYPR_MAIN_CONFIG"
-fi
-
-HYPR_BINDINGS_OVERRIDES='source = ~/.dotfiles/config/hypr/binding_overrides.conf'
-if ! grep -qFx "$HYPR_BINDINGS_OVERRIDES" "$HYPR_MAIN_CONFIG"; then
-  echo -e "\n# Hyprland Bindings Overrides" >> "$HYPR_MAIN_CONFIG"
-  echo "$HYPR_BINDINGS_OVERRIDES" >> "$HYPR_MAIN_CONFIG"
-fi
-
-HYPR_WINDOW_OVERRIDES='source = ~/.dotfiles/config/hypr/window_overrides.conf'
-if ! grep -qFx "$HYPR_WINDOW_OVERRIDES" "$HYPR_MAIN_CONFIG"; then
-  echo -e "\n# Hyprland Window Overrides" >> "$HYPR_MAIN_CONFIG"
-  echo "$HYPR_WINDOW_OVERRIDES" >> "$HYPR_MAIN_CONFIG"
-fi
-
-HYPR_AUTOSTART_OVERRIDES='source = ~/.dotfiles/config/hypr/autostart_overrides.conf'
-if ! grep -qFx "$HYPR_AUTOSTART_OVERRIDES" "$HYPR_MAIN_CONFIG"; then
-  echo -e "\n# Hyprland Autostart Overrides" >> "$HYPR_MAIN_CONFIG"
-  echo "$HYPR_AUTOSTART_OVERRIDES" >> "$HYPR_MAIN_CONFIG"
+HYPR_OMARCHY_OVERRIDES='source = ~/.dotfiles/config/hypr/omarchy_hyprland_overrides.conf'
+if ! grep -qFx "$HYPR_OMARCHY_OVERRIDES" "$HYPR_MAIN_CONFIG"; then
+  echo -e "\n# Omarchy Hyprland Overrides" >> "$HYPR_MAIN_CONFIG"
+  echo "$HYPR_OMARCHY_OVERRIDES" >> "$HYPR_MAIN_CONFIG"
 fi
 
 # Setup 1Password to use Zen Browser
@@ -138,14 +120,15 @@ sed -i 's/rounding = [0-9]*/rounding = 8/' "$HYPRLOCK_CONFIG"
 MONITOR_COUNT=$(hyprctl monitors -j 2>/dev/null | grep -c '"name"' || echo "1")
 if [ "$MONITOR_COUNT" -gt 1 ]; then
   echo "Multiple monitors detected ($MONITOR_COUNT), applying multi-monitor workspace config..."
-  
-  # Source workspace bindings
-  HYPR_WORKSPACE_OVERRIDES='source = ~/.dotfiles/config/hypr/workspace_multimonitor.conf'
-  if ! grep -qFx "$HYPR_WORKSPACE_OVERRIDES" "$HYPR_MAIN_CONFIG"; then
-    echo -e "\n# Multi-monitor Workspace Bindings" >> "$HYPR_MAIN_CONFIG"
-    echo "$HYPR_WORKSPACE_OVERRIDES" >> "$HYPR_MAIN_CONFIG"
+
+  # Add workspace source to main override file
+  HYPR_OMARCHY_CONFIG="$HOME/.dotfiles/config/hypr/omarchy_hyprland_overrides.conf"
+  HYPR_WORKSPACE_SOURCE='source = ~/.dotfiles/config/hypr/_workspaces_multimonitor.conf'
+  if ! grep -qFx "$HYPR_WORKSPACE_SOURCE" "$HYPR_OMARCHY_CONFIG"; then
+    echo -e "\n# Multi-monitor Workspace Bindings" >> "$HYPR_OMARCHY_CONFIG"
+    echo "$HYPR_WORKSPACE_SOURCE" >> "$HYPR_OMARCHY_CONFIG"
   fi
-  
+
   # Copy multi-monitor waybar config
   cp ~/.dotfiles/config/waybar/config_multimonitor.jsonc ~/.config/waybar/config.jsonc
   omarchy-restart-waybar
