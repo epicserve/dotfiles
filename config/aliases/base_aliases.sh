@@ -55,7 +55,7 @@ alias dci='docker rmi $(docker images -a | grep "^<none>" | awk '\''{if (NR!=1) 
 alias dka='docker kill $(docker ps | awk '\''{if (NR!=1) {print $1}}'\'')'
 
 # Run ddc process with --rm
-alias dc='docker ccompose'
+alias dc='docker compose'
 alias dcdn='docker compose down -t 0 --remove-orphans'
 alias dce='docker compose exec'
 alias dcl='docker compose logs -f'
