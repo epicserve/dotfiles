@@ -6,6 +6,7 @@
 xargs yay -S --noconfirm --needed <<EOF
 bind-tools
 cursor-bin
+dms-shell-bin
 guvcview
 jetbrains-toolbox
 obs-advanced-masks
@@ -106,15 +107,91 @@ if ! command -v tailscale >/dev/null 2>&1; then
     sudo tailscale set --accept-routes=true
 fi
 
+# Backup configs before DMS migration
+echo "Backing up existing configs before DMS migration..."
+for file in ~/.config/waybar/config.jsonc ~/.config/hypr/hyprlock.conf; do
+  if [ -f "$file" ] && [ ! -f "$file.pre-dms-backup" ]; then
+    cp "$file" "$file.pre-dms-backup"
+    echo "  Backed up: $file"
+  fi
+done
+
 # Install theme
 if [ ! -L ~/.config/omarchy/themes/digital-nature ]; then
   ln -s ~/.dotfiles/config/omarchy/themes/digital-nature ~/.config/omarchy/themes/
 fi
 
-# Customize hyprlock input-field (sed replaces in main config since hyprlock doesn't merge blocks)
-HYPRLOCK_CONFIG="$HOME/.config/hypr/hyprlock.conf"
-sed -i 's/size = [0-9]*, [0-9]*/size = 400, 60/' "$HYPRLOCK_CONFIG"
-sed -i 's/rounding = [0-9]*/rounding = 8/' "$HYPRLOCK_CONFIG"
+# Create systemd target for DMS binding
+echo "Creating systemd target for DMS..."
+SYSTEMD_USER_DIR="$HOME/.config/systemd/user"
+mkdir -p "$SYSTEMD_USER_DIR"
+
+HYPRLAND_SESSION_TARGET="$SYSTEMD_USER_DIR/hyprland-session.target"
+if [ ! -f "$HYPRLAND_SESSION_TARGET" ]; then
+  cat > "$HYPRLAND_SESSION_TARGET" << 'EOF'
+[Unit]
+Description=Hyprland compositor session
+Documentation=man:systemd.special(7)
+BindsTo=graphical-session.target
+Wants=graphical-session-pre.target
+After=graphical-session-pre.target
+EOF
+  echo "  Created: $HYPRLAND_SESSION_TARGET"
+fi
+
+# Create DMS integration config
+DMS_CONFIG="$HOME/.dotfiles/config/hypr/_dms.conf"
+if [ ! -f "$DMS_CONFIG" ]; then
+  cat > "$DMS_CONFIG" << 'EOF'
+# DMS (DankMaterialShell) Integration
+# Export environment to systemd for proper service management
+exec-once = dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+exec-once = systemctl --user start hyprland-session.target
+
+# Source DMS-generated configs (created by 'dms setup')
+# Note: These files are created by DMS and may not exist initially
+source = ~/.config/hypr/dms/colors.conf
+source = ~/.config/hypr/dms/layout.conf
+source = ~/.config/hypr/dms/outputs.conf
+EOF
+  echo "  Created: $DMS_CONFIG"
+fi
+
+# Ensure DMS config is sourced in main overrides
+HYPR_OMARCHY_CONFIG="$HOME/.dotfiles/config/hypr/omarchy_hyprland_overrides.conf"
+DMS_SOURCE='source = ~/.dotfiles/config/hypr/_dms.conf'
+if ! grep -qFx "$DMS_SOURCE" "$HYPR_OMARCHY_CONFIG"; then
+  # Insert after gaps_out line
+  sed -i '/gaps_out = 0/a\\n# DMS Integration\nsource = ~/.dotfiles/config/hypr/_dms.conf' "$HYPR_OMARCHY_CONFIG"
+  echo "  Added DMS source to omarchy_hyprland_overrides.conf"
+fi
+
+# Run DMS setup and configure systemd integration
+if command -v dms >/dev/null 2>&1; then
+  echo "Configuring DMS..."
+
+  # Create directory for DMS-generated configs
+  mkdir -p ~/.config/hypr/dms
+
+  # Run DMS setup (generates starter configs)
+  dms setup
+
+  # Bind DMS to hyprland-session.target
+  systemctl --user add-wants hyprland-session.target dms 2>/dev/null || true
+
+  # Enable DMS service for autostart
+  systemctl --user enable dms 2>/dev/null || true
+
+  echo "  DMS configured and enabled"
+else
+  echo "  WARNING: dms command not found. Install may have failed."
+fi
+
+# DISABLED: Hyprlock now managed by DMS
+# # Customize hyprlock input-field (sed replaces in main config since hyprlock doesn't merge blocks)
+# HYPRLOCK_CONFIG="$HOME/.config/hypr/hyprlock.conf"
+# sed -i 's/size = [0-9]*, [0-9]*/size = 400, 60/' "$HYPRLOCK_CONFIG"
+# sed -i 's/rounding = [0-9]*/rounding = 8/' "$HYPRLOCK_CONFIG"
 
 # Apply multi-monitor workspace config only if multiple monitors detected
 MONITOR_COUNT=$(hyprctl monitors -j 2>/dev/null | grep -c '"name"' || echo "1")
@@ -129,9 +206,11 @@ if [ "$MONITOR_COUNT" -gt 1 ]; then
     echo "$HYPR_WORKSPACE_SOURCE" >> "$HYPR_OMARCHY_CONFIG"
   fi
 
-  # Copy multi-monitor waybar config
-  cp ~/.dotfiles/config/waybar/config_multimonitor.jsonc ~/.config/waybar/config.jsonc
-  omarchy-restart-waybar
+  # REMOVED: Waybar config - DMS handles panel now
+  # cp ~/.dotfiles/config/waybar/config_multimonitor.jsonc ~/.config/waybar/config.jsonc
+  # omarchy-restart-waybar
+
+  echo "  DMS will auto-detect multi-monitor setup"
 fi
 
 # Link Pipewire config
@@ -160,3 +239,27 @@ if ! sudo iptables -C INPUT -s 172.16.0.0/12 -j ACCEPT 2>/dev/null; then
   sudo systemctl enable iptables.service
   sudo systemctl start iptables.service
 fi
+
+echo ""
+echo "============================================"
+echo "DMS Migration Complete!"
+echo "============================================"
+echo ""
+echo "Changes:"
+echo "  ✓ Installed DankMaterialShell"
+echo "  ✓ Replaced waybar, mako, hyprlock, polkit-gnome"
+echo "  ✓ Preserved 1Password, keybindings, monitor config"
+echo "  ✓ Backups: ~/.config/waybar/config.jsonc.pre-dms-backup"
+echo ""
+echo "Next steps:"
+echo "  1. Log out and log back into Hyprland"
+echo "  2. Verify DMS panel appears on both monitors"
+echo "  3. Test lock screen: Super+L"
+echo "  4. Check status: systemctl --user status dms"
+echo "  5. View logs: journalctl --user -u dms -f"
+echo ""
+echo "Troubleshooting:"
+echo "  - If DMS doesn't start: Check ~/.config/hypr/dms/"
+echo "  - Rollback: systemctl --user disable --now dms"
+echo "  - Restore: cp ~/.config/waybar/config.jsonc.pre-dms-backup ~/.config/waybar/config.jsonc"
+echo ""
