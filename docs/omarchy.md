@@ -37,6 +37,7 @@
 2. Signin with your Firefox account  
 3. Open `about:config` in a new tab and search for `zen.urlbar.replace-newtab`, change it to false.  
 4. Settings \> Bookmarks \> Show bookmarks toolbar, then right-click on the bookmarks toolbar \> Bookmarks Tookbar \> Only Show on New Tab
+5. Create the Work and Personal spaces, assign each to its corresponding profile, and give each an icon.
 
 ### 1Password
 
