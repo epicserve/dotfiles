@@ -83,6 +83,10 @@ if ! grep -qFx "$HYPR_OMARCHY_OVERRIDES" "$HYPR_MAIN_CONFIG"; then
   echo "$HYPR_OMARCHY_OVERRIDES" >> "$HYPR_MAIN_CONFIG"
 fi
 
+# Install udev rules (e.g. disable Logitech Bolt wake-from-suspend)
+sudo cp ~/.dotfiles/config/udev/*.rules /etc/udev/rules.d/
+sudo udevadm control --reload-rules
+
 # Setup 1Password to use Zen Browser
 sudo mkdir -p /etc/1password
 sudo touch /etc/1password/custom_allowed_browsers
