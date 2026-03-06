@@ -2,6 +2,15 @@
 
 . scripts/clone_dotfiles.sh
 
+# install paru (AUR helper)
+if ! command -v paru >/dev/null 2>&1; then
+  sudo pacman -S --noconfirm --needed base-devel git
+  tmp=$(mktemp -d)
+  git clone https://aur.archlinux.org/paru.git "$tmp/paru"
+  (cd "$tmp/paru" && makepkg -si --noconfirm)
+  rm -rf "$tmp"
+fi
+
 # install apps
 xargs yay -S --noconfirm --needed <<EOF
 bind-tools
@@ -44,6 +53,12 @@ if [ ! -f ~/.local/share/applications/sourcegit.desktop ]; then
 fi
 EXEC_LINE='Exec=env AVALONIA_GLOBAL_SCALE_FACTOR=1.5 sourcegit'
 sed -i "/^Exec=/c$EXEC_LINE" ~/.local/share/applications/sourcegit.desktop
+
+# Install WorkTrunk
+if ! command -v wt >/dev/null 2>&1; then
+  paru -S --noconfirm worktrunk-bin
+  wt config shell install
+fi
 
 # Fix JetBrains Toolbox scaling (prevent double scaling on Wayland)
 if [ -f /opt/jetbrains-toolbox/jetbrains-toolbox ]; then
