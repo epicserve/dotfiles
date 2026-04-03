@@ -20,3 +20,5 @@
 
 [include]
   path = ~/.config/git/config_local
+[safe]
+	directory = ~/Code
