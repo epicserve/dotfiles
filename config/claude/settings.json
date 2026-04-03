@@ -1,0 +1,105 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C /home/brent/Code/personal/time-logs diff HEAD..base-site/main -- config/settings/)",
+      "Bash(git -C /home/brent/Code/personal/time-logs diff HEAD..base-site/main -- justfile)",
+      "Bash(git -C /home/brent/Code/personal/time-logs diff HEAD..base-site/main -- Dockerfile Makefile)",
+      "Bash(git -C /home/brent/Code/personal/time-logs diff HEAD..base-site/main -- apps/accounts/models.py apps/accounts/forms.py)",
+      "Bash(npm install:*)",
+      "Bash(ls -la /home/brent/Code/canopy/canopy-ops/apps__*)",
+      "Bash(jira version)",
+      "Bash(jq --version)",
+      "WebFetch(domain:developer.atlassian.com)",
+      "Bash(ls -la /home/brent/Code/canopy/pears/.env*)",
+      "Read(//home/brent/Code/canopy/**)",
+      "Bash(gh pr view 2657 --repo canopyllc/pears)",
+      "WebFetch(domain:github.com)",
+      "Bash(gh pr:*)",
+      "Bash(code --version)",
+      "Bash(code-insiders --version)",
+      "Bash(pacman -Q visual-studio-code-bin)",
+      "Bash(paru -Qu visual-studio-code-bin)",
+      "mcp__plugin_playwright_playwright__browser_navigate",
+      "mcp__plugin_playwright_playwright__browser_snapshot",
+      "WebSearch",
+      "Bash(just restore_latest_mysql_backup)",
+      "Bash(just export_fdpt_data)",
+      "Bash(just import_fdpt_data)",
+      "Bash(find /home/brent/Code/personal/time-logs -type f \\\\\\(-name *.css -o -name *.scss \\\\\\))",
+      "Bash(gh run:*)",
+      "Bash(ls -la /home/brent/Code/personal/epicserve-ops/terraform/*.tf)",
+      "Bash(find /home/brent/Code/personal/epicserve-ops/terraform -not -path */.terraform/* -type f)",
+      "Bash(python manage.py makemigrations orders)",
+      "Bash(python manage.py test orders)",
+      "Bash(DJANGO_SETTINGS_MODULE=config.settings python -c \":*)",
+      "Bash(python manage.py migrate)",
+      "Bash(python manage.py seed_demo)",
+      "Bash(terraform fmt:*)",
+      "Bash(just pre_commit)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"http://localhost:9000/time-logs-media/avatars/thumbnails/1/23b6cf03c2af4244ae3df19934de3ca7.jpg\")",
+      "Bash(gh api:*)",
+      "Bash(grep -E '^v[0-9]+$')",
+      "Bash(grep -E \"\\\\.py$\")",
+      "Bash(ls /home/brent/Code/canopy/pears/apps/base/validators*)",
+      "Bash(just format_py)",
+      "Bash(just lint_py)",
+      "Bash(just test:*)",
+      "Bash(git stash:*)",
+      "Bash(git add:*)",
+      "Bash(just lint_migrations)",
+      "Bash(git commit -m ':*)",
+      "Bash(sed -i 's|from apps\\\\.lists\\\\.serializers import|from apps.lists.api.private.serializers import|g' apps/lists/api/private/views.py)",
+      "Bash(sed -i 's|from apps\\\\.places\\\\.serializers import|from apps.places.api.private.serializers import|g' apps/places/api/private/views.py)",
+      "Bash(sed -i 's|from apps\\\\.rps\\\\.serializers import|from apps.rps.api.private.serializers import|g' apps/rps/api/private/views.py)",
+      "Bash(sed -i 's|from apps\\\\.lists\\\\.serializers import|from apps.lists.api.private.serializers import|g' apps/module_builder/builder_serializers.py)",
+      "Bash(sed -i 's|from apps\\\\.places\\\\.serializers import|from apps.places.api.private.serializers import|g' apps/accounts/serializers.py apps/crm/api/private/serializers.py apps/accounts/tests/test_api.py apps/contacts/serializers.py apps/events/serializers.py apps/contacts/tests/test_api.py apps/base/tests/test_base.py apps/reviews/serializers.py apps/partnerships/serializers.py apps/reviews/tests/test_api.py apps/campaigns/tests/test_api.py apps/campaigns/serializers.py apps/module_builder/viewer_serializers.py)",
+      "Bash(sed -i 's|from apps\\\\.places\\\\.api import|from apps.places.api.private.views import|g' apps/events/registration_api.py apps/base/tests/test_api.py)",
+      "Bash(sed -i 's|from apps\\\\.rps\\\\.serializers import|from apps.rps.api.private.serializers import|g' apps/development/serializers.py apps/module_builder/viewer_serializers.py apps/rps/tests/test_serializers.py apps/lists/views.py apps/base/tests/test_base.py apps/base/api/viewsets.py apps/plans/serializers.py)",
+      "Bash(python3 -c \"from categories.models import Category; import inspect; print\\('\\\\n'.join\\([f'{f.name}: {f.get_internal_type\\(\\)}' for f in Category._meta.get_fields\\(\\)]\\)\\)\")",
+      "Bash(find ~/.vscode/extensions/anthropic.claude-code* -type f -name \"*.js\" -o -name \"*.json\")",
+      "Bash(find ~/.vscode/extensions/anthropic.claude-code* -name \"*.md\" -o -name \"README*\")",
+      "Bash(python3 -c \"import sys; sys.path.insert\\(0, '/home/brent/Code/canopy/pears'\\); from roots_pending.mixins.models import TimeStampModelMixin; import inspect; print\\(inspect.getsource\\(TimeStampModelMixin\\)\\)\")",
+      "Read(//home/brent/**)",
+      "Bash(strace -e execve /home/brent/.local/bin/claude --help)",
+      "Bash(/home/brent/.local/bin/claude --help)",
+      "Bash(env)",
+      "WebFetch(domain:susomejias.dev)",
+      "WebFetch(domain:code.visualstudio.com)",
+      "Bash(ls ~/.vscode/extensions/anthropic.claude-code*/)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); props=d.get\\('contributes',{}\\).get\\('configuration',{}\\).get\\('properties',{}\\); [print\\(k,':',v.get\\('description',''\\)\\) for k,v in props.items\\(\\) if 'notif' in k.lower\\(\\) or 'notif' in str\\(v.get\\('description',''\\)\\).lower\\(\\)]\")",
+      "Bash(grep -oE '.{0,80}show_notification.{0,80}')",
+      "Bash(grep -oE '.{0,200}onlyIfNotVisible.{0,200}')",
+      "Bash(grep -oE '.{0,100}isVisible.{0,100}')"
+    ],
+    "additionalDirectories": [
+      "/home/brent/.gstack/projects/epicserve-time-logs"
+    ]
+  },
+  "enabledPlugins": {
+    "playwright@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "frontend-design@claude-code-plugins": true
+  },
+  "extraKnownMarketplaces": {
+    "claude-code-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-code"
+      }
+    }
+  },
+  "skipDangerousModePermissionPrompt": true,
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.message' | xargs -I{} notify-send --app-name='Claude Code' 'Claude Code' '{}'"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -171,6 +171,17 @@ for pycharm_dir in ~/.config/JetBrains/PyCharm*; do
   fi
 done
 
+# Setup Claude Code settings (preserve across reformats)
+mkdir -p ~/.claude
+if [ -f ~/.dotfiles/config/claude/settings.json ] && [ ! -L ~/.claude/settings.json ]; then
+  [ -f ~/.claude/settings.json ] && mv ~/.claude/settings.json ~/.claude/settings.json.backup
+  ln -s ~/.dotfiles/config/claude/settings.json ~/.claude/settings.json
+fi
+if [ -d ~/.dotfiles/config/claude/projects ] && [ ! -L ~/.claude/projects ]; then
+  [ -d ~/.claude/projects ] && mv ~/.claude/projects ~/.claude/projects.backup
+  ln -s ~/.dotfiles/config/claude/projects ~/.claude/projects
+fi
+
 # Setup iptables rules for PyCharm Docker debugger
 if ! sudo iptables -C INPUT -s 172.16.0.0/12 -j ACCEPT 2>/dev/null; then
   echo "Adding iptables rule for Docker networks (PyCharm debugger)..."
