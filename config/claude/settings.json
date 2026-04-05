@@ -69,10 +69,31 @@
       "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); props=d.get\\('contributes',{}\\).get\\('configuration',{}\\).get\\('properties',{}\\); [print\\(k,':',v.get\\('description',''\\)\\) for k,v in props.items\\(\\) if 'notif' in k.lower\\(\\) or 'notif' in str\\(v.get\\('description',''\\)\\).lower\\(\\)]\")",
       "Bash(grep -oE '.{0,80}show_notification.{0,80}')",
       "Bash(grep -oE '.{0,200}onlyIfNotVisible.{0,200}')",
-      "Bash(grep -oE '.{0,100}isVisible.{0,100}')"
+      "Bash(grep -oE '.{0,100}isVisible.{0,100}')",
+      "Bash(git diff-tree:*)",
+      "Bash(git rm:*)",
+      "Bash(git commit:*)",
+      "mcp__plugin_playwright_playwright__browser_console_messages",
+      "mcp__plugin_playwright_playwright__browser_network_requests",
+      "Skill(gstack-browse)",
+      "Skill(gstack-browse:*)"
     ],
     "additionalDirectories": [
-      "/home/brent/.gstack/projects/epicserve-time-logs"
+      "/home/brent/.gstack/projects/epicserve-time-logs",
+      "/home/brent/Code/personal/time-logs/.git/rebase-merge"
+    ]
+  },
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.message' | xargs -I{} notify-send --app-name='Claude Code' 'Claude Code' '{}'"
+          }
+        ]
+      }
     ]
   },
   "enabledPlugins": {
@@ -88,18 +109,5 @@
       }
     }
   },
-  "skipDangerousModePermissionPrompt": true,
-  "hooks": {
-    "Notification": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "jq -r '.message' | xargs -I{} notify-send --app-name='Claude Code' 'Claude Code' '{}'"
-          }
-        ]
-      }
-    ]
-  }
+  "skipDangerousModePermissionPrompt": true
 }
