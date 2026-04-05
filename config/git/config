@@ -6,6 +6,9 @@
   status = auto
   branch = auto
 
+[merge]
+  ff = false
+
 [pull]
 	rebase = true
 
