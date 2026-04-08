@@ -76,7 +76,17 @@
       "mcp__plugin_playwright_playwright__browser_console_messages",
       "mcp__plugin_playwright_playwright__browser_network_requests",
       "Skill(gstack-browse)",
-      "Skill(gstack-browse:*)"
+      "Skill(gstack-browse:*)",
+      "Bash(xargs cat:*)",
+      "Bash(xargs ls:*)",
+      "Bash(file /home/brent/Code/personal/time-logs/collected_static/dist/js/*.js)",
+      "Bash(docker build:*)",
+      "Bash(docker run:*)",
+      "Read(//dev/**)",
+      "Bash(curl -s http://localhost:8000/api/projects/10172/?expanded=true -H \"Accept: application/json\" -H \"Cookie: $\\(cat /dev/null\\)\")",
+      "Bash(ls /home/brent/Code/personal/time-logs/src/js/*.js)",
+      "Bash(just clean_docker_containers)",
+      "Bash(ls -la /home/brent/Code/canopy/pears/apps/*/api/v1/__init__.py)"
     ],
     "additionalDirectories": [
       "/home/brent/.gstack/projects/epicserve-time-logs",
