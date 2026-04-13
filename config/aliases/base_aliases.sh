@@ -29,7 +29,31 @@ alias c9="awk '{print \$9}'"
 ## Git
 ##
 alias gb='git branch'
-alias gco='git checkout'
+unalias gco 2>/dev/null
+function gco() {
+  if [[ $# -eq 0 ]]; then
+    local result branch
+    result=$( (echo "Create new branch...";
+      { git branch --sort=-committerdate | sed 's/^[* ]*//' | sed 's/$/ (local)/';
+        git branch -r --sort=-committerdate | grep -v 'HEAD' | sed 's/^[[:space:]]*//' | sed 's|^origin/||' | sed 's/$/ (remote)/'; } |
+      awk '{ name = $0; sub(/ \((local|remote)\)$/, "", name) } !seen[name]++') |
+      fzf --height=50% --reverse \
+          --header="Select branch or create new" \
+          --preview="b=\$(echo {} | sed 's/ (local)\$//; s/ (remote)\$//'); [[ \$b != 'Create new branch...' ]] && git log --oneline --graph --color=always \$b 2>/dev/null || echo 'Will prompt for new branch name'")
+    if [[ "$result" == "Create new branch..." ]]; then
+      read -rp "New branch name: " branch_name
+      if [[ -n "$branch_name" ]]; then
+        git checkout -b "$branch_name"
+      fi
+    elif [[ -n "$result" ]]; then
+      branch="${result% (local)}"
+      branch="${branch% (remote)}"
+      git checkout "$branch"
+    fi
+  else
+    git checkout "$@"
+  fi
+}
 alias gd='git diff'
 alias gdl='git log --pretty=oneline --abbrev-commit --since="6am" | perl -wpe "s/^([^\s]+)/-/g" | tail -r'
 alias gf='git fetch'
