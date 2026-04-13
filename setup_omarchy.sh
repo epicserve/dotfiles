@@ -23,6 +23,7 @@ sourcegit-bin
 terraform-bin
 visual-studio-code-bin
 zen-browser-bin
+zsh
 EOF
 
 # uninstall packages we don't want
@@ -38,14 +39,7 @@ omarchy-webapp-install "Slack" "https://app.slack.com/client/T07NZL2HG/C07NZPX4H
 
 . scripts/base_setup.sh
 . scripts/base_linux_setup.sh
-
-# Link configs
-if [ -d ~/.config/git ]; then
-  rm -rf ~/.config/git
-fi
-
-ln -sf ~/.dotfiles/config/aliases ~/.config/
-. "$HOME/.dotfiles/scripts/setup_git.sh"
+. "$HOME/.dotfiles/scripts/setup_zsh.sh"
 
 # Customize the Zoom level for SourceGit
 if [ ! -f ~/.local/share/applications/sourcegit.desktop ]; then

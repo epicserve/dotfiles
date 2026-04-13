@@ -65,6 +65,8 @@ eval "$(zoxide init zsh)"
 # Load OS-specific overrides
 if [[ "$OSTYPE" == darwin* ]]; then
   . $HOME/.config/zsh/macos_overrides.sh
+elif [[ -d ~/.config/omarchy ]]; then
+  . $HOME/.config/zsh/omarchy_overrides.sh
 elif [[ "$OSTYPE" == linux* ]]; then
   . $HOME/.config/zsh/wsl_ubuntu_overrides.sh
 fi
