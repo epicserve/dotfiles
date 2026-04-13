@@ -11,7 +11,7 @@ if [ ! -d ~/.oh-my-zsh ]; then
   echo "Installing oh-my-zsh..."
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   mkdir -p ~/.oh-my-zsh/custom/completions
-  just --completions zsh > ~/.oh-my-zsh/custom/completions/just.zsh
+  just --completions zsh > ~/.oh-my-zsh/custom/completions/_just
 fi
 
 # Install powerlevel10k theme for Oh My Zsh
