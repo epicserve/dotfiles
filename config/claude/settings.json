@@ -34,13 +34,22 @@
       "WebFetch",
       "WebSearch",
       "mcp__plugin_playwright_playwright__*",
-      "Skill(gstack-browse:*)"
+      "Skill(gstack-browse:*)",
+      "Bash(zsh -c 'echo $FPATH')",
+      "Bash(zsh -ic 'whence -w _complete; whence -w compinit; bindkey | grep \"\\\\\\\\^I\"')",
+      "Bash(zsh -ic 'bindkey \"^I\"')",
+      "Bash(zsh -ic 'echo \"Tab binding:\"; bindkey \"^I\"; echo; echo \"Completion functions loaded:\"; whence -w _files _path_files _complete _main_complete; echo; echo \"compinit options:\"; setopt | grep -i comp')",
+      "Bash(fzf --version)",
+      "Bash(zsh -ic 'type _complete_debug 2>&1; echo \"---\"; echo \"ls /tmp/\" | zsh --no-rcs -c \"autoload -Uz compinit && compinit && compdef _files ls && _files\" 2>&1; echo \"---\"; zsh -ic \"zle -la\" 2>&1 | grep -i \"complete\" | head -10')",
+      "Read(//usr/share/fzf/**)"
     ],
     "additionalDirectories": [
       "/home/brent/.gstack/projects/epicserve-time-logs",
       "/home/brent/.claude/plans",
       "/home/brent/.cache/ms-playwright/mcp-chrome-f5d30e6",
-      "/tmp"
+      "/tmp",
+      "/home/brent/.oh-my-zsh/custom/completions",
+      "/home/brent/.cache"
     ]
   },
   "hooks": {
