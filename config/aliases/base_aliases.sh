@@ -34,20 +34,20 @@ function gco() {
   if [[ $# -eq 0 ]]; then
     local result branch
     result=$( (echo "Create new branch...";
-      { git branch --sort=-committerdate | sed 's/^[* ]*//' | sed 's/$/ (local)/';
-        git branch -r --sort=-committerdate | grep -v 'HEAD' | sed 's/^[[:space:]]*//' | sed 's|^origin/||' | sed 's/$/ (remote)/'; } |
-      awk '{ name = $0; sub(/ \((local|remote)\)$/, "", name) } !seen[name]++') |
+      { git branch --sort=-committerdate | sed 's/^[* ]*//' | sed $'s/$/\t(local)/';
+        git branch -r --sort=-committerdate | grep -v 'HEAD' | sed 's/^[[:space:]]*//' | sed 's|^origin/||' | sed $'s/$/\t(remote)/'; } |
+      awk -F'\t' '!seen[$1]++') |
       fzf --height=50% --reverse \
+          --delimiter='\t' \
           --header="Select branch or create new" \
-          --preview="b=\$(echo {} | sed 's/ (local)\$//; s/ (remote)\$//'); [[ \$b != 'Create new branch...' ]] && git log --oneline --graph --color=always \$b 2>/dev/null || echo 'Will prompt for new branch name'")
+          --preview="b={1}; [[ \$b != 'Create new branch...' ]] && git log --oneline --graph --color=always \$b 2>/dev/null || echo 'Will prompt for new branch name'")
     if [[ "$result" == "Create new branch..." ]]; then
       read -rp "New branch name: " branch_name
       if [[ -n "$branch_name" ]]; then
         git checkout -b "$branch_name"
       fi
     elif [[ -n "$result" ]]; then
-      branch="${result% (local)}"
-      branch="${branch% (remote)}"
+      branch=$(echo "$result" | cut -f1)
       git checkout "$branch"
     fi
   else
