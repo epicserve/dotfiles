@@ -60,7 +60,12 @@ export XDG_CONFIG_HOME=~/.config
 eval "$(zoxide init zsh)"
 
 # Set up fzf key bindings and fuzzy completion
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+if [ -f ~/.fzf.zsh ]; then
+  source ~/.fzf.zsh
+elif [ -d /usr/share/fzf ]; then
+  source /usr/share/fzf/key-bindings.zsh
+  source /usr/share/fzf/completion.zsh
+fi
 
 # Load OS-specific overrides
 if [[ "$OSTYPE" == darwin* ]]; then
