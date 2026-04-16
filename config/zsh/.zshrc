@@ -67,6 +67,15 @@ elif [ -d /usr/share/fzf ]; then
   source /usr/share/fzf/completion.zsh
 fi
 
+# Just fuzzy finder - search and run Just recipes
+jf() {
+  local recipe
+  recipe=$(just --list --list-heading '' --list-prefix '' --list-submodules 2>/dev/null \
+    | fzf --reverse --prompt="just> " \
+    | awk '{print $1}')
+  [ -n "$recipe" ] && just "$recipe"
+}
+
 # Load OS-specific overrides
 if [[ "$OSTYPE" == darwin* ]]; then
   . $HOME/.config/zsh/macos_overrides.sh
