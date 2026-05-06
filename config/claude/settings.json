@@ -41,7 +41,15 @@
       "Bash(zsh -ic 'echo \"Tab binding:\"; bindkey \"^I\"; echo; echo \"Completion functions loaded:\"; whence -w _files _path_files _complete _main_complete; echo; echo \"compinit options:\"; setopt | grep -i comp')",
       "Bash(fzf --version)",
       "Bash(zsh -ic 'type _complete_debug 2>&1; echo \"---\"; echo \"ls /tmp/\" | zsh --no-rcs -c \"autoload -Uz compinit && compinit && compdef _files ls && _files\" 2>&1; echo \"---\"; zsh -ic \"zle -la\" 2>&1 | grep -i \"complete\" | head -10')",
-      "Read(//usr/share/fzf/**)"
+      "Read(//usr/share/fzf/**)",
+      "Bash(npx playwright:*)",
+      "Bash(dpkg -l fzf)",
+      "Bash(brew list:*)",
+      "Bash(fzf --filter=\"format\" --height=50%)",
+      "Bash(apppack --help)",
+      "Bash(zip cis_alarm_enrich.py.zip cis_alarm_enrich.py)",
+      "Bash(acli --version)",
+      "Bash(acli jira *)"
     ],
     "additionalDirectories": [
       "/home/brent/.gstack/projects/epicserve-time-logs",
@@ -50,7 +58,8 @@
       "/tmp",
       "/home/brent/.oh-my-zsh/custom/completions",
       "/home/brent/.cache"
-    ]
+    ],
+    "defaultMode": "auto"
   },
   "hooks": {
     "Notification": [
@@ -78,5 +87,7 @@
       }
     }
   },
-  "skipDangerousModePermissionPrompt": true
+  "skipDangerousModePermissionPrompt": true,
+  "skipAutoPermissionPrompt": true,
+  "effortLevel": "medium"
 }
