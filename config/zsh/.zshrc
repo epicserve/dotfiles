@@ -84,3 +84,5 @@ elif [[ -d ~/.config/omarchy ]]; then
 elif [[ "$OSTYPE" == linux* ]]; then
   . $HOME/.config/zsh/wsl_ubuntu_overrides.sh
 fi
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
