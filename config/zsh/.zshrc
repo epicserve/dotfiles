@@ -56,6 +56,9 @@ export XDG_CONFIG_HOME=~/.config
 # UV installed tools
 . $HOME/.local/bin/env
 
+# Sentry CLI
+[ -d "$HOME/.sentry/bin" ] && export PATH="$HOME/.sentry/bin:$PATH"
+
 # Initialize Zoxide
 eval "$(zoxide init zsh)"
 

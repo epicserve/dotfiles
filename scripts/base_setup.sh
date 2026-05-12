@@ -35,3 +35,9 @@ if ! command -v fzf >/dev/null 2>&1; then
   git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
   ~/.fzf/install --completion --key-bindings --update-rc
 fi
+
+# Install Sentry CLI (installs to ~/.sentry/bin, added to PATH via .zshrc)
+if ! command -v sentry-cli >/dev/null 2>&1 && [ ! -x "$HOME/.sentry/bin/sentry-cli" ]; then
+  echo "Installing sentry-cli..."
+  curl -fsS https://cli.sentry.dev/install | bash
+fi
