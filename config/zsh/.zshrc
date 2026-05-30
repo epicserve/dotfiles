@@ -59,6 +59,12 @@ export XDG_CONFIG_HOME=~/.config
 # Sentry CLI
 [ -d "$HOME/.sentry/bin" ] && export PATH="$HOME/.sentry/bin:$PATH"
 
+# Grok CLI
+if [ -d "$HOME/.grok/bin" ]; then
+  export PATH="$HOME/.grok/bin:$PATH"
+  [ -d "$HOME/.grok/completions/zsh" ] && fpath=(~/.grok/completions/zsh $fpath)
+fi
+
 # Initialize Zoxide
 eval "$(zoxide init zsh)"
 
