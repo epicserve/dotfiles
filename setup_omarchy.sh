@@ -18,6 +18,9 @@ cursor-bin
 guvcview
 jetbrains-toolbox
 obs-advanced-masks
+obs-backgroundremoval
+obs-studio
+onnxruntime-cpu
 solaar
 sourcegit-bin
 terraform-bin
@@ -111,6 +114,9 @@ fi
 
 # Setup VS Code config (fixes keyring detection on Hyprland)
 ln -sf ~/.dotfiles/config/vscode/code-flags.conf ~/.config/code-flags.conf
+
+# Restore OBS scene collections + profiles (layout, filters, settings)
+. "$HOME/.dotfiles/scripts/setup_obs.sh"
 
 # Install tailscale
 if ! command -v tailscale >/dev/null 2>&1; then
