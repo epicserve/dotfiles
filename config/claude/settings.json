@@ -49,8 +49,16 @@
       "Bash(apppack --help)",
       "Bash(zip cis_alarm_enrich.py.zip cis_alarm_enrich.py)",
       "Bash(acli --version)",
-      "Bash(acli jira *)"
+      "Bash(acli jira *)",
+      "Bash(bunx --version)",
+      "Bash(uvx --from ruff ruff format apps/notifications/categories.py)",
+      "Bash(PYTHON_CMD_PREFIX=\"uvx --from ruff\" just lint_py)",
+      "Bash(uv tool *)",
+      "Bash(uv lock *)",
+      "Bash(uv run *)",
+      "Bash(wait)"
     ],
+    "defaultMode": "auto",
     "additionalDirectories": [
       "/home/brent/.gstack/projects/epicserve-time-logs",
       "/home/brent/.claude/plans",
@@ -58,8 +66,7 @@
       "/tmp",
       "/home/brent/.oh-my-zsh/custom/completions",
       "/home/brent/.cache"
-    ],
-    "defaultMode": "auto"
+    ]
   },
   "hooks": {
     "Notification": [
@@ -87,7 +94,7 @@
       }
     }
   },
+  "effortLevel": "xhigh",
   "skipDangerousModePermissionPrompt": true,
-  "skipAutoPermissionPrompt": true,
-  "effortLevel": "medium"
+  "skipAutoPermissionPrompt": true
 }
