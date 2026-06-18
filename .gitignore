@@ -5,3 +5,4 @@ config/git/config_work
 auto_setup_git.exp
 config/zsh/.zsh_sessions/
 config/claude/projects/
+config/zsh/.zshenv
