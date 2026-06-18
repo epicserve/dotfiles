@@ -68,6 +68,9 @@ if ! command -v wt >/dev/null 2>&1; then
   wt config shell install
 fi
 
+# Install/update Stripe CLI from Stripe's official release (not the AUR -- see script header)
+. "$HOME/.dotfiles/scripts/setup_stripe_cli.sh"
+
 # Fix JetBrains Toolbox scaling (prevent double scaling on Wayland)
 if [ -f /opt/jetbrains-toolbox/jetbrains-toolbox ]; then
   cat > ~/.local/share/applications/jetbrains-toolbox.desktop << 'EOF'
