@@ -45,16 +45,12 @@ omarchy-webapp-install "Slack" "https://app.slack.com/client/T07NZL2HG/C07NZPX4H
 . "$HOME/.dotfiles/scripts/setup_zsh.sh"
 
 # Scale SourceGit (Avalonia) on HiDPI displays. Avalonia has no GDK_SCALE equivalent,
-# so on a scaled monitor it renders tiny. Set AVALONIA_GLOBAL_SCALE_FACTOR globally in
-# Hyprland's env config (the Avalonia analog of monitors.conf's GDK_SCALE) so the whole
-# app -- including right-click context menus -- scales on every launch method and
-# survives SourceGit upgrades. This beats the app's internal Zoom, which can't scale
-# popups (separate top-level windows that bypass the in-app zoom transform).
-HYPR_ENVS=~/.config/hypr/envs.conf
-SOURCEGIT_SCALE_ENV='env = AVALONIA_GLOBAL_SCALE_FACTOR,1.5'
-if [ -f "$HYPR_ENVS" ] && ! grep -qFx "$SOURCEGIT_SCALE_ENV" "$HYPR_ENVS"; then
-  printf '\n# Scale SourceGit (Avalonia) to match the HiDPI monitor scale\n%s\n' "$SOURCEGIT_SCALE_ENV" >>"$HYPR_ENVS"
-fi
+# so on a scaled monitor it renders tiny. AVALONIA_GLOBAL_SCALE_FACTOR (the Avalonia
+# analog of monitors.conf's GDK_SCALE) scales the whole app -- including right-click
+# context menus -- on every launch method and survives SourceGit upgrades. The env var
+# lives in config/hypr/_envs.conf, sourced via omarchy_hyprland_overrides.conf, so it is
+# version-controlled and always loaded by Hyprland. (~/.config/hypr/envs.conf is NOT
+# sourced by Omarchy's Hyprland config, so setting it there has no effect.)
 # Force SourceGit's internal Zoom to 1 so it doesn't stack on top of the env scale.
 SOURCEGIT_PREF=~/.sourcegit/preference.json
 if [ -f "$SOURCEGIT_PREF" ] && ! pgrep -x sourcegit >/dev/null 2>&1; then
