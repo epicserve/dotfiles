@@ -12,7 +12,7 @@ eval "$(brew shellenv)"
 fpath=($HOMEBREW_PREFIX/share/zsh/site-functions $fpath)
 
 # Set default editor
-export EDITOR='pycharm'
+export EDITOR='code -w'
 
 # Pycharm
 export PATH="$PATH:/Applications/PyCharm.app/Contents/MacOS"
