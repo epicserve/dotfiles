@@ -1,5 +1,6 @@
 [core]
   autocrlf = input
+	editor = code --wait
 
 [color]
   diff = auto
