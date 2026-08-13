@@ -34,8 +34,8 @@ for pkg in alacritty; do
     yay -Qi "$pkg" &> /dev/null && yay --noconfirm -Rns "$pkg"
 done
 
-# remove web apps
-omarchy-webapp-remove Basecamp Fizzy Discord GitHub HEY WhatsApp X YouTube Figma > /dev/null
+# remove web apps (ChatGPT is installed as a native app below)
+omarchy-webapp-remove Basecamp Fizzy Discord GitHub HEY WhatsApp X YouTube Figma ChatGPT > /dev/null
 
 # install web apps
 omarchy-webapp-install "Slack" "https://app.slack.com/client/T07NZL2HG/C07NZPX4H" "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/slack.png"
@@ -43,6 +43,9 @@ omarchy-webapp-install "Slack" "https://app.slack.com/client/T07NZL2HG/C07NZPX4H
 . scripts/base_setup.sh
 . scripts/base_linux_setup.sh
 . "$HOME/.dotfiles/scripts/setup_zsh.sh"
+
+# Install/update OpenAI's official ChatGPT Linux app as a native Arch package
+"$HOME/.dotfiles/scripts/setup_chatgpt.sh"
 
 # Scale SourceGit (Avalonia) on HiDPI displays. Avalonia has no GDK_SCALE equivalent,
 # so on a scaled monitor it renders tiny. AVALONIA_GLOBAL_SCALE_FACTOR (the Avalonia

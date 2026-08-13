@@ -11,6 +11,21 @@
    ./setup_omarchy.sh
    ```
 
+### ChatGPT Desktop App
+
+The Omarchy setup installs OpenAI's official Linux app as a native Arch package. Because OpenAI does not publish an
+Arch repository, `scripts/setup_chatgpt.sh` verifies OpenAI's signed RPM repository metadata and repackages the current
+RPM for `pacman`.
+
+Run the updater directly at any time:
+
+```
+./scripts/setup_chatgpt.sh
+```
+
+Repeat runs are idempotent and do not download or rebuild the app when the installed version is current. To check
+without installing, run `./scripts/setup_chatgpt.sh --check`. Quit ChatGPT before installing an available update.
+
 ## Manual Changes after Setup
 
 ### Hyperland Config Changes
