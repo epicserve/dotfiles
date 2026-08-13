@@ -59,7 +59,7 @@ alias gdl='git log --pretty=oneline --abbrev-commit --since="6am" | perl -wpe "s
 alias gf='git fetch'
 alias gl='git pull'
 alias glr='gl -r'
-alias glr='gl -r -p'
+alias glrp='gl -r -p'
 alias gp='git push'
 alias grb='git rebase --rebase-merges=rebase-cousins'
 alias gst='git status'
