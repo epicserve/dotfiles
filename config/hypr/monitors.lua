@@ -9,12 +9,13 @@ hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1.6 })
 -- AVALONIA_GLOBAL_SCALE_FACTOR scales the whole app, context menus included.
 hl.env("AVALONIA_GLOBAL_SCALE_FACTOR", "1.5")
 
--- Bind workspaces to specific monitors (dual-monitor desktop setup):
--- 1-5 on the left monitor, 6-10 on the right. Pinning to an absent monitor
--- is inert, so no monitor-count guard is needed.
-for ws = 1, 5 do
-  hl.workspace_rule({ workspace = tostring(ws), monitor = "DP-1", persistent = true })
-end
-for ws = 6, 10 do
-  hl.workspace_rule({ workspace = tostring(ws), monitor = "DP-2", persistent = true })
-end
+-- Workspaces: using Hyprland's stock dynamic model -- one global pool of
+-- numbers, each workspace created on the focused monitor, whole workspaces
+-- thrown between monitors with SUPER+SHIFT+ALT+arrows.
+-- To restore the static grid (1-5 pinned to DP-1, 6-10 to DP-2), uncomment:
+-- for ws = 1, 5 do
+--   hl.workspace_rule({ workspace = tostring(ws), monitor = "DP-1", persistent = true })
+-- end
+-- for ws = 6, 10 do
+--   hl.workspace_rule({ workspace = tostring(ws), monitor = "DP-2", persistent = true })
+-- end
