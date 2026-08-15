@@ -1,7 +1,4 @@
-# Dynamic theme colors. Omarchy <= 3.x generates the theme file under
-# ~/.config/omarchy/current; Quattro (4.x) moved it to ~/.local/state/omarchy/current.
-# Both are optional (?) so whichever exists wins; drop the legacy line once 4.x is settled.
-config-file = ?"~/.config/omarchy/current/theme/ghostty.conf"
+# Dynamic theme colors (generated from the theme's colors.toml by Omarchy)
 config-file = ?"~/.local/state/omarchy/current/theme/ghostty.conf"
 
 # Font

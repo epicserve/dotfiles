@@ -89,7 +89,8 @@ WARNING output, then reboot.
 
 After the reboot:
 
-1. `yay -S --needed claude-code`
+1. Reinstall Claude Code only if it was installed as the pacman package
+   (`yay -S --needed claude-code`) — installs via mise are unaffected.
 2. `cd ~/.dotfiles && git status` — the upgrade rewrites `config/ghostty/config` through the
    symlink; keep a single `config-file` line pointing at `~/.local/state/omarchy/current/...`.
 3. `./setup_omarchy.sh`
