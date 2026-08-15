@@ -1,0 +1,36 @@
+mode = "dark"
+
+accent = "#7fdbf6"
+selection = "#272c3e"
+muted = "#647096"
+
+background = "#06080e"
+dark_background = "#04060a"
+darker_background = "#020408"
+lighter_background = "#11141e"
+
+foreground = "#ffffff"
+dark_foreground = "#647096"
+light_foreground = "#e7ebeb"
+bright_foreground = "#ffffff"
+
+red = "#de4a4a"
+yellow = "#f4b752"
+orange = "#f09393"
+green = "#41e0f6"
+cyan = "#7fdbf6"
+blue = "#8e9fc7"
+magenta = "#bbb9bb"
+brown = "#7a5c3d"
+
+bright_red = "#f09393"
+bright_yellow = "#fedca4"
+bright_green = "#94f2ff"
+bright_cyan = "#d3f4fe"
+bright_blue = "#cad3e7"
+bright_magenta = "#e8e8e8"
+
+# Keep the 3.x slate window border instead of the accent fallback (consumed by
+# /usr/share/omarchy/default/themed/hyprland.lua.tpl via
+# {{ hypr_gradient hyprland_active_border accent }}).
+hyprland_active_border = "#525b6e"

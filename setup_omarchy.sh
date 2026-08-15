@@ -2,6 +2,13 @@
 
 . scripts/clone_dotfiles.sh
 
+# This setup targets Omarchy Quattro (v4+), which configures Hyprland in Lua.
+if [ ! -f "$HOME/.config/hypr/hyprland.lua" ]; then
+  echo "ERROR: Omarchy Quattro (v4) is not applied -- ~/.config/hypr/hyprland.lua is missing."
+  echo "Run the upgrade first (Omarchy menu > Update > Omarchy To Quattro), reboot, then re-run this script."
+  exit 1
+fi
+
 # install paru (AUR helper)
 if ! command -v paru >/dev/null 2>&1; then
   sudo pacman -S --noconfirm --needed base-devel git
@@ -49,11 +56,10 @@ omarchy-webapp-install "Slack" "https://app.slack.com/client/T07NZL2HG/C07NZPX4H
 
 # Scale SourceGit (Avalonia) on HiDPI displays. Avalonia has no GDK_SCALE equivalent,
 # so on a scaled monitor it renders tiny. AVALONIA_GLOBAL_SCALE_FACTOR (the Avalonia
-# analog of monitors.conf's GDK_SCALE) scales the whole app -- including right-click
-# context menus -- on every launch method and survives SourceGit upgrades. The env var
-# lives in config/hypr/_envs.conf, sourced via omarchy_hyprland_overrides.conf, so it is
-# version-controlled and always loaded by Hyprland. (~/.config/hypr/envs.conf is NOT
-# sourced by Omarchy's Hyprland config, so setting it there has no effect.)
+# analog of GDK_SCALE) scales the whole app -- including right-click context menus --
+# on every launch method and survives SourceGit upgrades. The env var lives in
+# config/hypr/monitors.lua (symlinked to ~/.config/hypr/monitors.lua below), so it is
+# version-controlled and always loaded by Hyprland.
 # Force SourceGit's internal Zoom to 1 so it doesn't stack on top of the env scale.
 SOURCEGIT_PREF=~/.sourcegit/preference.json
 if [ -f "$SOURCEGIT_PREF" ] && ! pgrep -x sourcegit >/dev/null 2>&1; then
@@ -101,12 +107,25 @@ if ! grep -qFx "$OMARCHY_BASH_ADDITIONS" "$BASHRC_FILE"; then
   echo "$OMARCHY_BASH_ADDITIONS" >> "$BASHRC_FILE"
 fi
 
-HYPR_MAIN_CONFIG="$HOME/.config/hypr/hyprland.conf"
-HYPR_OMARCHY_OVERRIDES='source = ~/.dotfiles/config/hypr/omarchy_hyprland_overrides.conf'
-if ! grep -qFx "$HYPR_OMARCHY_OVERRIDES" "$HYPR_MAIN_CONFIG"; then
-  echo -e "\n# Omarchy Hyprland Overrides" >> "$HYPR_MAIN_CONFIG"
-  echo "$HYPR_OMARCHY_OVERRIDES" >> "$HYPR_MAIN_CONFIG"
+# Replace Omarchy-seeded Hyprland user override files with repo symlinks.
+# ~/.config/hypr/hyprland.lua stays Omarchy-owned; it already requires
+# hypr.{monitors,input,bindings,looknfeel,autostart}.
+# WARNING: `omarchy refresh hyprland` / `omarchy refresh shell` copy defaults
+# THROUGH these symlinks (cp -f) and will dirty ~/.dotfiles. Recover with:
+#   git -C ~/.dotfiles checkout -- config/hypr config/omarchy/shell.json && ./setup_omarchy.sh
+for f in bindings input looknfeel monitors autostart; do
+  dst="$HOME/.config/hypr/$f.lua"
+  if [ -f "$dst" ] && [ ! -L "$dst" ]; then
+    mv "$dst" "$dst.pre-dotfiles.bak"
+  fi
+  ln -sf "$HOME/.dotfiles/config/hypr/$f.lua" "$dst"
+done
+
+# Omarchy shell (bar layout + idle/lock timings)
+if [ -f "$HOME/.config/omarchy/shell.json" ] && [ ! -L "$HOME/.config/omarchy/shell.json" ]; then
+  mv "$HOME/.config/omarchy/shell.json" "$HOME/.config/omarchy/shell.json.pre-dotfiles.bak"
 fi
+ln -sf "$HOME/.dotfiles/config/omarchy/shell.json" "$HOME/.config/omarchy/shell.json"
 
 # Install udev rules (e.g. disable Logitech Bolt wake-from-suspend)
 sudo cp ~/.dotfiles/config/udev/*.rules /etc/udev/rules.d/
@@ -138,33 +157,11 @@ if ! command -v tailscale >/dev/null 2>&1; then
     sudo tailscale set --accept-routes=true
 fi
 
-# Install theme
-if [ ! -L ~/.config/omarchy/themes/digital-nature ]; then
-  ln -s ~/.dotfiles/config/omarchy/themes/digital-nature ~/.config/omarchy/themes/
+# Install theme (the Quattro upgrade replaces the symlink with a real copy; re-link)
+if [ -d ~/.config/omarchy/themes/digital-nature ] && [ ! -L ~/.config/omarchy/themes/digital-nature ]; then
+  rm -rf ~/.config/omarchy/themes/digital-nature
 fi
-
-# Customize hyprlock input-field (sed replaces in main config since hyprlock doesn't merge blocks)
-HYPRLOCK_CONFIG="$HOME/.config/hypr/hyprlock.conf"
-sed -i 's/size = [0-9]*, [0-9]*/size = 400, 60/' "$HYPRLOCK_CONFIG"
-sed -i 's/rounding = [0-9]*/rounding = 8/' "$HYPRLOCK_CONFIG"
-
-# Apply multi-monitor workspace config only if multiple monitors detected
-MONITOR_COUNT=$(hyprctl monitors -j 2>/dev/null | grep -c '"name"' || echo "1")
-if [ "$MONITOR_COUNT" -gt 1 ]; then
-  echo "Multiple monitors detected ($MONITOR_COUNT), applying multi-monitor workspace config..."
-
-  # Add workspace source to main override file
-  HYPR_OMARCHY_CONFIG="$HOME/.dotfiles/config/hypr/omarchy_hyprland_overrides.conf"
-  HYPR_WORKSPACE_SOURCE='source = ~/.dotfiles/config/hypr/_workspaces_multimonitor.conf'
-  if ! grep -qFx "$HYPR_WORKSPACE_SOURCE" "$HYPR_OMARCHY_CONFIG"; then
-    echo -e "\n# Multi-monitor Workspace Bindings" >> "$HYPR_OMARCHY_CONFIG"
-    echo "$HYPR_WORKSPACE_SOURCE" >> "$HYPR_OMARCHY_CONFIG"
-  fi
-
-  # Copy multi-monitor waybar config
-  cp ~/.dotfiles/config/waybar/config_multimonitor.jsonc ~/.config/waybar/config.jsonc
-  omarchy-restart-waybar
-fi
+ln -snf ~/.dotfiles/config/omarchy/themes/digital-nature ~/.config/omarchy/themes/digital-nature
 
 # Link Pipewire config
 if [ -d ~/.config/pipewire ] && [ ! -L ~/.config/pipewire ]; then
@@ -203,3 +200,8 @@ if ! sudo iptables -C INPUT -s 172.16.0.0/12 -j ACCEPT 2>/dev/null; then
   sudo systemctl enable iptables.service
   sudo systemctl start iptables.service
 fi
+
+# Apply desktop config (theme colors, quickshell bar, Hyprland Lua overrides)
+omarchy-theme-set digital-nature || true
+omarchy-restart-shell || true
+hyprctl reload || true
