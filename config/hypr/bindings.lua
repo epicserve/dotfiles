@@ -97,6 +97,10 @@ o.bind("SUPER + SHIFT + RIGHT", "Select text to the end of the line", send_short
 hl.unbind("SUPER + SHIFT + G")
 o.bind("SUPER + SHIFT + G", "Open Signal", { launch = 'signal-desktop --password-store="gnome-libsecret"' })
 
--- System Power (v4 puts a calculator on SUPER+CTRL+Q; it stays on XF86Calculator)
+-- System Power (v4 puts a calculator on SUPER+CTRL+Q; it stays on XF86Calculator).
+-- Fire on key *release*, then wait so Super/Ctrl key-ups land before userspace
+-- freezes. A press-bind of `systemctl suspend` leaves those modifiers held;
+-- after resume the lock screen never gets real character input
+-- (https://forum.hypr.land/t/suspend-keybind-issue/1038, hyprwm/hyprlock#700).
 hl.unbind("SUPER + CTRL + Q")
-o.bind("SUPER + CTRL + Q", "Suspend desktop", "systemctl suspend")
+o.bind("SUPER + CTRL + Q", "Suspend desktop", "sleep 1 && systemctl suspend", { release = true })
