@@ -1,0 +1,17 @@
+%YAML 1.3
+---
+- Key: [Dictation, pressed]
+- Execute: [/usr/bin/voxtype, record, start]
+...
+---
+- Key: [Dictation, released]
+- Execute: [/usr/bin/voxtype, record, stop]
+...
+---
+- Key: [Mute Microphone, pressed]
+- Execute: [/usr/bin/voxtype, record, start]
+...
+---
+- Key: [Mute Microphone, released]
+- Execute: [/usr/bin/voxtype, record, stop]
+...

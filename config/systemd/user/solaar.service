@@ -1,0 +1,15 @@
+[Unit]
+Description=Solaar Logitech device manager
+Documentation=https://pwr-solaar.github.io/Solaar
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/solaar --window=hide --restart-on-wake-up
+Restart=on-failure
+RestartSec=3
+Environment=XDG_RUNTIME_DIR=%t
+
+[Install]
+WantedBy=graphical-session.target

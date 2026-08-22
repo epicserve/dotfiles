@@ -144,6 +144,15 @@ if [ -d ~/.config/ghostty ] && [ ! -L ~/.config/ghostty ]; then
   ln -s ~/.dotfiles/config/ghostty ~/.config/ghostty
 fi
 
+# Solaar rules + user service (MX Mechanical Mini Dictation / F9-without-Fn -> Voxtype)
+if command -v solaar >/dev/null 2>&1; then
+  mkdir -p "$HOME/.config/solaar" "$HOME/.config/systemd/user"
+  ln -sf "$HOME/.dotfiles/config/solaar/rules.yaml" "$HOME/.config/solaar/rules.yaml"
+  ln -sf "$HOME/.dotfiles/config/systemd/user/solaar.service" "$HOME/.config/systemd/user/solaar.service"
+  systemctl --user daemon-reload
+  systemctl --user enable --now solaar.service
+fi
+
 # Setup VS Code config (fixes keyring detection on Hyprland)
 ln -sf ~/.dotfiles/config/vscode/code-flags.conf ~/.config/code-flags.conf
 
