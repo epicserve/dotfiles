@@ -178,6 +178,16 @@ if [ -d ~/.config/pipewire ] && [ ! -L ~/.config/pipewire ]; then
   ln -s ~/.dotfiles/config/pipewire ~/.config/pipewire
 fi
 
+# WirePlumber drop-ins (Shimmer headphone icon, etc.). The conf.d directory
+# may have been created as root during early Bluetooth setup; take ownership
+# so the user can manage it, then symlink files without replacing other drop-ins.
+if [ -d ~/.config/wireplumber ] && [ "$(stat -c %U ~/.config/wireplumber 2>/dev/null)" = "root" ]; then
+  sudo chown -R "$USER:$USER" ~/.config/wireplumber
+fi
+mkdir -p ~/.config/wireplumber/wireplumber.conf.d
+ln -snf ~/.dotfiles/config/wireplumber/wireplumber.conf.d/51-shimmer-headphones.conf \
+  ~/.config/wireplumber/wireplumber.conf.d/51-shimmer-headphones.conf
+
 # Configure PyCharm for Wayland (add WLToolkit to any existing PyCharm configs)
 for pycharm_dir in ~/.config/JetBrains/PyCharm*; do
   if [ -d "$pycharm_dir" ]; then
