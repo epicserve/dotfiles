@@ -53,6 +53,14 @@ Do not duplicate those steps here.
 
 ## Patterns
 
+**Idempotent setup.** Every setup script, and every block within one, must be
+safe to re-run on an already-configured machine. Guard installs with a state
+check (`command -v`, `pacman -Q`) rather than relying on `--needed` alone, so
+re-runs skip the network entirely. Check before changing state (`grep -qFx`
+before appending, `getcap` before `setcap`, `[ -L ]` before replacing a file
+with a symlink) and use `ln -snf` so symlinks converge. A re-run should make
+no changes and trigger no avoidable sudo prompts.
+
 **Symlink, don't copy.** Point `~/.config/<app>` at `~/.dotfiles/config/<app>`.
 
 **Append only if missing.** Use `grep -qFx` before adding a line to an existing
