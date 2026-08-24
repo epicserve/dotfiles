@@ -1,0 +1,5 @@
+# Espanso text expansions. Espanso hot-reloads this file on save.
+# Docs: https://espanso.org/docs/matches/basics/
+matches:
+  - trigger: "~1"
+    replace: "one-on-one"

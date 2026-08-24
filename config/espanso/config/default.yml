@@ -1,0 +1,12 @@
+# Espanso global config (Wayland build).
+# Docs: https://espanso.org/docs/configuration/basics/
+
+# Wayland can't report the active layout to espanso, so declare it.
+keyboard_layout:
+  layout: "us"
+
+# Espanso's search bar defaults to ALT+SPACE, but the Wayland/evdev backend
+# also fires it on SUPER+SPACE, colliding with Omarchy's launcher. Disable the
+# keybind (run `espanso search` from a terminal if the search UI is ever needed).
+search_shortcut: "off"
+search_trigger: "off"

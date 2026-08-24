@@ -144,6 +144,23 @@ if [ -d ~/.config/ghostty ] && [ ! -L ~/.config/ghostty ]; then
   ln -s ~/.dotfiles/config/ghostty ~/.config/ghostty
 fi
 
+# Espanso text expander (Wayland build; expansions live in config/espanso).
+if ! command -v espanso >/dev/null 2>&1; then
+  yay -S --noconfirm --needed espanso-wayland
+fi
+if [ -d ~/.config/espanso ] && [ ! -L ~/.config/espanso ]; then
+  mv ~/.config/espanso ~/.config/espanso.pre-dotfiles.bak
+fi
+ln -snf ~/.dotfiles/config/espanso ~/.config/espanso
+# The Wayland binary reads /dev/input directly and needs cap_dac_override.
+# pacman strips the capability when the package upgrades; re-running this
+# script restores it.
+if ! getcap "$(command -v espanso)" | grep -q cap_dac_override; then
+  sudo setcap "cap_dac_override+p" "$(command -v espanso)"
+fi
+[ -f "$HOME/.config/systemd/user/espanso.service" ] || espanso service register
+pgrep -x espanso >/dev/null 2>&1 || espanso start >/dev/null 2>&1 || true
+
 # Solaar rules + user service (MX Mechanical Mini Dictation / F9-without-Fn -> Voxtype)
 if command -v solaar >/dev/null 2>&1; then
   mkdir -p "$HOME/.config/solaar" "$HOME/.config/systemd/user"
