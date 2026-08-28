@@ -41,8 +41,25 @@ for pkg in alacritty; do
     yay -Qi "$pkg" &> /dev/null && yay --noconfirm -Rns "$pkg"
 done
 
-# remove web apps (ChatGPT is installed as a native app below)
-omarchy-webapp-remove Basecamp Fizzy Discord GitHub HEY WhatsApp X YouTube Figma ChatGPT > /dev/null
+# remove web apps (ChatGPT is installed as a native app below).
+# omarchy-webapp-remove treats all arguments as one name, so call it once per app.
+for app in \
+  Basecamp \
+  "Google Contacts" \
+  "Google Photos" \
+  "Google Maps" \
+  HEY \
+  Discord \
+  WhatsApp \
+  YouTube \
+  Fizzy \
+  GitHub \
+  X \
+  Figma \
+  ChatGPT
+do
+  OMARCHY_REMOVE_NOTIFY=false omarchy-webapp-remove "$app" >/dev/null 2>&1 || true
+done
 
 # install web apps
 omarchy-webapp-install "Slack" "https://app.slack.com/client/T07NZL2HG/C07NZPX4H" "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/slack.png"
