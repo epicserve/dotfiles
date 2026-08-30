@@ -25,7 +25,9 @@
           "id": "omarchy.clock",
           "format": "dddd h:mm AP",
           "formatAlt": "d MMMM 'W'ww yyyy",
-          "verticalFormat": "HH\n—\nmm"
+          "verticalFormat": "HH\n—\nmm",
+          "birthYear": 0,
+          "lifeExpectancy": 80
         },
         {
           "id": "omarchy.keyboard-layout"
@@ -40,6 +42,9 @@
       "right": [
         {
           "id": "omarchy.tray"
+        },
+        {
+          "id": "omarchy.tailscale"
         },
         {
           "id": "omarchy.agents"
