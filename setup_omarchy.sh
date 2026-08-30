@@ -141,6 +141,20 @@ ln -sf "$HOME/.dotfiles/config/omarchy/shell.json" "$HOME/.config/omarchy/shell.
 sudo cp ~/.dotfiles/config/udev/*.rules /etc/udev/rules.d/
 sudo udevadm control --reload-rules
 
+# NVIDIA sleep helpers. With NVreg_PreserveVideoMemoryAllocations=1 (set by
+# gpu-screen-recorder / nvidia-utils), the driver refuses kernel suspend and
+# hibernate unless these units write to /proc/driver/nvidia/suspend first.
+# Otherwise hibernate powers off, resume fails with pci_pm_freeze -5 (EIO),
+# and the session is lost. Skip sudo when already enabled; skip entirely
+# when there is no NVIDIA GPU or the unit files are not installed.
+if command -v omarchy-hw-nvidia >/dev/null 2>&1 && omarchy-hw-nvidia; then
+  for unit in nvidia-suspend.service nvidia-hibernate.service nvidia-resume.service; do
+    if [ -f "/usr/lib/systemd/system/$unit" ] && ! systemctl is-enabled --quiet "$unit"; then
+      sudo systemctl enable "$unit"
+    fi
+  done
+fi
+
 # Setup 1Password to use Zen Browser
 sudo mkdir -p /etc/1password
 sudo touch /etc/1password/custom_allowed_browsers
