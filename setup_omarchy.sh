@@ -137,18 +137,28 @@ if [ -f "$HOME/.config/omarchy/shell.json" ] && [ ! -L "$HOME/.config/omarchy/sh
 fi
 ln -sf "$HOME/.dotfiles/config/omarchy/shell.json" "$HOME/.config/omarchy/shell.json"
 
+# Menu overlay (hides Hibernate; Super+Esc otherwise follows Omarchy defaults).
+mkdir -p "$HOME/.config/omarchy/extensions"
+menu_ext="$HOME/.config/omarchy/extensions/omarchy-menu.jsonc"
+if [ -f "$menu_ext" ] && [ ! -L "$menu_ext" ]; then
+  mv "$menu_ext" "$menu_ext.pre-dotfiles.bak"
+fi
+ln -snf "$HOME/.dotfiles/config/omarchy/extensions/omarchy-menu.jsonc" "$menu_ext"
+# Keep Suspend on the system menu (the flag file hides it when present).
+if command -v omarchy-toggle >/dev/null 2>&1; then
+  omarchy-toggle suspend-off off
+fi
+
 # Install udev rules (e.g. disable Logitech Bolt wake-from-suspend)
 sudo cp ~/.dotfiles/config/udev/*.rules /etc/udev/rules.d/
 sudo udevadm control --reload-rules
 
-# NVIDIA sleep helpers. With NVreg_PreserveVideoMemoryAllocations=1 (set by
-# gpu-screen-recorder / nvidia-utils), the driver refuses kernel suspend and
-# hibernate unless these units write to /proc/driver/nvidia/suspend first.
-# Otherwise hibernate powers off, resume fails with pci_pm_freeze -5 (EIO),
-# and the session is lost. Skip sudo when already enabled; skip entirely
-# when there is no NVIDIA GPU or the unit files are not installed.
+# NVIDIA suspend/resume helpers (not hibernate: resume fails with
+# pci_pm_freeze -5 on this desktop, and Hibernate is hidden from Super+Esc).
+# Skip sudo when already enabled; skip entirely when there is no NVIDIA GPU
+# or the unit files are not installed.
 if command -v omarchy-hw-nvidia >/dev/null 2>&1 && omarchy-hw-nvidia; then
-  for unit in nvidia-suspend.service nvidia-hibernate.service nvidia-resume.service; do
+  for unit in nvidia-suspend.service nvidia-resume.service; do
     if [ -f "/usr/lib/systemd/system/$unit" ] && ! systemctl is-enabled --quiet "$unit"; then
       sudo systemctl enable "$unit"
     fi
