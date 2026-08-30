@@ -30,7 +30,6 @@ obs-studio
 onnxruntime-cpu
 solaar
 sourcegit-bin
-terraform-bin
 visual-studio-code-bin
 zen-browser-bin
 zsh
@@ -84,13 +83,7 @@ if [ -f "$SOURCEGIT_PREF" ] && ! pgrep -x sourcegit >/dev/null 2>&1; then
   jq '.Zoom = 1' "$SOURCEGIT_PREF" >"$tmp" && mv "$tmp" "$SOURCEGIT_PREF"
 fi
 
-# Install WorkTrunk
-if ! command -v wt >/dev/null 2>&1; then
-  paru -S --noconfirm worktrunk-bin
-  wt config shell install
-fi
-
-# Install/update Stripe CLI from Stripe's official release (not the AUR -- see script header)
+# Purge AUR stripe-cli if present; the binary comes from mise
 . "$HOME/.dotfiles/scripts/setup_stripe_cli.sh"
 
 # Fix JetBrains Toolbox scaling (prevent double scaling on Wayland)

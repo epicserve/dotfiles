@@ -53,11 +53,15 @@ export XDG_CONFIG_HOME=~/.config
 # Import Base Aliases
 . $HOME/.config/aliases/base_aliases.sh
 
-# UV installed tools
-. $HOME/.local/bin/env
+# UV installer PATH (present only if uv was installed by its own installer)
+[ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
 
-# Sentry CLI
-[ -d "$HOME/.sentry/bin" ] && export PATH="$HOME/.sentry/bin:$PATH"
+# Activate mise so global tools (uv, fzf, zoxide, ...) are on PATH
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate zsh)"
+elif [ -x "$HOME/.local/bin/mise" ]; then
+  eval "$("$HOME/.local/bin/mise" activate zsh)"
+fi
 
 # Grok CLI
 if [ -d "$HOME/.grok/bin" ]; then
@@ -69,8 +73,8 @@ fi
 eval "$(zoxide init zsh)"
 
 # Set up fzf key bindings and fuzzy completion
-if [ -f ~/.fzf.zsh ]; then
-  source ~/.fzf.zsh
+if command -v fzf >/dev/null 2>&1; then
+  eval "$(fzf --zsh)"
 elif [ -d /usr/share/fzf ]; then
   source /usr/share/fzf/key-bindings.zsh
   source /usr/share/fzf/completion.zsh

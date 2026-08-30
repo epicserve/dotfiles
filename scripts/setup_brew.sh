@@ -11,15 +11,8 @@ fi
 HOMEBREW_NO_INSTALL_UPGRADE=1
 brew update -q
 xargs brew install -q <<EOF
-chamber
 git
 git-extras
-fzf
-gh
-jq
-ripgrep
-node
-eza
 EOF
 
 # Add taps

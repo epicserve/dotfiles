@@ -17,12 +17,6 @@ fi
 # Install powerlevel10k theme for Oh My Zsh
 . "$HOME/.dotfiles/scripts/setup_zsh_theme.sh"
 
-# install zoxide
-if ! command -v zoxide >/dev/null 2>&1; then
-  echo "Installing zoxide..."
-  curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
-fi
-
 # Add ZDOTDIR to $HOME/.config/zsh
 if [ ! -f ~/.zshenv ]; then
   touch ~/.zshenv

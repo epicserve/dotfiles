@@ -30,13 +30,13 @@ Do not duplicate those steps here.
 
 | Script | Role |
 | --- | --- |
-| `base_setup.sh` | Cross-platform tools (uv, AWS CLI, fzf, Sentry CLI) |
-| `base_linux_setup.sh` | Linux tools from upstream GitHub releases (aws-vault, Just, AppPack) |
+| `base_setup.sh` | Install mise, symlink `config/mise/`, `mise install` (uv, aws-cli, fzf, gh, node, …) |
+| `base_linux_setup.sh` | Linux tools from upstream GitHub releases (AppPack) |
 | `setup_git.sh` | Interactive Git + 1Password SSH signing |
-| `setup_zsh.sh` / `setup_zsh_theme.sh` | Oh My Zsh, zoxide, Powerlevel10k, config symlinks |
+| `setup_zsh.sh` / `setup_zsh_theme.sh` | Oh My Zsh, Powerlevel10k, config symlinks |
 | `setup_brew.sh` / `setup_macos_settings.sh` | macOS only |
 | `setup_chatgpt.sh` | Official ChatGPT desktop: verify OpenAI's signed RPM repo, repackage for pacman |
-| `setup_stripe_cli.sh` | Official Stripe CLI binary (not the AUR) |
+| `setup_stripe_cli.sh` | Purge AUR `stripe-cli` if present (binary comes from mise) |
 | `setup_obs.sh` / `backup_obs.sh` | Restore / backup OBS scenes and profiles |
 
 ### Config
@@ -48,6 +48,7 @@ Do not duplicate those steps here.
   `monitors.lua`, `autostart.lua`), symlinked to `~/.config/hypr/*.lua`
 - `omarchy/` — theme (`digital-nature`, `colors.toml` format), `shell.json`
   (quickshell bar layout), and bashrc additions
+- `mise/` — global `config.toml` (tools + versions), symlinked to `~/.config/mise`
 - `ghostty/`, `pipewire/`, `vscode/`, `udev/`, `obs/`, `claude/`
 - `chatgpt/openai-linux-repository.asc` — pinned OpenAI Linux repo public key
 
@@ -71,9 +72,9 @@ email is selected with Git `includeIf` on directory path (see
 `config/git/config_local`). Do not hard-code emails in scripts.
 
 **Official installers vs AUR.** Prefer AUR/`yay` for ordinary packages. ChatGPT
-desktop and Stripe CLI install from the vendor's signed artifacts because AUR
-wrappers are a supply-chain risk. Do not replace those scripts with
-`yay -S chatgpt-desktop-bin` or `yay -S stripe-cli`.
+desktop installs from the vendor's signed artifacts because AUR wrappers are a
+supply-chain risk. Do not replace that script with `yay -S chatgpt-desktop-bin`.
+Stripe CLI is installed by mise (`aqua:stripe/stripe-cli`); never `yay -S stripe-cli`.
 
 **ChatGPT updates.** `scripts/setup_chatgpt.sh` is idempotent (`--check` reports
 without installing). The app must be quit before an install. The package name is
@@ -98,6 +99,9 @@ Edit them in `config/hypr/`. Env vars go in `monitors.lua` (or any of the five) 
 - Do **not** run `omarchy refresh hyprland` or `omarchy refresh shell` casually:
   they `cp -f` defaults *through* the symlinks and dirty this repo. Recover with
   `git -C ~/.dotfiles checkout -- config/hypr config/omarchy/shell.json && ./setup_omarchy.sh`.
+- Omarchy wrappers (`omarchy-mise-install`, `mise use -g`) write
+  `~/.config/mise/config.toml` through the symlink and will dirty this repo the
+  same way. Recover with `git -C ~/.dotfiles checkout -- config/mise`.
 - Theme: `config/omarchy/themes/digital-nature/` in v4 format — `colors.toml` plus
   `backgrounds/`, `icons.theme`, `neovim.lua`, `vscode.json`. Terminal/btop/hyprland/
   shell theming is generated from `colors.toml` into `~/.local/state/omarchy/current/theme/`.
