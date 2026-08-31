@@ -64,7 +64,6 @@ done
 omarchy-webapp-install "Slack" "https://app.slack.com/client/T07NZL2HG/C07NZPX4H" "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/slack.png"
 
 . scripts/base_setup.sh
-. scripts/base_linux_setup.sh
 . "$HOME/.dotfiles/scripts/setup_zsh.sh"
 
 # Install/update OpenAI's official ChatGPT Linux app as a native Arch package

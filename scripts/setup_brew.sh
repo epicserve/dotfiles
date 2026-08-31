@@ -15,10 +15,6 @@ git
 git-extras
 EOF
 
-# Add taps
-brew tap apppackio/apppack
-brew install -q apppack
-
 # Install Homebrew Casks
 while read -r pkg; do
     if ! brew list --cask | grep -Fx "$pkg" > /dev/null; then
@@ -26,7 +22,6 @@ while read -r pkg; do
     fi
 done <<EOF
 1password
-1password-cli
 bartender
 chatgpt
 claude

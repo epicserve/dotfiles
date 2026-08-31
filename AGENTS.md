@@ -31,7 +31,6 @@ Do not duplicate those steps here.
 | Script | Role |
 | --- | --- |
 | `base_setup.sh` | Install mise, symlink `config/mise/`, `mise install` (uv, aws-cli, fzf, gh, node, …) |
-| `base_linux_setup.sh` | Linux tools from upstream GitHub releases (AppPack) |
 | `setup_git.sh` | Interactive Git + 1Password SSH signing |
 | `setup_zsh.sh` / `setup_zsh_theme.sh` | Oh My Zsh, Powerlevel10k, config symlinks |
 | `setup_brew.sh` / `setup_macos_settings.sh` | macOS only |

@@ -14,5 +14,4 @@ fi
 sudo apt update && sudo apt install -y zsh git pass
 
 . $HOME/.dotfiles/scripts/base_setup.sh
-. $HOME/.dotfiles/scripts/base_linux_setup.sh
 . $HOME/.dotfiles/scripts/setup_zsh.sh

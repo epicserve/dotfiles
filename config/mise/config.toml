@@ -1,4 +1,7 @@
 [tools]
+"github:apppackio/apppack" = "latest"
+"github:getsentry/cli" = "latest"
+1password-cli = "latest"
 aws-cli = { version = "latest", symlink_bins = true }
 aws-vault = "latest"
 chamber = "latest"
@@ -11,7 +14,6 @@ jq = "latest"
 just = "latest"
 node = "25.2.1"
 ripgrep = "latest"
-sentry = "latest"
 stripe = "latest"
 terraform = "latest"
 uv = "latest"

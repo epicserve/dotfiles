@@ -3,7 +3,6 @@
 set +x
 
 . $HOME/.dotfiles/scripts/base_setup.sh
-. $HOME/.dotfiles/scripts/base_linux_setup.sh
 . $HOME/.dotfiles/scripts/setup_zsh.sh
 . $HOME/.dotfiles/scripts/setup_macos_settings.sh
 
