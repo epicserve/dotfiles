@@ -15,7 +15,7 @@ git
 git-extras
 EOF
 
-# Install Homebrew Casks
+# Install Homebrew Casks (1password is the desktop app; `op` comes from mise)
 while read -r pkg; do
     if ! brew list --cask | grep -Fx "$pkg" > /dev/null; then
         brew install --cask --quiet "$pkg"
