@@ -237,6 +237,8 @@ fi
 mkdir -p ~/.config/wireplumber/wireplumber.conf.d
 ln -snf ~/.dotfiles/config/wireplumber/wireplumber.conf.d/51-shimmer-headphones.conf \
   ~/.config/wireplumber/wireplumber.conf.d/51-shimmer-headphones.conf
+ln -snf ~/.dotfiles/config/wireplumber/wireplumber.conf.d/51-alc897-fallback.conf \
+  ~/.config/wireplumber/wireplumber.conf.d/51-alc897-fallback.conf
 
 # Configure PyCharm for Wayland (add WLToolkit to any existing PyCharm configs)
 for pycharm_dir in ~/.config/JetBrains/PyCharm*; do
