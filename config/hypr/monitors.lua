@@ -1,6 +1,11 @@
 -- Displays: DP-1 = Dell AW2725QF (left), DP-2 = Dell U2720Q (right).
 -- List monitors and supported modes with: hyprctl monitors all
 hl.env("GDK_SCALE", "2")
+-- AW2725QF: its EDID "preferred" mode is 4K@60, so request 4K@165 explicitly.
+-- Fullscreen games on Wayland run at the compositor's refresh rate, so the
+-- desktop must be at 165 Hz for games to get it. Not "highrr": on the U2720Q
+-- that would pick a low-resolution 75 Hz fallback mode.
+hl.monitor({ output = "DP-1", mode = "3840x2160@165", position = "auto", scale = 1.6 })
 hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1.6 })
 
 -- Scale SourceGit (Avalonia/XWayland) to match the HiDPI monitor scale.
