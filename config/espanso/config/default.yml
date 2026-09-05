@@ -5,8 +5,11 @@
 keyboard_layout:
   layout: "us"
 
-# Espanso's search bar defaults to ALT+SPACE, but the Wayland/evdev backend
-# also fires it on SUPER+SPACE, colliding with Omarchy's launcher. Disable the
-# keybind (run `espanso search` from a terminal if the search UI is ever needed).
-search_shortcut: "off"
+# Search bar hotkey. Ctrl+Space is unbound in Hyprland, and fcitx5 only claims
+# it once a second input method exists. Espanso observes keys without grabbing
+# them, so the focused app still sees Ctrl+Space (completion in PyCharm, VS
+# Code, LazyVim). Espanso's default ALT+SPACE lands on Omarchy's Super+Space
+# here: espanso decodes physical keys and does not know about the
+# altwin:swap_alt_win option unless it is added under keyboard_layout.
+search_shortcut: "CTRL+SPACE"
 search_trigger: "off"
