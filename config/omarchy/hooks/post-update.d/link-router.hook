@@ -1,0 +1,7 @@
+#!/bin/bash
+# Omarchy post-update hook: runs during `omarchy update`, after system packages
+# and migrations. Pulls the latest omarchy-link-router and re-runs its installer,
+# which also restores the --load-extension entry in ~/.config/chromium-flags.conf
+# if a migration rewrote that file. Symlinked into
+# ~/.config/omarchy/hooks/post-update.d/ by setup_omarchy.sh.
+exec sh "$HOME/.dotfiles/scripts/setup_link_router.sh" --update

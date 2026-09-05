@@ -63,6 +63,15 @@ done
 # install web apps
 omarchy-webapp-install "Slack" "https://app.slack.com/client/T07NZL2HG/C07NZPX4H" "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/slack.png"
 
+# Web apps always run in Chromium (--app), even with Zen as the default browser,
+# and Chromium opens external links in itself. omarchy-link-router (extension +
+# native host -> xdg-open) sends them to Zen instead. The post-update hook pulls
+# the latest router on `omarchy update` and re-applies its chromium-flags.conf entry.
+"$HOME/.dotfiles/scripts/setup_link_router.sh"
+mkdir -p "$HOME/.config/omarchy/hooks/post-update.d"
+ln -snf "$HOME/.dotfiles/config/omarchy/hooks/post-update.d/link-router.hook" \
+  "$HOME/.config/omarchy/hooks/post-update.d/link-router.hook"
+
 . scripts/base_setup.sh
 . "$HOME/.dotfiles/scripts/setup_zsh.sh"
 

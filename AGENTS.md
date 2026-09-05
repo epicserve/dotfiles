@@ -36,6 +36,7 @@ Do not duplicate those steps here.
 | `setup_brew.sh` / `setup_macos_settings.sh` | macOS only |
 | `setup_chatgpt.sh` | Official ChatGPT desktop: verify OpenAI's signed RPM repo, repackage for pacman |
 | `setup_stripe_cli.sh` | Purge AUR `stripe-cli` if present (binary comes from mise) |
+| `setup_link_router.sh` | Install/update omarchy-link-router so web app links open in Zen (`--update` pulls upstream first) |
 | `setup_obs.sh` / `backup_obs.sh` | Restore / backup OBS scenes and profiles |
 
 ### Config
@@ -46,7 +47,8 @@ Do not duplicate those steps here.
 - `hypr/` — Hyprland Lua overrides (`bindings.lua`, `input.lua`, `looknfeel.lua`,
   `monitors.lua`, `autostart.lua`), symlinked to `~/.config/hypr/*.lua`
 - `omarchy/` — theme (`digital-nature`, `colors.toml` format), `shell.json`
-  (quickshell bar layout), and bashrc additions
+  (quickshell bar layout), `hooks/` (post-update hook, symlinked into
+  `~/.config/omarchy/hooks/`), and bashrc additions
 - `mise/` — global `config.toml` (tools + versions), symlinked to `~/.config/mise`
 - `ghostty/`, `pipewire/`, `vscode/`, `udev/`, `obs/`, `claude/`
 - `chatgpt/openai-linux-repository.asc` — pinned OpenAI Linux repo public key
@@ -109,5 +111,12 @@ Edit them in `config/hypr/`. Env vars go in `monitors.lua` (or any of the five) 
   `/usr/share/hypr/stubs/hl.meta.lua` and `/usr/share/omarchy/default/hypr/`.
 - Prefer `omarchy pkg add` / `omarchy` CLI for packages and desktop actions.
 - Setup removes Omarchy's ChatGPT webapp and installs the native desktop app.
+- Web apps always run as `chromium --app`, even with Zen as the default browser, and
+  Chromium opens external links in itself. `scripts/setup_link_router.sh` installs
+  [omarchy-link-router](https://github.com/Samat220/omarchy-link-router) (extension +
+  native host that hands new normal-window tabs to `xdg-open`). It appends to the
+  existing `--load-extension=` line in `~/.config/chromium-flags.conf`; Chromium honors
+  only the last such flag, so never add a second one. The post-update hook re-runs it
+  with `--update` during `omarchy update`.
 
 After Hyprland edits, validate with `hyprctl reload` and `hyprctl configerrors`.
