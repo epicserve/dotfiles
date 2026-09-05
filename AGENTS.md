@@ -111,6 +111,9 @@ Edit them in `config/hypr/`. Env vars go in `monitors.lua` (or any of the five) 
   `/usr/share/hypr/stubs/hl.meta.lua` and `/usr/share/omarchy/default/hypr/`.
 - Prefer `omarchy pkg add` / `omarchy` CLI for packages and desktop actions.
 - Setup removes Omarchy's ChatGPT webapp and installs the native desktop app.
+- LM Studio is `lmstudio-bin` from Omarchy's own `[omarchy]` pacman repo, installed by
+  `omarchy pkg add`. `omarchy update` already upgrades it (`pacman -Syu`), so do not add a
+  post-update hook for it and never `yay -S lmstudio-bin`.
 - Web apps always run as `chromium --app`, even with Zen as the default browser, and
   Chromium opens external links in itself. `scripts/setup_link_router.sh` installs
   [omarchy-link-router](https://github.com/Samat220/omarchy-link-router) (extension +

@@ -78,6 +78,17 @@ ln -snf "$HOME/.dotfiles/config/omarchy/hooks/post-update.d/link-router.hook" \
 # Install/update OpenAI's official ChatGPT Linux app as a native Arch package
 "$HOME/.dotfiles/scripts/setup_chatgpt.sh"
 
+# LM Studio (local LLM runner). Omarchy retired it from the default install in
+# Quattro but still packages `lmstudio-bin` in its own [omarchy] pacman repo, so
+# `omarchy update` upgrades it with the rest of the system packages (pacman -Syu);
+# no post-update hook is needed. Should the repo ever drop the package, it becomes
+# a foreign package and `omarchy update` upgrades it from the AUR instead (yay -Sua).
+# On first launch the app installs its `lms` CLI to ~/.lmstudio/bin and adds that
+# to PATH in ~/.bashrc and ~/.profile itself.
+if ! pacman -Q lmstudio-bin >/dev/null 2>&1; then
+  omarchy pkg add lmstudio-bin
+fi
+
 # Scale SourceGit (Avalonia) on HiDPI displays. Avalonia has no GDK_SCALE equivalent,
 # so on a scaled monitor it renders tiny. AVALONIA_GLOBAL_SCALE_FACTOR (the Avalonia
 # analog of GDK_SCALE) scales the whole app -- including right-click context menus --

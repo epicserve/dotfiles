@@ -26,6 +26,16 @@ Run the updater directly at any time:
 Repeat runs are idempotent and do not download or rebuild the app when the installed version is current. To check
 without installing, run `./scripts/setup_chatgpt.sh --check`. Quit ChatGPT before installing an available update.
 
+### LM Studio
+
+The setup installs LM Studio from Omarchy's own `[omarchy]` pacman repository (`lmstudio-bin`) with `omarchy pkg add`,
+which is a no-op when the package is already present. Because it is a repo package, `omarchy update` upgrades it along
+with the rest of the system (`pacman -Syu`); there is no separate hook or updater. If Omarchy ever drops the package
+from its repo, `omarchy update` falls back to the AUR build of the same name via `yay -Sua`.
+
+On first launch LM Studio installs its `lms` CLI to `~/.lmstudio/bin` and appends that directory to `PATH` in
+`~/.bashrc` and `~/.profile` on its own.
+
 ## Manual Changes after Setup
 
 ### Monitors
