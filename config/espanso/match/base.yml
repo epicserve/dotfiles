@@ -1,5 +1,12 @@
 # Espanso text expansions. Espanso hot-reloads this file on save.
 # Docs: https://espanso.org/docs/matches/basics/
+#
+# Personal expansions (name, email addresses) live in private.yml next to this
+# file. It is gitignored, so this public repo never carries them.
 matches:
   - trigger: "~1"
     replace: "one-on-one"
+  - trigger: "~pr"
+    replace: "PEARS"
+  - trigger: "~c"
+    replace: "Canopy"
