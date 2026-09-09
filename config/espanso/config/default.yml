@@ -5,11 +5,11 @@
 keyboard_layout:
   layout: "us"
 
-# Search bar hotkey. Ctrl+Space is unbound in Hyprland, and fcitx5 only claims
-# it once a second input method exists. Espanso observes keys without grabbing
-# them, so the focused app still sees Ctrl+Space (completion in PyCharm, VS
-# Code, LazyVim). Espanso's default ALT+SPACE lands on Omarchy's Super+Space
-# here: espanso decodes physical keys and does not know about the
-# altwin:swap_alt_win option unless it is added under keyboard_layout.
-search_shortcut: "CTRL+SPACE"
+# Search bar hotkey. Ctrl+Space is the herdr and tmux prefix, so the bar must
+# live elsewhere. Espanso decodes physical keys and does not know about the
+# altwin:swap_alt_win option in hypr/input.lua unless it is added under
+# keyboard_layout, so espanso's META is the physical Win/Super key, which
+# Hyprland sees as ALT: Alt+Space is unbound in Omarchy, herdr, tmux, and the
+# editors. Espanso's default ALT+SPACE would land on Omarchy's Super+Space.
+search_shortcut: "META+SPACE"
 search_trigger: "off"
