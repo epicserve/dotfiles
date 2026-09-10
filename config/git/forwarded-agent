@@ -1,0 +1,9 @@
+#!/bin/sh
+# Exit 0 when a forwarded SSH agent is reachable at ~/.ssh/agent.sock
+# (published by config/zsh/ssh_agent.zsh on every SSH login).
+# ssh-add exits 2 only when it cannot reach the agent; 1 (no keys) still
+# means the agent is alive.
+sock="$HOME/.ssh/agent.sock"
+[ -S "$sock" ] || exit 1
+SSH_AUTH_SOCK="$sock" ssh-add -l >/dev/null 2>&1
+[ $? -ne 2 ]

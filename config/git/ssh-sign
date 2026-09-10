@@ -1,0 +1,8 @@
+#!/bin/sh
+# gpg.ssh.program for the Omarchy desktop. Chosen per git invocation, not per
+# shell: sign through the forwarded laptop agent when it answers, otherwise
+# through the local 1Password app.
+if "$HOME/.config/git/forwarded-agent"; then
+  SSH_AUTH_SOCK="$HOME/.ssh/agent.sock" exec ssh-keygen "$@"
+fi
+exec /opt/1Password/op-ssh-sign "$@"

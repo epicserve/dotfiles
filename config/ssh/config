@@ -3,5 +3,10 @@
 Host omarchy
 	ForwardAgent yes
 
+# Use a forwarded laptop agent while one answers (see config/git/forwarded-agent).
+# First match wins, so this beats the 1Password default below.
+Match exec "~/.config/git/forwarded-agent"
+	IdentityAgent ~/.ssh/agent.sock
+
 Host *
 	IdentityAgent ~/.1password/agent.sock

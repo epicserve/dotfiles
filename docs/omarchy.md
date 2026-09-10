@@ -89,11 +89,15 @@ the only thing to secure is SSH itself.
   Herdr's background reconnects. Leave `root` out.
 - Herdr copies no plugins, config, or secrets to the remote. Git on the desktop needs
   1Password unlocked, and you cannot unlock it remotely. Instead `config/ssh/config`
-  forwards the laptop's 1Password agent to `omarchy`; `config/zsh/ssh_agent.zsh`
-  publishes it at `~/.ssh/agent.sock`, and `omarchy_overrides.sh` uses it for SSH auth
-  and swaps git signing from `op-ssh-sign` to `ssh-keygen` while it answers. Touch ID
-  prompts appear on the laptop. With no remote session attached, shells fall back to
-  the desktop's own 1Password agent.
+  forwards the laptop's 1Password agent to `omarchy`, and `config/zsh/ssh_agent.zsh`
+  publishes it at `~/.ssh/agent.sock` on every login. Which agent to use is decided
+  per invocation, never per shell: `config/git/forwarded-agent` reports whether that
+  socket answers, the `Match exec` rule in `config/ssh/config` points `ssh` at it,
+  and `config/git/ssh-sign` (git's `gpg.ssh.program` on the desktop) signs through it
+  with `ssh-keygen`, falling back to `op-ssh-sign` and the desktop's own 1Password
+  agent otherwise. Long-lived shells and tools such as Claude Code therefore keep
+  working across laptop connects and disconnects with no `exec zsh`. Touch ID prompts
+  appear on the laptop.
 - The desktop must stay awake. `config/omarchy/shell.json` only screensaves and locks on
   idle; if suspend is ever added, remote sessions die with it.
 
