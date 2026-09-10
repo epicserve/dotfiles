@@ -1,0 +1,7 @@
+# The Omarchy desktop is our own machine, so forwarding the laptop's 1Password
+# agent to it is fine. Git there signs and pushes through this agent.
+Host omarchy
+	ForwardAgent yes
+
+Host *
+	IdentityAgent ~/.1password/agent.sock

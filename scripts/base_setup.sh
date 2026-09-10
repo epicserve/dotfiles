@@ -15,6 +15,15 @@ if [ -e "$HOME/.config/mise" ] && [ ! -L "$HOME/.config/mise" ]; then
 fi
 ln -snf "$HOME/.dotfiles/config/mise" "$HOME/.config/mise"
 
+# SSH client config (1Password agent). Keys live in 1Password, never in ~/.ssh.
+mkdir -p "$HOME/.ssh"
+chmod 700 "$HOME/.ssh"
+if [ -f "$HOME/.ssh/config" ] && [ ! -L "$HOME/.ssh/config" ]; then
+  mv "$HOME/.ssh/config" "$HOME/.ssh/config.pre-dotfiles.bak"
+  echo "Backed up existing ~/.ssh/config to ~/.ssh/config.pre-dotfiles.bak"
+fi
+ln -snf "$HOME/.dotfiles/config/ssh/config" "$HOME/.ssh/config"
+
 # Shims + ~/.local/bin so tools are on PATH for the rest of this setup session
 export PATH="$HOME/.local/share/mise/shims:$HOME/.local/bin:$PATH"
 

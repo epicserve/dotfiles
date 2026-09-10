@@ -32,7 +32,7 @@ Do not duplicate those steps here.
 | --- | --- |
 | `base_setup.sh` | Install mise, symlink `config/mise/`, `mise install` (uv, aws-cli, fzf, gh, node, …) |
 | `setup_git.sh` | Interactive Git + 1Password SSH signing |
-| `setup_zsh.sh` / `setup_zsh_theme.sh` | Oh My Zsh, Powerlevel10k, config symlinks |
+| `setup_zsh.sh` / `setup_zsh_theme.sh` | Oh My Zsh, Powerlevel10k, zsh/aliases/herdr config symlinks, herdr install |
 | `setup_brew.sh` / `setup_macos_settings.sh` | macOS only |
 | `setup_chatgpt.sh` | Official ChatGPT desktop: verify OpenAI's signed RPM repo, repackage for pacman |
 | `setup_stripe_cli.sh` | Purge AUR `stripe-cli` if present (binary comes from mise) |
@@ -50,6 +50,8 @@ Do not duplicate those steps here.
   (quickshell bar layout), `hooks/` (post-update hook, symlinked into
   `~/.config/omarchy/hooks/`), and bashrc additions
 - `mise/` — global `config.toml` (tools + versions), symlinked to `~/.config/mise`
+- `herdr/` (`config.toml` only; sockets and session state stay in `~/.config/herdr`)
+- `ssh/` — client config: 1Password `IdentityAgent`, agent forwarding to `omarchy`, no keys
 - `ghostty/`, `pipewire/`, `vscode/`, `udev/`, `obs/`, `claude/`
 - `chatgpt/openai-linux-repository.asc` — pinned OpenAI Linux repo public key
 
@@ -67,6 +69,11 @@ no changes and trigger no avoidable sudo prompts.
 
 **Append only if missing.** Use `grep -qFx` before adding a line to an existing
 file such as `~/.bashrc`.
+
+**Remote access is Tailscale SSH only.** `setup_omarchy.sh` runs `tailscale set --ssh`;
+`sshd` stays disabled and nothing is port-forwarded on the router. Who may log in is
+decided by the tailnet ACL, not by this repo. Never enable `sshd` or add a port-22
+firewall rule. See `docs/omarchy.md` for the Herdr remote workflow.
 
 **Git identity.** 1Password SSH for auth and commit signing. Personal vs work
 email is selected with Git `includeIf` on directory path (see

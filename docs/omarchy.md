@@ -72,6 +72,45 @@ machine-local copy.
 
 1. Turn on the SSH Agent under Settings \> Developer
 
+### Remote access (Herdr over Tailscale SSH)
+
+The desktop is a Herdr server for other machines. Herdr's remote mode is plain
+OpenSSH: the client runs `ssh <host>` and talks to the herdr server's Unix socket, so
+the only thing to secure is SSH itself.
+
+- `setup_omarchy.sh` enables **Tailscale SSH** (`tailscale set --ssh`). There is no
+  `sshd`, nothing listens on the LAN or WAN, and the router needs no port forward. A
+  non-standard SSH port buys nothing here: port obscurity only cuts scanner noise on an
+  internet-exposed daemon, and this box is not exposed.
+- Who may log in lives in the tailnet policy (admin console \> Access controls), not in
+  this repo. Give your own devices an `ssh` rule with `"action": "accept"` for
+  `src: ["autogroup:member"]`, `dst: ["autogroup:self"]`, `users: ["autogroup:nonroot"]`.
+  `check` mode also works but forces a browser re-auth every 12 hours, which breaks
+  Herdr's background reconnects. Leave `root` out.
+- Herdr copies no plugins, config, or secrets to the remote. Git on the desktop needs
+  1Password unlocked, and you cannot unlock it remotely. Instead `config/ssh/config`
+  forwards the laptop's 1Password agent to `omarchy`; `config/zsh/ssh_agent.zsh`
+  publishes it at `~/.ssh/agent.sock`, and `omarchy_overrides.sh` uses it for SSH auth
+  and swaps git signing from `op-ssh-sign` to `ssh-keygen` while it answers. Touch ID
+  prompts appear on the laptop. With no remote session attached, shells fall back to
+  the desktop's own 1Password agent.
+- The desktop must stay awake. `config/omarchy/shell.json` only screensaves and locks on
+  idle; if suspend is ever added, remote sessions die with it.
+
+From a laptop on the tailnet (`setup_macos.sh` installs Tailscale via brew and herdr via
+its official installer):
+
+```sh
+tailscale status | grep omarchy
+ssh omarchy herdr --version              # Tailscale identity auth, no key prompt
+ssh omarchy 'ssh-add -l'                 # lists the laptop's 1Password keys: forwarding works
+herdr machine add omarchy --label "Desktop"
+herdr --remote omarchy
+```
+
+To turn remote access off: `sudo tailscale set --ssh=false`. Tailscale SSH sessions
+are logged in the admin console.
+
 ### AWS-Vault
 
 1. Follow the AWS Vault setup [instructions](https://canopyllc.atlassian.net/wiki/spaces/CE/pages/739999785/How-to+Set+up+a+Engineer+s+MacBook+Pro) to finish this setup.

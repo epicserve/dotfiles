@@ -229,11 +229,20 @@ ln -sf ~/.dotfiles/config/vscode/code-flags.conf ~/.config/code-flags.conf
 # Restore OBS scene collections + profiles (layout, filters, settings)
 . "$HOME/.dotfiles/scripts/setup_obs.sh"
 
-# Install tailscale
+# Tailscale (install once; always converge prefs so re-runs are no-ops)
 if ! command -v tailscale >/dev/null 2>&1; then
-    echo "Configuring Tailscale to accept routes persistently..."
-    sudo yay -S --noconfirm --needed tailscale
-    sudo tailscale set --accept-routes=true
+  yay -S --noconfirm --needed tailscale
+fi
+if ! systemctl is-enabled --quiet tailscaled; then
+  sudo systemctl enable --now tailscaled
+fi
+# Tailscale SSH replaces sshd: no listener on the LAN or WAN, and the tailnet
+# ACL decides who may log in. Never enable sshd or forward a port on the router.
+ts_prefs="$(tailscale debug prefs 2>/dev/null)"
+if ! printf '%s' "$ts_prefs" | grep -q '"RunSSH": true' \
+   || ! printf '%s' "$ts_prefs" | grep -q '"RouteAll": true'; then
+  echo "Enabling Tailscale SSH and accept-routes..."
+  sudo tailscale set --ssh --accept-routes
 fi
 
 # Install theme (the Quattro upgrade replaces the symlink with a real copy; re-link)
