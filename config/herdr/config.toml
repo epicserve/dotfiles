@@ -4,8 +4,9 @@ onboarding = false
 
 [theme]
 # tmux ran on the terminal's own palette (bg=default, fg=default, ANSI blue accents)
-name = "terminal"
+name = "tokyo-night"
 
+auto_switch = false
 [theme.custom]
 # The active tab is drawn as panel_bg text on an accent background, so panel_bg
 # has to be dark for it to read - same colors as status-left's "#[fg=black,bg=blue]"
