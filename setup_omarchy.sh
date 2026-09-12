@@ -28,7 +28,7 @@ obs-advanced-masks
 obs-backgroundremoval
 obs-studio
 onnxruntime-cpu
-solaar
+openlogi-bin
 sourcegit-bin
 visual-studio-code-bin
 zen-browser-bin
@@ -214,13 +214,15 @@ fi
 [ -f "$HOME/.config/systemd/user/espanso.service" ] || espanso service register
 pgrep -x espanso >/dev/null 2>&1 || espanso start >/dev/null 2>&1 || true
 
-# Solaar rules + user service (MX Mechanical Mini Dictation / F9-without-Fn -> Voxtype)
-if command -v solaar >/dev/null 2>&1; then
-  mkdir -p "$HOME/.config/solaar" "$HOME/.config/systemd/user"
-  ln -sf "$HOME/.dotfiles/config/solaar/rules.yaml" "$HOME/.config/solaar/rules.yaml"
-  ln -sf "$HOME/.dotfiles/config/systemd/user/solaar.service" "$HOME/.config/systemd/user/solaar.service"
+# OpenLogi (Logitech MX device battery/DPI/remaps over HID++), replacing
+# Solaar. Only one HID++ manager should own the receiver at a time. The AUR
+# package installs /etc/udev/rules.d/70-openlogi.rules and
+# /usr/lib/systemd/user/openlogi-agent.service directly -- nothing to symlink
+# from this repo. The udev rules install step above already reloads rules
+# after this package is installed, so just enable the user service.
+if command -v openlogi-agent >/dev/null 2>&1; then
   systemctl --user daemon-reload
-  systemctl --user enable --now solaar.service
+  systemctl --user enable --now openlogi-agent.service
 fi
 
 # Setup VS Code config (fixes keyring detection on Hyprland)
