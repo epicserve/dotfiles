@@ -68,7 +68,7 @@
       "/home/brent/.cache"
     ]
   },
-  "model": "claude-fable-5-1",
+  "model": "claude-fable-5-1[1m]",
   "hooks": {
     "Notification": [
       {
@@ -99,7 +99,7 @@
   "effortLevel": "xhigh",
   "modelSettings": {
     "claude-fable-5-1": {
-      "effortLevel": "medium"
+      "effortLevel": "xhigh"
     }
   },
   "tui": "fullscreen",
