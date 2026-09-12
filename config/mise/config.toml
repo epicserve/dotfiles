@@ -24,5 +24,10 @@ worktrunk = "latest"
 zoxide = "latest"
 cursor-agent = { version = "latest", bin_path = "dist-package", strip_components = 0, url = 'https://downloads.cursor.com/lab/{{ version }}/{{ os(macos="darwin") }}/{{ arch(x64="x64", arm64="arm64") }}/agent-cli-package.tar.gz', version_list_url = "https://cursor.com/install", version_regex = 'downloads\.cursor\.com/lab/([0-9]{4}\.[0-9]{2}\.[0-9]{2}-[0-9a-f]+)/' }
 
+[settings]
+# AI CLI harnesses: skip the default 24h minimum_release_age hold so
+# "latest" picks up new releases as soon as they ship.
+minimum_release_age_excludes = ["claude", "codex", "opencode", "cursor-agent"]
+
 [settings.upgrade]
 auto_prune = false
