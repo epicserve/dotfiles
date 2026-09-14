@@ -3,9 +3,6 @@
 # Mac specific paths
 export PATH="/opt/homebrew/bin:$PATH"
 
-# Add macOS specific plugins
-plugins=("${plugins[@]}" brew)
-
 eval "$(brew shellenv)"
 
 # This makes it so ZSH will use the default Homebrew directory for completions scripts

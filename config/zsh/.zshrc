@@ -41,6 +41,8 @@ plugins=(
   npm
   uv
 )
+# Plugins must be added before oh-my-zsh.sh is sourced; later additions are ignored.
+[[ "$OSTYPE" == darwin* ]] && plugins+=(brew)
 
 source $ZSH/oh-my-zsh.sh
 
