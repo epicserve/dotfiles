@@ -4,8 +4,6 @@
       "Bash(git *)",
       "Bash(gh *)",
       "Bash(just *)",
-      "Bash(python *)",
-      "Bash(python3 *)",
       "Bash(DJANGO_SETTINGS_MODULE=*)",
       "Bash(npm *)",
       "Bash(pip *)",
@@ -18,9 +16,6 @@
       "Bash(grep *)",
       "Bash(sed *)",
       "Bash(awk *)",
-      "Bash(xargs *)",
-      "Bash(rm -f /tmp/*)",
-      "Bash(env)",
       "Bash(code *)",
       "Bash(pacman *)",
       "Bash(paru *)",
@@ -104,5 +99,37 @@
   },
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
-  "skipAutoPermissionPrompt": true
+  "skipAutoPermissionPrompt": true,
+  "autoMode": {
+    "soft_deny": [
+      "$defaults",
+      "Bash(op read *) in canopyllc/pears — routine secrets-manager read already used in this repo, scope to avoid blind trust of arbitrary op invocations"
+    ],
+    "environment": [
+      "### Org-wide",
+      "**Organization**: None configured",
+      "**Cloud provider(s)**: None configured",
+      "**Repository visibility**: private (canopyllc/pears, confirmed via gh)",
+      "**Internal sharing / snippet hosting**: None configured — treat public paste/gist services as outside the trust boundary",
+      "**Secrets management**: op (1Password CLI) — `op read` used in this repo",
+      "**Default / protected branches**: default branch `develop`; protected branches `develop`, `main` (rulesets `Protections for everyone` and `Require PR` active on canopyllc/pears)",
+      "**CI/CD deploy targets**: None configured",
+      "**Network posture**: None configured",
+      "**Host containment**: None configured — assume Claude Code runs on an ordinary developer machine or CI runner with open internet",
+      "**Source control**: canopyllc/pears (github.com:canopyllc/pears.git) and its remote(s) only",
+      "**Trusted internal domains**: None configured",
+      "**Trusted cloud buckets**: None configured",
+      "**Key internal services**: None configured",
+      "**Internal package registry**: None configured",
+      "**Sensitive data locations & audiences**: `.env`, `.env.toml`, `.env.20260828145235`, and `config/settings/prod.py` files under canopyllc/pears worktrees (e.g. PEARS-8481-security-authz-fixes, PEARS-8529-no-permission-check, pears-develop, pears-main) — share only with audiences cleared at the [named+specifics] bar",
+      "**Data retention / declassification**: None configured",
+      "**Sensitive remote targets**: any namespace, host, or container whose name carries `prod` or `production` as a whole word or name segment; note `config/settings/prod.py` present in this repo's worktrees",
+      "**Protected deployment namespaces / environments**: None configured — fall back to the Sensitive remote targets heuristic",
+      "**Protected IaC scopes**: IAM, RBAC, networking, quota, and node-pool resources; anything whose name or tag carries `prod` or `production` as a whole word or name segment",
+      "### User-specific",
+      "**Primary use of Claude Code**: software development",
+      "**Trusted repo**: canopyllc/pears (github.com:canopyllc/pears.git), the working directory this session started in — private repo, so confidential material may be committed there but secrets/regulated data are never cleared in by visibility alone",
+      "**Org-specific CLIs**: None configured"
+    ]
+  }
 }
