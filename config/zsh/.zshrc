@@ -44,7 +44,18 @@ plugins=(
 # Plugins must be added before oh-my-zsh.sh is sourced; later additions are ignored.
 [[ "$OSTYPE" == darwin* ]] && plugins+=(brew)
 
+# url-quote-magic + bracketed-paste-magic re-run self-insert on every pasted
+# character (O(n^2) on the growing buffer). Large/multiline pastes then overrun
+# the PTY and arrive truncated or with chunk prefixes eaten.
+# https://github.com/ohmyzsh/ohmyzsh/blob/master/templates/zshrc.zsh-template
+DISABLE_MAGIC_FUNCTIONS=true
+
 source $ZSH/oh-my-zsh.sh
+
+# History expansion treats `!r` in Python f-strings (`{value!r}`) as "rerun the
+# last command starting with r". Bracketed paste submits the whole block at
+# once, so this runs *before* a quoted heredoc can protect the body.
+setopt NO_BANG_HIST
 
 # DOCKER SETTINGS
 export COMPOSE_DOCKER_CLI_BUILD=1
