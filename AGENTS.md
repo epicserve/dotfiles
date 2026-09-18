@@ -133,7 +133,9 @@ Edit them in `config/hypr/`. Env vars go in `monitors.lua` (or any of the five) 
   `scripts/setup_webapp_url_router.sh` with sources in `config/webapp-url-router/`. A Zen
   extension hands the URL to a native host, which pushes it into the open Slack window
   through a small Chromium extension holding one native-messaging port, or launches the
-  web app. Same `--load-extension=` rule. The Zen extension is unsigned and is loaded by
-  hand from `about:debugging`; the post-update hook re-runs the script.
+  web app. Same `--load-extension=` rule. The Zen extension is unsigned: the script builds
+  it into an XPI, drops it into the default Zen profile's `extensions/` directory, and turns
+  add-on signing off for that profile in `user.js` (Zen is built without
+  `MOZ_REQUIRE_SIGNING`). The post-update hook re-runs the script.
 
 After Hyprland edits, validate with `hyprctl reload` and `hyprctl configerrors`.

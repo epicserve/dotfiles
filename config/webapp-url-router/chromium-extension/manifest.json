@@ -3,9 +3,14 @@
   "name": "Omarchy Slack Window Reuse",
   "version": "2.0",
   "description": "Navigates the open Slack web app window to deep links handed over from Zen instead of opening a second --app window.",
-  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAputI4LJjMJv6FaHM+OivOdwJeTJaPtfXMP3AM+oLctb8k79g5fW3P7MH0uP2defpzovNqCvcU9+mRPm4TK26mqON+yncsvbrvl53flTL4TXjo9vATQbDWuw7hNxeC1N/Iy+pc3eY7PZbnN9+pPeApA9IwIE/SeyHDJ0BFNDB1Npgbif44Sj44+cEI1u4eLuddD4HPNjjTTTZDzSoH0TXJQascS8grJZ71MZJ2aFGGQj/n+uUtYryP+6mNCQ/I3Hd7oA8MIItfDzmalqFynOkN8Naxi8nf7dsIuEl09ebB4jJZ2V7yJNN4fBsoqPvgP4I7yZtBd5XiQZA7HPjcqpYfwIDAQAB",
-  "permissions": ["nativeMessaging", "tabs"],
-  "host_permissions": ["*://*.slack.com/*"],
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArvrfgzsMS3g1iEBUErSXnFbd6bEFUvhG45+Ebh/j+0jabdRSw8/PYi4KiqjFVFs0mIiZZCfwty8taw6DSmlHEduwYZkvp6gbvMWb5TuuDee+OVATNUsPGik5j5s3Dn8/aJyH/HZG3ys1Oipyq/Ngi8N9mAhoYn+S2Hx1xBNKvxBqnyw0JR7ifLgYk1+y8Dq7glxvYzpXxcdJdScHOa8t+WVmNernZ7BN1hs9AvwP6C4St1xhxBVlUrnHnlxrK5foSQ3iLPtT0PUhl484Jz9+d87GiJEE/eAYQBqnfKKmFepjJUdUlZ6aduAKR5XlCtflbN2hEau7am1PMPQUmA/V7wIDAQAB",
+  "permissions": [
+    "nativeMessaging",
+    "tabs"
+  ],
+  "host_permissions": [
+    "*://*.slack.com/*"
+  ],
   "background": {
     "service_worker": "background.js"
   }

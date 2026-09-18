@@ -8,6 +8,8 @@
 const HOST = "com.omarchy.webapp_url_router";
 const RETRY_MS = 5000;
 
+let port = null;
+
 async function slackTab() {
   const tabs = await chrome.tabs.query({ url: "*://*.slack.com/*" });
   return tabs.find((tab) => (tab.url || "").startsWith("https://app.slack.com/")) || tabs[0];
@@ -21,14 +23,26 @@ async function navigate(url) {
 }
 
 function connect() {
-  const port = chrome.runtime.connectNative(HOST);
+  if (port) {
+    return;
+  }
+  port = chrome.runtime.connectNative(HOST);
   port.onMessage.addListener((msg) => {
     if (msg && msg.url) {
       navigate(msg.url).catch((e) => console.error("webapp-url-router:", e));
     }
   });
-  port.onDisconnect.addListener(() => setTimeout(connect, RETRY_MS));
+  port.onDisconnect.addListener(() => {
+    console.warn("webapp-url-router: port closed", chrome.runtime.lastError?.message || "");
+    port = null;
+    setTimeout(connect, RETRY_MS);
+  });
   port.postMessage({ watch: true });
 }
 
+// Chrome only starts a service worker for events it has listeners for, so a
+// worker that merely opens a port at top level is never woken at browser
+// launch. These make it start on every launch and on (re)install.
+chrome.runtime.onStartup.addListener(connect);
+chrome.runtime.onInstalled.addListener(connect);
 connect();
