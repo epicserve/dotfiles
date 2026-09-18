@@ -1,0 +1,23 @@
+{
+  "manifest_version": 2,
+  "name": "Omarchy Web App Router",
+  "version": "1.0",
+  "description": "Opens Slack links in the Omarchy Slack web app instead of a Zen tab.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "webapp-url-router@dotfiles",
+      "strict_min_version": "120.0"
+    }
+  },
+  "permissions": [
+    "nativeMessaging",
+    "tabs",
+    "webRequest",
+    "webRequestBlocking",
+    "*://*.slack.com/*",
+    "*://slack.com/*"
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  }
+}

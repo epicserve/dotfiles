@@ -7,3 +7,4 @@ config/zsh/.zsh_sessions/
 config/claude/projects/
 config/zsh/.zshenv
 config/espanso/match/private.yml
+__pycache__/

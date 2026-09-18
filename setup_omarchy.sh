@@ -60,8 +60,10 @@ do
   OMARCHY_REMOVE_NOTIFY=false omarchy-webapp-remove "$app" >/dev/null 2>&1 || true
 done
 
-# install web apps
-omarchy-webapp-install "Slack" "https://app.slack.com/client/T07NZL2HG/C07NZPX4H" "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/slack.png"
+# Slack is the one kept web app. setup_webapp_url_router.sh (re)installs
+# Slack.desktop with a %u handler and a Zen extension so https://*.slack.com
+# / slack:// links open in the Chromium web app instead of a Zen tab.
+"$HOME/.dotfiles/scripts/setup_webapp_url_router.sh"
 
 # Web apps always run in Chromium (--app), even with Zen as the default browser,
 # and Chromium opens external links in itself. omarchy-link-router (extension +
@@ -71,6 +73,8 @@ omarchy-webapp-install "Slack" "https://app.slack.com/client/T07NZL2HG/C07NZPX4H
 mkdir -p "$HOME/.config/omarchy/hooks/post-update.d"
 ln -snf "$HOME/.dotfiles/config/omarchy/hooks/post-update.d/link-router.hook" \
   "$HOME/.config/omarchy/hooks/post-update.d/link-router.hook"
+ln -snf "$HOME/.dotfiles/config/omarchy/hooks/post-update.d/webapp-url-router.hook" \
+  "$HOME/.config/omarchy/hooks/post-update.d/webapp-url-router.hook"
 
 . scripts/base_setup.sh
 . "$HOME/.dotfiles/scripts/setup_zsh.sh"

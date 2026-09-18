@@ -1,0 +1,6 @@
+#!/bin/bash
+# Re-apply the Slack web-app URL router after `omarchy update`. Migrations can
+# rewrite ~/.config/chromium-flags.conf; this restores the window-reuse
+# extension on the --load-extension line. Symlinked into
+# ~/.config/omarchy/hooks/post-update.d/ by setup_omarchy.sh.
+exec sh "$HOME/.dotfiles/scripts/setup_webapp_url_router.sh"
