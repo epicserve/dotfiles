@@ -1,87 +1,34 @@
-// Consume a pending Slack deep link and navigate the existing web app tab.
-// The native host writes the URL when a Slack window is already open.
+// Navigate the open Slack web app window to deep links handed over from Zen,
+// instead of letting Chromium open a second --app window.
+//
+// One native-messaging port stays connected for the life of the browser and
+// Chrome keeps this service worker alive while it is open. The host pushes a
+// {url} whenever the Zen side leaves a pending deep link, so nothing polls.
 
 const HOST = "com.omarchy.webapp_url_router";
+const RETRY_MS = 5000;
 
-function isSlackTab(tab) {
-  const url = tab.url || tab.pendingUrl || "";
-  return url.includes("slack.com");
+async function slackTab() {
+  const tabs = await chrome.tabs.query({ url: "*://*.slack.com/*" });
+  return tabs.find((tab) => (tab.url || "").startsWith("https://app.slack.com/")) || tabs[0];
 }
 
-async function slackTabId(preferredId) {
-  if (preferredId != null) {
-    try {
-      const tab = await chrome.tabs.get(preferredId);
-      if (isSlackTab(tab)) {
-        return tab.id;
-      }
-    } catch {
-      // Tab went away; fall through to a search.
-    }
-  }
-  const tabs = await chrome.tabs.query({});
-  const slack = tabs.filter(isSlackTab);
-  const preferred =
-    slack.find((tab) => (tab.url || "").includes("app.slack.com")) || slack[0];
-  return preferred ? preferred.id : null;
-}
-
-let taking = false;
-
-async function consume(preferredId) {
-  if (taking) {
-    return;
-  }
-  taking = true;
-  try {
-    let resp;
-    try {
-      resp = await chrome.runtime.sendNativeMessage(HOST, { action: "take" });
-    } catch (e) {
-      console.error("webapp-url-router: native host take failed", e);
-      return;
-    }
-    const url = resp && resp.url;
-    if (!url) {
-      return;
-    }
-    const tabId = await slackTabId(preferredId);
-    if (tabId == null) {
-      return;
-    }
-    try {
-      const tab = await chrome.tabs.get(tabId);
-      if ((tab.url || "") === url) {
-        return;
-      }
-    } catch {
-      return;
-    }
-    await chrome.tabs.update(tabId, { url, active: true });
-  } finally {
-    taking = false;
+async function navigate(url) {
+  const tab = await slackTab();
+  if (tab && tab.url !== url) {
+    await chrome.tabs.update(tab.id, { url, active: true });
   }
 }
 
-chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
-  if (!msg || msg.action !== "consume") {
-    return;
-  }
-  consume(sender.tab && sender.tab.id).then(() => sendResponse({ ok: true }));
-  return true;
-});
+function connect() {
+  const port = chrome.runtime.connectNative(HOST);
+  port.onMessage.addListener((msg) => {
+    if (msg && msg.url) {
+      navigate(msg.url).catch((e) => console.error("webapp-url-router:", e));
+    }
+  });
+  port.onDisconnect.addListener(() => setTimeout(connect, RETRY_MS));
+  port.postMessage({ watch: true });
+}
 
-chrome.windows.onFocusChanged.addListener((windowId) => {
-  if (windowId !== chrome.windows.WINDOW_ID_NONE) {
-    consume();
-  }
-});
-
-chrome.tabs.onActivated.addListener(() => consume());
-
-chrome.alarms.create("consume", { periodInMinutes: 0.05 });
-chrome.alarms.onAlarm.addListener((alarm) => {
-  if (alarm.name === "consume") {
-    consume();
-  }
-});
+connect();

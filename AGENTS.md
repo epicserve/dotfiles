@@ -37,6 +37,7 @@ Do not duplicate those steps here.
 | `setup_chatgpt.sh` | Official ChatGPT desktop: verify OpenAI's signed RPM repo, repackage for pacman |
 | `setup_stripe_cli.sh` | Purge AUR `stripe-cli` if present (binary comes from mise) |
 | `setup_link_router.sh` | Install/update omarchy-link-router so web app links open in Zen (`--update` pulls upstream first) |
+| `setup_webapp_url_router.sh` | Slack web app plus the Zen-to-Slack link hand-off (Zen extension, native host, Chromium window-reuse extension) |
 | `setup_obs.sh` / `backup_obs.sh` | Restore / backup OBS scenes and profiles |
 
 ### Config
@@ -52,7 +53,7 @@ Do not duplicate those steps here.
 - `mise/` — global `config.toml` (tools + versions), symlinked to `~/.config/mise`
 - `herdr/` (`config.toml` only; sockets and session state stay in `~/.config/herdr`)
 - `ssh/` — client config: 1Password `IdentityAgent`, agent forwarding to `omarchy`, no keys
-- `ghostty/`, `pipewire/`, `vscode/`, `udev/`, `obs/`, `claude/`
+- `ghostty/`, `pipewire/`, `vscode/`, `udev/`, `obs/`, `claude/`, `webapp-url-router/`
 - `chatgpt/openai-linux-repository.asc` — pinned OpenAI Linux repo public key
 
 ## Patterns
@@ -128,5 +129,11 @@ Edit them in `config/hypr/`. Env vars go in `monitors.lua` (or any of the five) 
   existing `--load-extension=` line in `~/.config/chromium-flags.conf`; Chromium honors
   only the last such flag, so never add a second one. The post-update hook re-runs it
   with `--update` during `omarchy update`.
+- The reverse direction, Slack links clicked in Zen opening in the Slack web app, is
+  `scripts/setup_webapp_url_router.sh` with sources in `config/webapp-url-router/`. A Zen
+  extension hands the URL to a native host, which pushes it into the open Slack window
+  through a small Chromium extension holding one native-messaging port, or launches the
+  web app. Same `--load-extension=` rule. The Zen extension is unsigned and is loaded by
+  hand from `about:debugging`; the post-update hook re-runs the script.
 
 After Hyprland edits, validate with `hyprctl reload` and `hyprctl configerrors`.

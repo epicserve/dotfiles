@@ -60,9 +60,10 @@ do
   OMARCHY_REMOVE_NOTIFY=false omarchy-webapp-remove "$app" >/dev/null 2>&1 || true
 done
 
-# Slack is the one kept web app. setup_webapp_url_router.sh (re)installs
-# Slack.desktop with a %u handler and a Zen extension so https://*.slack.com
-# / slack:// links open in the Chromium web app instead of a Zen tab.
+# Slack is the one kept web app. setup_webapp_url_router.sh installs it with
+# its native host as Exec (launcher focuses an open window) and wires the Zen
+# extension + Chromium window-reuse extension so Slack links clicked in Zen
+# open in the web app. See the script header.
 "$HOME/.dotfiles/scripts/setup_webapp_url_router.sh"
 
 # Web apps always run in Chromium (--app), even with Zen as the default browser,

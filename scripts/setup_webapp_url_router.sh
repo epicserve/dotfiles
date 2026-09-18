@@ -1,140 +1,96 @@
 #!/usr/bin/sh
-# Route Slack https:// (and slack://) links into the Omarchy Slack Chromium web
-# app instead of leaving them in Zen.
+# Open Slack links clicked in Zen in the Omarchy Slack Chromium web app.
 #
-# Linux has no OS-level "open this hostname in that app" map, so Zen handles
-# https itself. This installs:
-#   1. ~/.local/bin/webapp-url-router — focuses an existing Slack --app window
-#      or launches omarchy-launch-webapp
-#   2. Slack.desktop Exec=%u + x-scheme-handler/slack
-#   3. A Chromium extension (loaded with the other --load-extension paths)
-#      that navigates the existing Slack window instead of opening a second
-#      --app window for the deep-link URL
-#   4. A native messaging host registered under ~/.mozilla and ~/.config/zen
-#      only — never ~/.zen, which would make Zen abandon its XDG profile
+# Zen handles https itself, so a Zen extension cancels Slack navigations and
+# hands the URL to a native host (config/webapp-url-router/host.py), which
+# loads it into the open Slack --app window or launches one. A small Chromium
+# extension keeps one native-messaging port open so the host can push deep
+# links into the open window instead of Chromium starting a second one.
 #
-# Idempotent. Restart Chromium / the Slack web app so it picks up the
-# window-reuse extension (same as omarchy-link-router).
+# Installs the host, both native-messaging manifests, the Chromium extension
+# (appended to the --load-extension line, which Chromium honors only once) and
+# Slack.desktop with the host as Exec so the launcher focuses an open Slack
+# instead of starting another. Idempotent; a re-run writes nothing and touches
+# the network only when Slack.desktop has to be (re)created.
 #
-# Do not create ~/.zen. If that directory exists, Zen uses it instead of
-# ~/.config/zen and the real Work/Personal profile looks gone.
+# The Zen extension is unsigned and is loaded by hand from about:debugging
+# (Load Temporary Add-on, pick extension/manifest.json). A temporary add-on is
+# gone after a Zen restart.
+#
+# Never create ~/.zen: if that directory exists Zen uses it instead of
+# ~/.config/zen and the real profile appears to vanish.
 #
 #   sh ~/.dotfiles/scripts/setup_webapp_url_router.sh
 
 set -eu
 
-REPO="${DOTFILES:-$HOME/.dotfiles}"
-SRC="$REPO/config/webapp-url-router"
+SRC="${DOTFILES:-$HOME/.dotfiles}/config/webapp-url-router"
 DEST="$HOME/.local/share/webapp-url-router"
 HOST_NAME="com.omarchy.webapp_url_router"
-EXT_ID="webapp-url-router@dotfiles"
-# Stable Chromium ID from chromium-extension/manifest.json "key".
+ZEN_EXT_ID="webapp-url-router@dotfiles"
+# Stable id derived from the "key" in chromium-extension/manifest.json.
 CHROMIUM_EXT_ID="ieleckodcjeehocebpgonkniopemcjjn"
-# Keep in sync with setup_omarchy.sh / host.py
+# Keep in sync with SLACK_URL in host.py.
 SLACK_URL="https://app.slack.com/client/T07NZL2HG/C07NZPX4H"
 SLACK_ICON="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/slack.png"
 
-if [ ! -d "$SRC/extension" ] || [ ! -d "$SRC/chromium-extension" ] || [ ! -f "$SRC/host.py" ]; then
-  echo "webapp-url-router: missing sources in $SRC" >&2
-  exit 1
+if ! command -v omarchy-launch-webapp >/dev/null 2>&1; then
+  echo "webapp-url-router: omarchy-launch-webapp not found; skipping"
+  exit 0
 fi
 
-mkdir -p "$DEST" "$HOME/.local/bin"
-ln -snf "$SRC/host.py" "$DEST/host.py"
+# put FILE CONTENT: write only when different, so re-runs leave mtimes alone.
+put() {
+  if [ ! -f "$1" ] || [ "$(cat "$1")" != "$2" ]; then
+    mkdir -p "$(dirname "$1")"
+    printf '%s\n' "$2" >"$1"
+  fi
+}
+
+mkdir -p "$DEST"
 chmod +x "$SRC/host.py"
-ln -snf "$DEST/host.py" "$HOME/.local/bin/webapp-url-router"
-rm -rf "$DEST/chromium-extension"
+ln -snf "$SRC/host.py" "$DEST/host.py"
 ln -snf "$SRC/chromium-extension" "$DEST/chromium-extension"
 
-# Native messaging manifest: absolute path required. Zen's app id is Firefox's,
-# and 1Password already registers under ~/.mozilla. Also write the XDG config
-# dir. Never create ~/.zen — that directory is the legacy profile home, and
-# creating it makes Zen ignore ~/.config/zen.
-HOST_JSON=$(cat <<EOF
-{
-  "name": "$HOST_NAME",
-  "description": "Open Slack links in the Omarchy Slack web app",
-  "path": "$DEST/host.py",
-  "type": "stdio",
-  "allowed_extensions": ["$EXT_ID"]
-}
-EOF
-)
-for dir in \
-  "$HOME/.mozilla/native-messaging-hosts" \
-  "$HOME/.config/zen/native-messaging-hosts"
-do
-  mkdir -p "$dir"
-  printf '%s\n' "$HOST_JSON" > "$dir/$HOST_NAME.json"
-done
+# Native-messaging manifests need absolute paths, so they are generated here.
+# Zen reads Firefox's ~/.mozilla location (1Password registers there too);
+# ~/.config/zen is its XDG config dir.
+ZEN_MANIFEST="{
+  \"name\": \"$HOST_NAME\",
+  \"description\": \"Open Slack links in the Omarchy Slack web app\",
+  \"path\": \"$DEST/host.py\",
+  \"type\": \"stdio\",
+  \"allowed_extensions\": [\"$ZEN_EXT_ID\"]
+}"
+put "$HOME/.mozilla/native-messaging-hosts/$HOST_NAME.json" "$ZEN_MANIFEST"
+put "$HOME/.config/zen/native-messaging-hosts/$HOST_NAME.json" "$ZEN_MANIFEST"
 
-# Chromium uses allowed_origins (extension ID) rather than Firefox addon IDs.
-# Same host binary; Omarchy web apps only run in Chromium.
+# Web apps only run in Chromium; the Chromium half waits until it has a profile.
 if [ -d "$HOME/.config/chromium" ]; then
-  mkdir -p "$HOME/.config/chromium/NativeMessagingHosts"
-  cat > "$HOME/.config/chromium/NativeMessagingHosts/$HOST_NAME.json" <<EOF
-{
-  "name": "$HOST_NAME",
-  "description": "Open Slack links in the Omarchy Slack web app",
-  "path": "$DEST/host.py",
-  "type": "stdio",
-  "allowed_origins": ["chrome-extension://$CHROMIUM_EXT_ID/"]
-}
-EOF
-fi
+  put "$HOME/.config/chromium/NativeMessagingHosts/$HOST_NAME.json" "{
+  \"name\": \"$HOST_NAME\",
+  \"description\": \"Open Slack links in the Omarchy Slack web app\",
+  \"path\": \"$DEST/host.py\",
+  \"type\": \"stdio\",
+  \"allowed_origins\": [\"chrome-extension://$CHROMIUM_EXT_ID/\"]
+}"
 
-# Chromium honors only the last --load-extension flag, so append to the
-# existing Omarchy + link-router line instead of adding a second flag.
-update_chromium_flags() {
-  file="$1"
-  marker="webapp-url-router/chromium-extension"
-  ext="$DEST/chromium-extension"
-  touch "$file"
-  if grep -q "$marker" "$file"; then
-    return
-  fi
-  if grep -q '^--load-extension=' "$file"; then
-    sed -i "s|^--load-extension=.*|&,$ext|" "$file"
-  else
-    printf '%s\n' "--load-extension=$ext" >> "$file"
-  fi
-}
-if [ -d "$HOME/.config/chromium" ]; then
-  update_chromium_flags "$HOME/.config/chromium-flags.conf"
-fi
-
-# Point the Slack launcher at the router so %u deep links and slack:// work.
-# omarchy-webapp-install is idempotent besides re-fetching the icon.
-if command -v omarchy-webapp-install >/dev/null 2>&1; then
-  omarchy-webapp-install "Slack" "$SLACK_URL" "$SLACK_ICON" \
-    "$HOME/.local/bin/webapp-url-router %u" \
-    "x-scheme-handler/slack;" >/dev/null
-fi
-
-MIMEAPPS="$HOME/.config/mimeapps.list"
-if [ -f "$MIMEAPPS" ]; then
-  if ! grep -qFx "x-scheme-handler/slack=Slack.desktop" "$MIMEAPPS"; then
-    python3 - "$MIMEAPPS" <<'PY'
-from pathlib import Path
-import sys
-path = Path(sys.argv[1])
-text = path.read_text()
-line = "x-scheme-handler/slack=Slack.desktop"
-if "[Default Applications]" in text:
-    text = text.replace(
-        "[Default Applications]\n",
-        "[Default Applications]\n" + line + "\n",
-        1,
-    )
-else:
-    text += "\n[Default Applications]\n" + line + "\n"
-path.write_text(text)
-PY
+  # Chromium honors only the last --load-extension flag: append to the
+  # existing Omarchy + link-router line rather than adding a second one.
+  FLAGS="$HOME/.config/chromium-flags.conf"
+  if ! grep -qsF "$DEST/chromium-extension" "$FLAGS"; then
+    if grep -qs '^--load-extension=' "$FLAGS"; then
+      sed -i "s|^--load-extension=.*|&,$DEST/chromium-extension|" "$FLAGS"
+    else
+      printf '%s\n' "--load-extension=$DEST/chromium-extension" >>"$FLAGS"
+    fi
+    echo "webapp-url-router: Chromium extension added; fully quit Chromium (every window) to load it"
   fi
 fi
-xdg-mime default Slack.desktop x-scheme-handler/slack >/dev/null 2>&1 || true
 
-echo "webapp-url-router: installed"
-if pgrep -x chromium >/dev/null; then
-  echo "webapp-url-router: fully quit Chromium (every Chromium window, not just Slack) so the next launch loads window reuse"
+# Slack.desktop runs the host, which focuses an open Slack window or launches
+# one. omarchy-webapp-install downloads the icon every time, so only run it
+# when the Exec line is not already ours.
+if ! grep -qsFx "Exec=$DEST/host.py" "$HOME/.local/share/applications/Slack.desktop"; then
+  omarchy-webapp-install "Slack" "$SLACK_URL" "$SLACK_ICON" "$DEST/host.py" >/dev/null
 fi
