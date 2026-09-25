@@ -2,7 +2,20 @@
 # gpg.ssh.program for the Omarchy desktop. Chosen per git invocation, not per
 # shell: sign through the forwarded laptop agent when it answers, otherwise
 # through the local 1Password app.
+#
+# A forwarded agent can list keys yet never sign (1Password on the laptop is
+# locked, or nobody is there to approve), so a sign that fails or stalls past
+# the timeout is retried locally. Git passes the buffer as the last argument
+# and reads the signature from "<buffer>.sig".
 if "$HOME/.config/git/forwarded-agent"; then
-  SSH_AUTH_SOCK="$HOME/.ssh/agent.sock" exec ssh-keygen "$@"
+  if [ "$1" != "-Y" ] || [ "$2" != "sign" ]; then
+    SSH_AUTH_SOCK="$HOME/.ssh/agent.sock" exec ssh-keygen "$@"
+  fi
+  if SSH_AUTH_SOCK="$HOME/.ssh/agent.sock" timeout 20 ssh-keygen "$@"; then
+    exit 0
+  fi
+  for buffer; do :; done
+  rm -f "$buffer.sig"
+  echo "ssh-sign: forwarded agent did not sign; using local 1Password" >&2
 fi
 exec /opt/1Password/op-ssh-sign "$@"
