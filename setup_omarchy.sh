@@ -298,6 +298,11 @@ if [ -d ~/.dotfiles/config/claude/projects ] && [ ! -L ~/.claude/projects ]; the
   [ -d ~/.claude/projects ] && mv ~/.claude/projects ~/.claude/projects.backup
   ln -s ~/.dotfiles/config/claude/projects ~/.claude/projects
 fi
+# Keep /model and /effort picks out of git (see .gitattributes)
+claude_settings_filter="jq 'del(.model, .effortLevel, .modelSettings)'"
+if [ "$(git -C ~/.dotfiles config --get filter.claude-settings.clean)" != "$claude_settings_filter" ]; then
+  git -C ~/.dotfiles config filter.claude-settings.clean "$claude_settings_filter"
+fi
 
 # Setup iptables rules for PyCharm Docker debugger
 if ! sudo iptables -C INPUT -s 172.16.0.0/12 -j ACCEPT 2>/dev/null; then

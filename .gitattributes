@@ -1,0 +1,3 @@
+# Claude Code rewrites model/effort picks into its settings; the clean filter
+# (configured by setup_omarchy.sh) drops them so status and diff stay quiet.
+config/claude/settings.json filter=claude-settings

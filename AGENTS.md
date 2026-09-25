@@ -53,7 +53,10 @@ Do not duplicate those steps here.
 - `mise/` — global `config.toml` (tools + versions), symlinked to `~/.config/mise`
 - `herdr/` (`config.toml` only; sockets and session state stay in `~/.config/herdr`)
 - `ssh/` — client config: 1Password `IdentityAgent`, agent forwarding to `omarchy`, no keys
-- `ghostty/`, `pipewire/`, `vscode/`, `udev/`, `obs/`, `claude/`, `webapp-url-router/`
+- `claude/` — Claude Code `settings.json`. A git clean filter (`.gitattributes`,
+  configured by `setup_omarchy.sh`) strips `model`, `effortLevel`, and `modelSettings`,
+  so those stay machine-local and never show in status or diff
+- `ghostty/`, `pipewire/`, `vscode/`, `udev/`, `obs/`, `webapp-url-router/`
 - `chatgpt/openai-linux-repository.asc` — pinned OpenAI Linux repo public key
 
 ## Patterns
