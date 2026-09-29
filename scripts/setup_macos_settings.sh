@@ -62,5 +62,46 @@ macos_set com.apple.dock wvous-br-corner int 4
 # Misc
 macos_set com.apple.desktopservices DSDontWriteNetworkStores bool true
 
+# iTerm2: Left Option sends Esc+ so Alt shortcuts reach terminal apps (Claude Code's
+# Alt+P model picker, herdr's alt bindings); Right Option still types characters like π.
+# iTerm2 writes its in-memory profiles back over the prefs, so only change them while it is quit.
+iterm2_left_option_esc() (
+  pb=/usr/libexec/PlistBuddy
+  plist=$(mktemp)
+  trap 'rm -f "$plist"' EXIT
+  defaults export com.googlecode.iterm2 "$plist" 2>/dev/null || true
+
+  # The default profile, or the first one if no default was ever chosen
+  default=$("$pb" -c "Print :'Default Bookmark Guid'" "$plist" 2>/dev/null || true)
+  i=0 entry=""
+  while guid=$("$pb" -c "Print :'New Bookmarks':$i:Guid" "$plist" 2>/dev/null); do
+    if [[ -z "$default" || "$guid" == "$default" ]]; then
+      entry=":'New Bookmarks':$i:'Option Key Sends'"
+      break
+    fi
+    i=$((i + 1))
+  done
+  if [[ -z "$entry" ]]; then
+    echo "iTerm2 has no profile yet: open and quit it once, then re-run to set Left Option to Esc+"
+    exit 0
+  fi
+
+  current=$("$pb" -c "Print $entry" "$plist" 2>/dev/null || echo unset)
+  if [[ "$current" == 2 ]]; then
+    exit 0
+  fi
+  if pgrep -xq iTerm2; then
+    echo "Quit iTerm2 and re-run (from Terminal.app) to set its Left Option key to Esc+"
+    exit 0
+  fi
+  if [[ "$current" == unset ]]; then
+    "$pb" -c "Add $entry integer 2" "$plist"
+  else
+    "$pb" -c "Set $entry 2" "$plist"
+  fi
+  defaults import com.googlecode.iterm2 "$plist"
+)
+iterm2_left_option_esc
+
 # Restart affected apps (always silent)
 killall Finder Dock &>/dev/null || true
