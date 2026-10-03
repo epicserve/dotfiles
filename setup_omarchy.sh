@@ -126,6 +126,28 @@ MimeType=x-scheme-handler/jetbrains;
 EOF
 fi
 
+# Give DBeaver the 1Password SSH agent. Launcher apps don't inherit the shell's
+# SSH_AUTH_SOCK, and DBeaver's Java SSH client ignores IdentityAgent in
+# ~/.ssh/config, so its "SSH Agent" auth for tunnels finds no agent without this.
+if [ -f /usr/share/applications/io.dbeaver.DBeaver.desktop ]; then
+  cat > ~/.local/share/applications/io.dbeaver.DBeaver.desktop << EOF
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Name=DBeaver Community
+GenericName=Universal Database Manager
+Comment=Universal Database Manager and SQL Client.
+Exec=env SSH_AUTH_SOCK=$HOME/.1password/agent.sock dbeaver
+Icon=dbeaver
+Categories=IDE;Development
+StartupWMClass=DBeaver
+StartupNotify=true
+Keywords=Database;SQL;IDE;JDBC;ODBC;MySQL;PostgreSQL
+MimeType=application/sql
+EOF
+fi
+
 # Fix guvcview desktop file (upstream uses _Name instead of Name)
 if [ ! -f ~/.local/share/applications/guvcview.desktop ]; then
   cp /usr/share/applications/guvcview.desktop ~/.local/share/applications/
@@ -187,6 +209,12 @@ if command -v omarchy-hw-nvidia >/dev/null 2>&1 && omarchy-hw-nvidia; then
       sudo systemctl enable "$unit"
     fi
   done
+fi
+
+# 1Password CLI from pacman, not mise: the desktop app only accepts CLI connections
+# from an `op` that is setgid onepassword-cli, which the package sets up.
+if ! pacman -Q 1password-cli >/dev/null 2>&1; then
+  omarchy pkg add 1password-cli
 fi
 
 # Setup 1Password to use Zen Browser
