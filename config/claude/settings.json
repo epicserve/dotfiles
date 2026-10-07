@@ -91,6 +91,10 @@
       }
     }
   },
+  "statusLine": {
+    "type": "command",
+    "command": "bash /home/brent/.claude/statusline-command.sh"
+  },
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "skipAutoPermissionPrompt": true,
