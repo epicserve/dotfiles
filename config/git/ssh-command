@@ -1,0 +1,29 @@
+#!/bin/sh
+# core.sshCommand for the Omarchy desktop. ~/.ssh/config sends ssh through the
+# forwarded laptop agent whenever it lists keys (see config/git/forwarded-agent),
+# but listing isn't signing: when 1Password on the laptop is locked, or nobody is
+# there to approve, the agent lists keys and then refuses or stalls on the
+# signature ssh needs to log in, and git push fails with "Permission denied
+# (publickey)". ssh has no fallback of its own, so test-sign through the
+# forwarded agent first, as config/git/ssh-sign does for commits, and connect
+# through the local 1Password app when that fails or takes over 20s.
+forwarded="$HOME/.ssh/agent.sock"
+
+forwarded_agent_signs() {
+  dir=$(mktemp -d) || return 1
+  SSH_AUTH_SOCK="$forwarded" ssh-add -L 2>/dev/null | head -n 1 >"$dir/key.pub"
+  echo probe >"$dir/data"
+  SSH_AUTH_SOCK="$forwarded" timeout 20 \
+    ssh-keygen -Y sign -n probe -f "$dir/key.pub" "$dir/data" >/dev/null 2>&1
+  status=$?
+  rm -rf "$dir"
+  return "$status"
+}
+
+if "$HOME/.config/git/forwarded-agent"; then
+  if forwarded_agent_signs; then
+    exec ssh -o IdentityAgent="$forwarded" "$@"
+  fi
+  echo "ssh-command: forwarded agent did not sign; using local 1Password" >&2
+fi
+exec ssh -o IdentityAgent="$HOME/.1password/agent.sock" "$@"

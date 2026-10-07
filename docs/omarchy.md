@@ -95,7 +95,11 @@ the only thing to secure is SSH itself.
   socket answers, the `Match exec` rule in `config/ssh/config` points `ssh` at it,
   and `config/git/ssh-sign` (git's `gpg.ssh.program` on the desktop) signs through it
   with `ssh-keygen`, falling back to `op-ssh-sign` and the desktop's own 1Password
-  agent otherwise. Long-lived shells and tools such as Claude Code therefore keep
+  agent otherwise. A forwarded agent can list keys yet refuse to sign (1Password on
+  the laptop is locked, or nobody is there to approve), which would fail every git push
+  and fetch, so `config/git/ssh-command` (git's `core.sshCommand` on the desktop)
+  test-signs through it first and connects through the desktop's own 1Password agent
+  when that fails or takes over 20s. Long-lived shells and tools such as Claude Code therefore keep
   working across laptop connects and disconnects with no `exec zsh`. Touch ID prompts
   appear on the laptop.
 - The desktop must stay awake. `config/omarchy/shell.json` only screensaves and locks on
