@@ -29,7 +29,6 @@
       "WebFetch",
       "WebSearch",
       "mcp__plugin_playwright_playwright__*",
-      "Skill(gstack-browse:*)",
       "Bash(zsh -c 'echo $FPATH')",
       "Bash(zsh -ic 'whence -w _complete; whence -w compinit; bindkey | grep \"\\\\\\\\^I\"')",
       "Bash(zsh -ic 'bindkey \"^I\"')",
@@ -55,7 +54,6 @@
     ],
     "defaultMode": "auto",
     "additionalDirectories": [
-      "/home/brent/.gstack/projects/epicserve-time-logs",
       "/home/brent/.claude/plans",
       "/home/brent/.cache/ms-playwright/mcp-chrome-f5d30e6",
       "/tmp",
@@ -76,6 +74,10 @@
       }
     ]
   },
+  "statusLine": {
+    "type": "command",
+    "command": "bash /home/brent/.claude/statusline-command.sh"
+  },
   "enabledPlugins": {
     "playwright@claude-plugins-official": true,
     "frontend-design@claude-plugins-official": true,
@@ -91,10 +93,7 @@
       }
     }
   },
-  "statusLine": {
-    "type": "command",
-    "command": "bash /home/brent/.claude/statusline-command.sh"
-  },
+  "advisorModel": "fable",
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "skipAutoPermissionPrompt": true,
