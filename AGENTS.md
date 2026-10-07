@@ -87,6 +87,9 @@ email is selected with Git `includeIf` on directory path (see
 desktop installs from the vendor's signed artifacts because AUR wrappers are a
 supply-chain risk. Do not replace that script with `yay -S chatgpt-desktop-bin`.
 Stripe CLI is installed by mise (`aqua:stripe/stripe-cli`); never `yay -S stripe-cli`.
+1Password CLI is the reverse: mise installs `op` on macOS only, and Omarchy uses the
+`1password-cli` pacman package, because the Linux desktop app resets connections from
+any `op` that isn't setgid `onepassword-cli`.
 
 **ChatGPT updates.** `scripts/setup_chatgpt.sh` is idempotent (`--check` reports
 without installing). The app must be quit before an install. The package name is

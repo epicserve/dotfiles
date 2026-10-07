@@ -1,7 +1,9 @@
 [tools]
 "github:apppackio/apppack" = "latest"
 "github:getsentry/cli" = "latest"
-1password-cli = "latest"
+# macOS only: the Linux desktop app rejects any `op` that isn't setgid
+# onepassword-cli, so Omarchy uses the 1password-cli pacman package.
+1password-cli = { version = "latest", os = ["macos"] }
 aws-cli = { version = "latest", symlink_bins = true }
 aws-vault = "latest"
 bun = "latest"
