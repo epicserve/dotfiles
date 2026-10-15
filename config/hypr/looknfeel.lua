@@ -11,3 +11,9 @@ o.window({ tag = "floating-window" }, { size = { 1200, 800 } })
 -- tiled 2396x1320 window makes it "choose" 3834x2112. The title match skips
 -- the tiny helper window the game also creates.
 o.window({ class = "^steam_app_1174180$", title = "^Red Dead Redemption 2$" }, { fullscreen = true })
+
+-- Claude Code's Playwright MCP browser opens on workspace 10 without switching to
+-- it or taking focus. config/playwright-mcp/config.json launches it with
+-- --class=playwright-mcp; its Chrome is a symlink to Chromium, so without that
+-- class it would be indistinguishable from regular Chromium windows.
+o.window("^playwright-mcp$", { workspace = "10 silent", no_initial_focus = true })

@@ -56,6 +56,10 @@ Do not duplicate those steps here.
 - `claude/` — Claude Code `settings.json`. A git clean filter (`.gitattributes`,
   configured by `setup_omarchy.sh`) strips `model`, `effortLevel`, and `modelSettings`,
   so those stay machine-local and never show in status or diff
+- `playwright-mcp/` — Playwright MCP `config.json`, symlinked to `~/.config/playwright-mcp`.
+  It launches the browser with `--class=playwright-mcp` so `hypr/looknfeel.lua` can send
+  it to workspace 10 without focus; `claude/settings.json` points `PLAYWRIGHT_MCP_CONFIG`
+  at it
 - `ghostty/`, `pipewire/`, `vscode/`, `udev/`, `obs/`, `webapp-url-router/`
 - `chatgpt/openai-linux-repository.asc` — pinned OpenAI Linux repo public key
 

@@ -326,6 +326,13 @@ if [ -d ~/.dotfiles/config/claude/projects ] && [ ! -L ~/.claude/projects ]; the
   [ -d ~/.claude/projects ] && mv ~/.claude/projects ~/.claude/projects.backup
   ln -s ~/.dotfiles/config/claude/projects ~/.claude/projects
 fi
+# Playwright MCP config: settings.json points PLAYWRIGHT_MCP_CONFIG here, and the MCP
+# server won't start if the file is missing. It launches the browser with
+# --class=playwright-mcp so config/hypr/looknfeel.lua can send it to workspace 10.
+if [ -d ~/.config/playwright-mcp ] && [ ! -L ~/.config/playwright-mcp ]; then
+  mv ~/.config/playwright-mcp ~/.config/playwright-mcp.pre-dotfiles.bak
+fi
+ln -snf ~/.dotfiles/config/playwright-mcp ~/.config/playwright-mcp
 # Keep /model and /effort picks out of git (see .gitattributes)
 claude_settings_filter="jq 'del(.model, .effortLevel, .modelSettings)'"
 if [ "$(git -C ~/.dotfiles config --get filter.claude-settings.clean)" != "$claude_settings_filter" ]; then

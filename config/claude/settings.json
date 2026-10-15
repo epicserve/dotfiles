@@ -1,4 +1,7 @@
 {
+  "env": {
+    "PLAYWRIGHT_MCP_CONFIG": "/home/brent/.config/playwright-mcp/config.json"
+  },
   "permissions": {
     "allow": [
       "Bash(git *)",
@@ -128,5 +131,6 @@
       "**Trusted repo**: canopyllc/pears (github.com:canopyllc/pears.git), the working directory this session started in — private repo, so confidential material may be committed there but secrets/regulated data are never cleared in by visibility alone",
       "**Org-specific CLIs**: None configured"
     ]
-  }
+  },
+  "skipWorkflowUsageWarning": true
 }
