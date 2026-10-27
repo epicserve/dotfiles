@@ -5,3 +5,4 @@
 .tox
 .envrc
 **/.claude/settings.local.json
+.playwright-mcp/
