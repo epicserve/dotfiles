@@ -209,6 +209,17 @@ if [ -f "$menu_ext" ] && [ ! -L "$menu_ext" ]; then
   mv "$menu_ext" "$menu_ext.pre-dotfiles.bak"
 fi
 ln -snf "$HOME/.dotfiles/config/omarchy/extensions/omarchy-menu.jsonc" "$menu_ext"
+# Zen: stop the "Make Zen your default browser?" prompt. Omarchy routes http(s)
+# through omarchy-browser.desktop (hyprland-mimeapps.list), so Zen never sees
+# itself as the default and the button's change to mimeapps.list is overridden.
+# user.js is read at startup and never rewritten by Zen.
+zen_profile=$(sed -n '/^\[Install/,/^$/p' "$HOME/.config/zen/profiles.ini" 2>/dev/null | sed -n 's/^Default=//p' | head -1)
+if [ -n "$zen_profile" ] && [ -d "$HOME/.config/zen/$zen_profile" ]; then
+  zen_pref='user_pref("browser.shell.checkDefaultBrowser", false);'
+  grep -qsFx "$zen_pref" "$HOME/.config/zen/$zen_profile/user.js" ||
+    printf '%s\n' "$zen_pref" >>"$HOME/.config/zen/$zen_profile/user.js"
+fi
+
 # Keep Suspend on the system menu (the flag file hides it when present).
 if command -v omarchy-toggle >/dev/null 2>&1; then
   omarchy-toggle suspend-off off
