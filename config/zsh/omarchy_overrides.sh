@@ -1,3 +1,8 @@
+# OMARCHY_PATH (omarchy-update and friends abort without it). Shells started by
+# Tailscale SSH or herdr's remote bridge skip /etc/profile, where it is normally
+# set; this is the same bootstrap Omarchy's bash envs re-sources for them.
+[ -r /usr/share/omarchy/default/bash/env-bootstrap ] && . /usr/share/omarchy/default/bash/env-bootstrap
+
 # SSH agent for shell tools (ssh-add etc.). ssh itself picks a forwarded laptop
 # agent via the Match rule in ~/.ssh/config; git signs through
 # config/git/ssh-sign and connects through config/git/ssh-command, which fall
