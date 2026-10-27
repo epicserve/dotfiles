@@ -86,7 +86,8 @@
     "frontend-design@claude-plugins-official": true,
     "frontend-design@claude-code-plugins": true,
     "slack@claude-plugins-official": true,
-    "telemetry@builtin": false
+    "telemetry@builtin": false,
+    "sam@canopy-plugins": true
   },
   "extraKnownMarketplaces": {
     "claude-code-plugins": {
@@ -99,6 +100,7 @@
   "advisorModel": "fable",
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
+  "skipWorkflowUsageWarning": true,
   "skipAutoPermissionPrompt": true,
   "autoMode": {
     "soft_deny": [
@@ -131,6 +133,5 @@
       "**Trusted repo**: canopyllc/pears (github.com:canopyllc/pears.git), the working directory this session started in — private repo, so confidential material may be committed there but secrets/regulated data are never cleared in by visibility alone",
       "**Org-specific CLIs**: None configured"
     ]
-  },
-  "skipWorkflowUsageWarning": true
+  }
 }
