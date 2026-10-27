@@ -21,3 +21,6 @@ export AWS_VAULT_BACKEND=secret-service
 
 # Default browser
 export BROWSER="zen-browser"
+
+# Boot Windows once via UEFI BootNext (also in the launcher as "Reboot to Windows")
+alias reboot-windows="$HOME/.dotfiles/config/omarchy/bin/reboot-windows"

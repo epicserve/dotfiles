@@ -148,6 +148,25 @@ MimeType=application/sql
 EOF
 fi
 
+# "Reboot to Windows" launcher entry (dual-boot machines only). It sets UEFI
+# BootNext instead of chainloading from a Limine entry, which would trip
+# BitLocker recovery. Script: config/omarchy/bin/reboot-windows.
+if command -v efibootmgr >/dev/null 2>&1 && efibootmgr 2>/dev/null | grep -q "Windows Boot Manager"; then
+  mkdir -p ~/.local/share/applications
+  cat > ~/.local/share/applications/reboot-windows.desktop << EOF
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Reboot to Windows
+Comment=Restart into Windows once, then back to Omarchy
+Exec=$HOME/.dotfiles/config/omarchy/bin/reboot-windows
+Icon=system-reboot
+Terminal=false
+Categories=System;
+Keywords=windows;reboot;restart;dual boot;
+EOF
+fi
+
 # Fix guvcview desktop file (upstream uses _Name instead of Name)
 if [ ! -f ~/.local/share/applications/guvcview.desktop ]; then
   cp /usr/share/applications/guvcview.desktop ~/.local/share/applications/

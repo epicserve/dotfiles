@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Reboot straight into Windows for one boot; the next restart returns to Limine.
+#
+# Sets the UEFI BootNext variable to the firmware's "Windows Boot Manager"
+# entry so the firmware starts Windows directly. Chainloading Windows from a
+# Limine entry adds Limine to the TPM boot measurements, which trips BitLocker
+# recovery on every boot (and again after each Limine update).
+set -uo pipefail
+
+# Launched from the app launcher there is no TTY for the sudo prompt, so rerun
+# in a terminal and pause on failure so the error stays readable.
+if [ ! -t 0 ]; then
+  if command -v xdg-terminal-exec >/dev/null 2>&1; then
+    exec xdg-terminal-exec env REBOOT_WINDOWS_PAUSE=1 "$0" "$@"
+  fi
+  exec ghostty -e env REBOOT_WINDOWS_PAUSE=1 "$0" "$@"
+fi
+
+fail() {
+  echo "$1" >&2
+  [ -n "${REBOOT_WINDOWS_PAUSE:-}" ] && read -rp "Press Enter to close. " _
+  exit 1
+}
+
+# Look the entry up each time: the number can change after a Windows reinstall
+# or a firmware reset.
+entry=$(efibootmgr | sed -n 's/^Boot\([0-9A-Fa-f]\{4\}\)\*\{0,1\} Windows Boot Manager.*/\1/p' | head -1)
+[ -n "$entry" ] || fail "No \"Windows Boot Manager\" entry in efibootmgr."
+
+echo "Rebooting into Windows (Boot$entry)..."
+sudo efibootmgr --bootnext "$entry" >/dev/null || fail "Could not set BootNext."
+systemctl reboot

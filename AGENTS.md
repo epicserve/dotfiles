@@ -49,7 +49,10 @@ Do not duplicate those steps here.
   `monitors.lua`, `autostart.lua`), symlinked to `~/.config/hypr/*.lua`
 - `omarchy/` — theme (`digital-nature`, `colors.toml` format), `shell.json`
   (quickshell bar layout), `hooks/` (post-update hook, symlinked into
-  `~/.config/omarchy/hooks/`), and bashrc additions
+  `~/.config/omarchy/hooks/`), and bashrc additions. `bin/reboot-windows` boots
+  Windows once via UEFI `BootNext`; setup writes a "Reboot to Windows" launcher
+  entry for it on dual-boot machines. Do not add a Limine Windows entry instead:
+  chainloading from Limine trips BitLocker recovery
 - `mise/` — global `config.toml` (tools + versions), symlinked to `~/.config/mise`
 - `herdr/` (`config.toml` only; sockets and session state stay in `~/.config/herdr`)
 - `ssh/` — client config: 1Password `IdentityAgent`, agent forwarding to `omarchy`, no keys
