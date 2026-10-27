@@ -21,4 +21,8 @@
   // is the working "done for the day" option. `when` is a bash command;
   // `false` exits 1 so the row stays hidden even after hibernation setup.
   "system.hibernate": {"when": "false"},
+  //
+  // Hide Remove > Gaming > Steam: it shows up as a second "Steam" result when
+  // searching the launcher for the app.
+  "remove.gaming.steam": {"when": "false"},
 }

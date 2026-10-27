@@ -202,7 +202,7 @@ if [ -f "$HOME/.config/omarchy/shell.json" ] && [ ! -L "$HOME/.config/omarchy/sh
 fi
 ln -sf "$HOME/.dotfiles/config/omarchy/shell.json" "$HOME/.config/omarchy/shell.json"
 
-# Menu overlay (hides Hibernate; Super+Esc otherwise follows Omarchy defaults).
+# Menu overlay (hides Hibernate and Remove > Steam; the rest follows Omarchy defaults).
 mkdir -p "$HOME/.config/omarchy/extensions"
 menu_ext="$HOME/.config/omarchy/extensions/omarchy-menu.jsonc"
 if [ -f "$menu_ext" ] && [ ! -L "$menu_ext" ]; then
