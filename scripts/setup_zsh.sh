@@ -43,11 +43,22 @@ fi
 
 ln -sf ~/.dotfiles/config/aliases ~/.config/
 
-# Herdr binary. Omarchy gets it from the AUR (setup_omarchy.sh); elsewhere use
-# the official installer, which drops a release binary on PATH.
+# Herdr TUI binary, from the official installer, which drops a release binary
+# on PATH.
 if ! command -v herdr >/dev/null 2>&1; then
   echo "Installing herdr..."
   curl -fsSL https://herdr.dev/install.sh | sh
+fi
+
+# Herdr desktop app (herdr-app) and its herdr-core/hc server, separate from the
+# TUI and sharing no sessions with it. Official installer, not the AUR: the app
+# updates itself and the core in ~/.local, which a /usr/bin package would block.
+# Install once only, since re-running the installer reinstalls the app. Skipped
+# on WSL, which has no desktop to run it in.
+if ! grep -qiE "(Microsoft|WSL)" /proc/version 2>/dev/null &&
+  ! command -v herdr-app >/dev/null 2>&1 && [ ! -e "$HOME/.local/bin/herdr-app" ]; then
+  echo "Installing the Herdr app..."
+  curl -fsSL https://releases.herdr.dev/app/install.sh | sh
 fi
 
 # Herdr config: link only config.toml. ~/.config/herdr also holds sockets, logs,
