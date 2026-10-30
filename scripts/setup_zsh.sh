@@ -71,4 +71,18 @@ if [ -f "$herdr_cfg" ] && [ ! -L "$herdr_cfg" ]; then
 fi
 ln -snf "$HOME/.dotfiles/config/herdr/config.toml" "$herdr_cfg"
 
+# Herdr app config: link only keys, settings, and the theme. The app rewrites
+# the rest of ~/.config/herdr-app (guide, shipped mods and layouts, state) on
+# every start. It writes settings.json through the symlink (zoom, Settings),
+# but misses edits made to the repo copies until restarted or re-linked here.
+for herdr_app_file in keys.json settings.json themes/tokyo-night.json; do
+  herdr_app_cfg="$HOME/.config/herdr-app/$herdr_app_file"
+  mkdir -p "$(dirname "$herdr_app_cfg")"
+  if [ -f "$herdr_app_cfg" ] && [ ! -L "$herdr_app_cfg" ]; then
+    mv "$herdr_app_cfg" "$herdr_app_cfg.pre-dotfiles.bak"
+    echo "Backed up existing ~/.config/herdr-app/$herdr_app_file to $herdr_app_file.pre-dotfiles.bak"
+  fi
+  ln -snf "$HOME/.dotfiles/config/herdr-app/$herdr_app_file" "$herdr_app_cfg"
+done
+
 . "$HOME/.dotfiles/scripts/setup_git.sh"

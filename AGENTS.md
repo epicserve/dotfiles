@@ -55,6 +55,10 @@ Do not duplicate those steps here.
   chainloading from Limine trips BitLocker recovery
 - `mise/` — global `config.toml` (tools + versions), symlinked to `~/.config/mise`
 - `herdr/` (`config.toml` only; sockets and session state stay in `~/.config/herdr`)
+- `herdr-app/` — Herdr desktop app `keys.json`, `settings.json`, and `themes/tokyo-night.json`,
+  each symlinked into `~/.config/herdr-app` (the app rewrites the rest of that folder on start).
+  The running app does not reliably notice edits to the repo copies: restart it or re-run the
+  link step. Check `herdr-app status` for `errors` after a change
 - `ssh/` — client config: 1Password `IdentityAgent`, agent forwarding to `omarchy`, no keys
 - `claude/` — Claude Code `settings.json`. A git clean filter (`.gitattributes`,
   configured by `setup_omarchy.sh`) strips `model`, `effortLevel`, and `modelSettings`,
