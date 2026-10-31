@@ -71,11 +71,16 @@ if [ -f "$herdr_cfg" ] && [ ! -L "$herdr_cfg" ]; then
 fi
 ln -snf "$HOME/.dotfiles/config/herdr/config.toml" "$herdr_cfg"
 
-# Herdr app config: link only keys, settings, and the theme. The app rewrites
-# the rest of ~/.config/herdr-app (guide, shipped mods and layouts, state) on
-# every start. It writes settings.json through the symlink (zoom, Settings),
-# but misses edits made to the repo copies until restarted or re-linked here.
-for herdr_app_file in keys.json settings.json themes/tokyo-night.json; do
+# Herdr app config: link only keys, settings, the theme, and our own layout and
+# mod. The app rewrites the rest of ~/.config/herdr-app (guide, shipped mods and
+# layouts, state) on every start. It writes settings.json through the symlink
+# (zoom, Settings), but misses edits made to the repo copies until restarted or
+# re-linked here. The pears-links mod is linked file by file because the app
+# writes jsconfig.json and gpui-kit.d.ts into each mod folder; those stay out of
+# the repo. main-pears is a clone of the shipped main layout with that mod beside
+# the status bar; pick it with Ctrl+Shift+L.
+for herdr_app_file in keys.json settings.json themes/tokyo-night.json \
+  layouts/main-pears.json mods/pears-links/main.js mods/pears-links/mod.json; do
   herdr_app_cfg="$HOME/.config/herdr-app/$herdr_app_file"
   mkdir -p "$(dirname "$herdr_app_cfg")"
   if [ -f "$herdr_app_cfg" ] && [ ! -L "$herdr_app_cfg" ]; then
