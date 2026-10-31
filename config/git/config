@@ -16,7 +16,8 @@
 [gpg]
   format = ssh
 
-# Written by scripts/setup_git.sh from config_local and config_work
+# Written by scripts/setup_git.sh from config_local; config_work points work
+# repos at allowed_signers_work so their signatures show the work email
 [gpg "ssh"]
   allowedSignersFile = ~/.config/git/allowed_signers
 

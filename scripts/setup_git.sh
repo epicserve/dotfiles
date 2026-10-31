@@ -306,34 +306,42 @@ if [ ! -e "$GIT_LOCAL_CONFIG_PATH" ]; then
 
 fi
 
-# Trust our own signing key for both emails, so `git log --show-signature` and
-# %G? can verify our commits (gpg.ssh.allowedSignersFile in config/git/config).
-# Runs on every setup, not just the first, and only appends, so keys added by
-# hand stay. This file is sourced: no exit.
-write_git_allowed_signers() {
-  signers_path="$HOME/.config/git/allowed_signers"
-  signers_emails=$(git config --file "$GIT_LOCAL_CONFIG_PATH" user.email)
-  signers_work_email=$(git config --file "$GIT_WORK_CONFIG_PATH" user.email 2>/dev/null)
-  if [ -n "$signers_work_email" ] && [ "$signers_work_email" != "$signers_emails" ]; then
-    signers_emails="$signers_emails,$signers_work_email"
-  fi
-
-  signers_key=$(git config --file "$GIT_LOCAL_CONFIG_PATH" user.signingkey)
-  signers_key=${signers_key#key::}
-  case "$signers_key" in
-    ssh-* | ecdsa-* | sk-* | "") ;;
-    *) signers_key=$(cat "$(echo "$signers_key" | sed "s|^~|$HOME|")" 2>/dev/null) ;;
-  esac
-
-  if [ -z "$signers_emails" ] || [ -z "$signers_key" ]; then
-    echo "Skipping $signers_path: no user.email or user.signingkey in $GIT_LOCAL_CONFIG_PATH" >&2
+# Trust our own signing key, so `git log --show-signature` and %G? can verify our
+# commits. Git labels a good signature with the first email in the allowed
+# signers file listed for that key, not the commit's email, so the label follows
+# the directory the way user.email does: config/git/config points at
+# allowed_signers (personal email) and config_work, included under the work
+# path, at allowed_signers_work (work email). Runs on every setup, not just the
+# first, and only appends, so keys added by hand stay. This file is sourced: no exit.
+add_git_allowed_signer() {
+  signers_email="$1"
+  signers_path="$HOME/.config/git/$2"
+  if [ -z "$signers_email" ] || [ -z "$signers_key" ]; then
+    echo "Skipping $signers_path: no user.email or user.signingkey in Git config" >&2
     return 0
   fi
-
-  signers_line="$signers_emails namespaces=\"git\" $signers_key"
+  signers_line="$signers_email namespaces=\"git\" $signers_key"
   if ! grep -qFx "$signers_line" "$signers_path" 2>/dev/null; then
     printf '%s\n' "$signers_line" >> "$signers_path"
-    echo "Added your signing key to $signers_path"
+    echo "Added your signing key for $signers_email to $signers_path"
   fi
 }
-write_git_allowed_signers
+
+signers_key=$(git config --file "$GIT_LOCAL_CONFIG_PATH" user.signingkey)
+signers_key=${signers_key#key::}
+case "$signers_key" in
+  ssh-* | ecdsa-* | sk-* | "") ;;
+  *) signers_key=$(cat "$(echo "$signers_key" | sed "s|^~|$HOME|")" 2>/dev/null) ;;
+esac
+
+add_git_allowed_signer "$(git config --file "$GIT_LOCAL_CONFIG_PATH" user.email)" allowed_signers
+add_git_allowed_signer "$(git config --file "$GIT_WORK_CONFIG_PATH" user.email 2>/dev/null)" allowed_signers_work
+
+# The literal ~ is kept, as in config/git/config; Git expands it when reading.
+# shellcheck disable=SC2088
+work_signers_setting="~/.config/git/allowed_signers_work"
+if [ -e "$GIT_WORK_CONFIG_PATH" ] &&
+  [ "$(git config --file "$GIT_WORK_CONFIG_PATH" gpg.ssh.allowedSignersFile)" != "$work_signers_setting" ]; then
+  git config --file "$GIT_WORK_CONFIG_PATH" gpg.ssh.allowedSignersFile "$work_signers_setting"
+  echo "Pointed $GIT_WORK_CONFIG_PATH at $work_signers_setting"
+fi
