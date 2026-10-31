@@ -5,8 +5,13 @@ hl.env("GDK_SCALE", "2")
 -- Fullscreen games on Wayland run at the compositor's refresh rate, so the
 -- desktop must be at 165 Hz for games to get it. Not "highrr": on the U2720Q
 -- that would pick a low-resolution 75 Hz fallback mode.
-hl.monitor({ output = "DP-1", mode = "3840x2160@165", position = "auto", scale = 1.6 })
-hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1.6 })
+-- Positions are explicit (logical pixels: 3840 / 1.6 = 2400) because "auto"
+-- places a re-enabled monitor to the right of the others. The Omarchy monitor
+-- panel still re-adds a monitor with position "auto"; hyprctl reload restores
+-- this layout. No output = "" catch-all: omarchy-hyprland-monitor-scaling
+-- rewrites that line with sed -i, which replaces this symlink with a copy.
+hl.monitor({ output = "DP-1", mode = "3840x2160@165", position = "0x0", scale = 1.6 })
+hl.monitor({ output = "DP-2", mode = "preferred", position = "2400x0", scale = 1.6 })
 
 -- Scale SourceGit (Avalonia/XWayland) to match the HiDPI monitor scale.
 -- Avalonia has no GDK_SCALE equivalent, and Omarchy's defaults set
