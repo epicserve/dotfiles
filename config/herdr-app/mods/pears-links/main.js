@@ -2,12 +2,14 @@
 // on the host ports its .env assigns (HOST_PORT_*, DOMAIN), falling back to the repo's
 // docker-compose.ports.defaults. A worktree is any folder holding that defaults file.
 //
-// Docked in a layout: a slim bar of links. Opened as an overlay
+// Docked in a layout: the whole status bar, standing in for the shipped
+// workspace-status (machine, branch, agents on the left, the command palette hint
+// flush right) with the links just left of that hint. Opened as an overlay
 // (`mod.open:pears-links`): a list with the full URLs. Click a link to open it in
 // the browser. A green dot means something is listening on that port.
-import { View, div } from "gpui-kit";
+import { View, div, svg } from "gpui-kit";
 import { h_flex, v_flex } from "gpui-base";
-import { spaces, panes, focused, exec, readTextFile, theme, props, closeOverlay, window, notify } from "herdr";
+import { spaces, panes, focused, agents, exec, run, readTextFile, theme, props, closeOverlay, window, notify } from "herdr";
 
 const MARKER = "docker-compose.ports.defaults";
 // `key`: the popup's one-letter shortcut (j and k stay free for moving).
@@ -127,18 +129,31 @@ export default class PearsLinks extends View {
 
   renderBar() {
     const t = theme();
-    // Same look as the shipped status bar it sits beside; links flush right.
-    const bar = h_flex().id("pears-links").size_full().px(14).gap(14).items_center().justify_end().overflow_hidden()
-      .bg(t.chrome).border_t(1).border_color(t.border).text_size(11.8).text_color(t.muted);
-    if (!this.root) return bar.child(div().text_color(t.dim).child(this.remote ? "PEARS links: local spaces only" : ""));
-    return bar
-      .children(this.links.map((l) =>
-        h_flex().id(`bar-${l.id}`).flex_none().gap(6).items_center().cursor_pointer()
-          .tooltip(l.url)
-          .hover((s) => s.text_color(t.foreground))
-          .on_click(() => openUrl(l.url))
-          .child(div().size(6).rounded(3).bg(l.up ? t.ansi2 : t.dim))
-          .child(l.label)));
+    // Left side copied from the shipped workspace-status mod (Herdr app 0.1.10): one
+    // mod draws the whole row so the palette hint stays flush right with or without links.
+    const space = spaces().find((s) => s.active);
+    const list = agents();
+    const needs = list.filter((a) => a.status === "blocked").length;
+    const label = (icon, text) => h_flex().flex_none().gap(6).items_center()
+      .child(svg(`mods/workspace-chrome/${icon}.svg`).size(13)).child(text);
+    const links = h_flex().flex_1().gap(14).items_center().justify_end().overflow_hidden();
+    return h_flex().id("pears-links").size_full().px(14).gap(16).items_center().overflow_hidden()
+      .bg(t.chrome).border_t(1).border_color(t.border).text_size(11.8).text_color(t.muted)
+      .child(label(space?.machine ? "server" : "monitor", space?.machine ?? "This computer"))
+      .when(Boolean(space?.branch), (el) => el.child(label("branch", space.branch)))
+      .child(h_flex().flex_none().gap(6).items_center().child(div().size(6).rounded(3).bg(t.dim)).child(`${list.length} agents`)
+        .when(needs > 0, (el) => el.child(div().text_color(t.blocked).child(`· ${needs} needs you`))))
+      .child(this.root
+        ? links.children(this.links.map((l) =>
+          h_flex().id(`bar-${l.id}`).flex_none().gap(6).items_center().cursor_pointer()
+            .tooltip(l.url)
+            .hover((s) => s.text_color(t.foreground))
+            .on_click(() => openUrl(l.url))
+            .child(div().size(6).rounded(3).bg(l.up ? t.ansi2 : t.dim))
+            .child(l.label)))
+        : links.when(this.remote, (el) => el.child(div().flex_none().text_color(t.dim).child("PEARS links: local spaces only"))))
+      .child(div().id("palette").flex_none().text_color(t.dim).cursor_pointer().on_click(() => run("app.palette"))
+        .child(`${window()?.platform === "macos" ? "⌘" : "Ctrl"} Shift P  commands`));
   }
 
   choose(link) {

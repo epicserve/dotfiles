@@ -157,34 +157,14 @@
           "gap": 8
         },
         {
-          "id": "status-row",
-          "type": "row",
+          "id": "status-bar",
+          "type": "block",
           "size": {
             "px": 28
           },
-          "resizable": false,
-          "children": [
-            {
-              "id": "status",
-              "type": "block",
-              "content": {
-                "mod": "workspace-status"
-              },
-              "size": {
-                "weight": 1
-              }
-            },
-            {
-              "id": "pears-links",
-              "type": "block",
-              "size": {
-                "px": 500
-              },
-              "content": {
-                "mod": "pears-links"
-              }
-            }
-          ]
+          "content": {
+            "mod": "pears-links"
+          }
         }
       ],
       "resizable": false

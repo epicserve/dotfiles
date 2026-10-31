@@ -58,7 +58,9 @@ Do not duplicate those steps here.
 - `herdr-app/` — Herdr desktop app `keys.json`, `settings.json`, `themes/tokyo-night.json`,
   the `layouts/main-pears.json` layout (a clone of shipped `main`), and the `mods/pears-links/`
   mod (`main.js`, `mod.json`: links to the focused PEARS worktree's web, Mailpit, and other
-  service UIs from its `.env` ports; Ctrl+Shift+S opens it as a popup), each file symlinked
+  service UIs from its `.env` ports; Ctrl+Shift+S opens it as a popup). In `main-pears` the
+  mod draws the whole status bar in place of shipped `workspace-status` (whose left side it
+  copies), so the links sit left of a palette hint that stays flush right. Each file is symlinked
   into `~/.config/herdr-app` (the app rewrites the rest of that folder on start).
   The running app does not reliably notice edits to the repo copies: restart it or re-run the
   link step. Check `herdr-app status` for `errors` after a change
