@@ -31,7 +31,7 @@ Do not duplicate those steps here.
 | Script | Role |
 | --- | --- |
 | `base_setup.sh` | Install mise, symlink `config/mise/`, `mise install` (uv, aws-cli, fzf, gh, node, …) |
-| `setup_git.sh` | Interactive Git + 1Password SSH signing |
+| `setup_git.sh` | Interactive Git + 1Password SSH signing; appends your key to the git-ignored `config/git/allowed_signers` so local signature checks work |
 | `setup_zsh.sh` / `setup_zsh_theme.sh` | Oh My Zsh, Powerlevel10k, zsh/aliases/herdr config symlinks, herdr TUI + Herdr app installs |
 | `setup_brew.sh` / `setup_macos_settings.sh` | macOS only |
 | `setup_chatgpt.sh` | Official ChatGPT desktop: verify OpenAI's signed RPM repo, repackage for pacman |

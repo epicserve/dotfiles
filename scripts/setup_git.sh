@@ -305,3 +305,35 @@ if [ ! -e "$GIT_LOCAL_CONFIG_PATH" ]; then
   envsubst < "$GIT_WORK_CONFIG_PATH" > "$GIT_WORK_CONFIG_PATH.new" && mv "$GIT_WORK_CONFIG_PATH.new" "$GIT_WORK_CONFIG_PATH"
 
 fi
+
+# Trust our own signing key for both emails, so `git log --show-signature` and
+# %G? can verify our commits (gpg.ssh.allowedSignersFile in config/git/config).
+# Runs on every setup, not just the first, and only appends, so keys added by
+# hand stay. This file is sourced: no exit.
+write_git_allowed_signers() {
+  signers_path="$HOME/.config/git/allowed_signers"
+  signers_emails=$(git config --file "$GIT_LOCAL_CONFIG_PATH" user.email)
+  signers_work_email=$(git config --file "$GIT_WORK_CONFIG_PATH" user.email 2>/dev/null)
+  if [ -n "$signers_work_email" ] && [ "$signers_work_email" != "$signers_emails" ]; then
+    signers_emails="$signers_emails,$signers_work_email"
+  fi
+
+  signers_key=$(git config --file "$GIT_LOCAL_CONFIG_PATH" user.signingkey)
+  signers_key=${signers_key#key::}
+  case "$signers_key" in
+    ssh-* | ecdsa-* | sk-* | "") ;;
+    *) signers_key=$(cat "$(echo "$signers_key" | sed "s|^~|$HOME|")" 2>/dev/null) ;;
+  esac
+
+  if [ -z "$signers_emails" ] || [ -z "$signers_key" ]; then
+    echo "Skipping $signers_path: no user.email or user.signingkey in $GIT_LOCAL_CONFIG_PATH" >&2
+    return 0
+  fi
+
+  signers_line="$signers_emails namespaces=\"git\" $signers_key"
+  if ! grep -qFx "$signers_line" "$signers_path" 2>/dev/null; then
+    printf '%s\n' "$signers_line" >> "$signers_path"
+    echo "Added your signing key to $signers_path"
+  fi
+}
+write_git_allowed_signers
